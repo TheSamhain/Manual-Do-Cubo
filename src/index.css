@@ -5,13 +5,13 @@
 }
 
 :root {
-  --primary: #db006a;
+  --primary: rgb(28, 176, 112);
   --black: #000000;
   --blackLighter: #9E9E9E;
   --grayLight: #F5F5F5;
   --grayMedium: #e5e5e5; 
   --white: #FFFFFF;
-  --frontEnd: #ff6bc6;
+  --frontEnd: #3cb080;
   --backEnd: #00C86F;
 }
 
