@@ -15,13 +15,13 @@ const Main = styled.main`
 
 function PageDefault(props) {
   return (
-    <div>
+    <>
       <Menu />
-        <Main>
+      <Main>
         {props.children}
-        </Main>
+      </Main>
       <Footer />
-    </div>
+    </>
   );
 }
 
