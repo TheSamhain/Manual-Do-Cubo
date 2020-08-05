@@ -4,6 +4,8 @@ import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
 import Button from '../../../components/Button';
 
+import './Categoria.css';
+
 function CadastroCategoria() {
   const valoresIniciais = {
     nome: '',
@@ -29,7 +31,9 @@ function CadastroCategoria() {
   }
 
   useEffect(() => {
-    const URL_DB = 'http://localhost:8080/categorias';
+    const URL_DB = window.location.hostname.includes('localhost')
+      ? 'http://localhost:8080/categorias'
+      : 'https://maratona-otaku.herokuapp.com/categorias';
 
     fetch(URL_DB)
       .then(async (respostaServidor) => {
@@ -89,9 +93,7 @@ function CadastroCategoria() {
       </form>
 
       {categorias.length === 0 && (
-        <div>
-          Carregando...
-        </div>
+      <div className="loader" />
       )}
 
       <ul>
