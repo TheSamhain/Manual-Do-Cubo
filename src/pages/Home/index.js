@@ -7,19 +7,21 @@ import dadosIniciais from '../../data/dados_iniciais.json';
 
 function Home() {
   return (
-    <div style={{background: "#141414"}}>
+    <div style={{ background: '#141414' }}>
       <Menu />
 
-      <BannerMain 
+      <BannerMain
         videoTiyle={dadosIniciais.categorias[0].videos[0].titulo}
         url={dadosIniciais.categorias[0].videos[0].url}
-        videoDescription={"Alguma descrição aqui para exibir no vídeo principal que mostra na página de teste"}
+        videoDescription="Alguma descrição aqui para exibir no vídeo principal que mostra na página de teste"
       />
 
-      <Carousel 
-        ignoreFirstVideo
-        category={dadosIniciais.categorias[0]}
-      />
+      {dadosIniciais.categorias.map((categoria) => (
+        <Carousel
+          ignoreFirstVideo
+          category={categoria}
+        />
+      ))}
 
       <Footer />
     </div>

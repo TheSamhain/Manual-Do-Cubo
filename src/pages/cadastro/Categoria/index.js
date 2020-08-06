@@ -33,7 +33,7 @@ function CadastroCategoria() {
   useEffect(() => {
     const URL_DB = window.location.hostname.includes('localhost')
       ? 'http://localhost:8080/categorias'
-      : 'https://maratona-otaku.herokuapp.com/categorias';
+      : 'https://manual-do-cubo.herokuapp.com/categorias';
 
     fetch(URL_DB)
       .then(async (respostaServidor) => {

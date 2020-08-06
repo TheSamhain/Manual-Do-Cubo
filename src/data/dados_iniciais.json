@@ -1,76 +1,42 @@
 {
   "categorias": [
     {
-      "titulo": "Front End",
-      "link": "https://www.alura.com.br/formacao-front-end",
-      "cor": "rgb(28, 176, 112)",
-      "link_extra": {
-        "text": "Formação de Front End na Alura",
-        "url": "https://www.alura.com.br/cursos-online-front-end"
-      },
+      "titulo": "Cubo Mágico 3x3 - Método de Camadas",
+      "link": "https://www.youtube.com/channel/UCtCVzoy0n4FVncn2OJTn0mA",
+      "cor": "blue",
       "videos": [
         {
-          "titulo": "O que faz uma desenvolvedora front-end? #HipstersPontoTube",
-          "url": "https://www.youtube.com/watch?v=ZY3-MFxVdEw"
+          "titulo": "Sobre o Cubo Mágico",
+          "url": "https://www.youtube.com/watch?v=AQKVVvpWvoY"
         },
         {
-          "titulo": "SEO com React",
-          "url": "https://www.youtube.com/watch?v=c8mVlakBESE"
+          "titulo": "Método de Camadas - Parte 1 - Montar Cubo Mágico",
+          "url": "https://www.youtube.com/watch?v=IrY5JjSFR8I"
         },
         {
-          "titulo": "Componentização com VanillaJS #AluraMais",
-          "url": "https://www.youtube.com/watch?v=LatCKpcOMak"
+          "titulo": "Método de Camadas - Parte 2 - Montar Cubo Mágico",
+          "url": "https://www.youtube.com/watch?v=BA7p_MKkexI&t=579s"
         },
         {
-          "titulo": "Pare de chutar e aprenda a display: inline #01",
-          "url": "https://www.youtube.com/watch?v=5PS6ku8NzIE"
+          "titulo": "Método de Camadas - Parte 3 - Montar Cubo Mágico",
+          "url": "https://www.youtube.com/watch?v=1GOu1Y5h74Q&t=284s"
         },
         {
-          "titulo": "Template String: Interpolando strings com JavaScript #AluraMais",
-          "url": "https://www.youtube.com/watch?v=ORI_HTXaIw0"
+          "titulo": "Método de Camadas - Parte 4 - Montar Cubo Mágico",
+          "url": "https://www.youtube.com/watch?v=HWD7JrdGwC4&t=156s"
         },
         {
-          "titulo": "Qual é a melhor linguagem de programação? #HipstersPontoTube",
-          "url": "https://www.youtube.com/watch?v=Uh-GNH-t89w"
+          "titulo": "Método de Camadas - Parte 5 - Montar Cubo Mágico",
+          "url": "https://www.youtube.com/watch?v=g53TSqJOgFg&t=209s"
         },
         {
-          "titulo": "Novidades do Angular v9",
-          "url": "https://www.youtube.com/watch?v=34uHo7hFmG0"
+          "titulo": "Método de Camadas - Parte 6 - Montar Cubo Mágico",
+          "url": "https://www.youtube.com/watch?v=5WN8wQN90wE&t=234s"
         },
         {
-          "titulo": "Base para aprender os frameworks",
-          "url": "https://www.youtube.com/watch?v=QzDjdlF1BQI"
-        }        
-      ]
-    },
-    {
-      "titulo": "Back End",
-      "cor": "#00C86F",
-      "link_extra": {
-        "text": "Cursos de Back End na Alura",
-        "url": "https://www.alura.com.br/cursos-online-programacao"
-      },
-      "videos": [
-        {
-          "titulo": "PERCURSO em NÍVEL em ÁRVORE BINÁRIA | Estruturas de Dados #14",
-          "url": "https://www.youtube.com/watch?v=UOK7nS2E9xM"
-        },
-        {
-          "titulo": "Coders4Tips - S01E04: GitHub CLI - Uma Nova Experiência no Github!",
-          "url": "https://www.youtube.com/watch?v=6o6-bKOZOEY"
-        },
-        {
-          "titulo": "Programei 4 robôs que criam vídeos para mim no YouTube",
-          "url": "https://www.youtube.com/watch?v=kjhu1LEmRpY"
-        },
-        {
-          "titulo": "API: Dicionário do Programador",
-          "url": "https://www.youtube.com/watch?v=vGuqKIRWosk"
-        }, 
-        {
-          "titulo": "Usando Git Direito",
-          "url": "https://www.youtube.com/watch?v=6OokP-NE49k"
-        }
+          "titulo": "Método de Camadas - Parte 7 - Montar Cubo Mágico",
+          "url":"https://www.youtube.com/watch?v=xBxJ7tQPID8&t=155s"
+        }       
       ]
     }
   ]

@@ -25,7 +25,7 @@ ContentAreaContainer.Item = styled.div`
 `;
 
 ContentAreaContainer.Category = styled.h1`
-  font-family: Roboto;
+  font-family: 'Inconsolata', monospace;;
   font-style: normal;
   font-weight: normal;
   font-size: 60px;
@@ -101,13 +101,13 @@ export const BannerMainContainer = styled.section`
 `;
 
 export const WatchButton = styled.button`
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inconsolata', monospace;
   box-sizing: border-box;
   cursor: pointer;
-  padding: 16px 24px;
+  padding: 12px 20px;
   font-style: normal;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 20px;
   outline: none;
   border-radius: 5px;
   text-decoration: none;
