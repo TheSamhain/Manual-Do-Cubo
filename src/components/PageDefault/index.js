@@ -1,7 +1,8 @@
 import React from 'react';
+import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 import Footer from '../Footer';
 import Menu from '../Menu';
-import styled from 'styled-components';
 
 const Main = styled.main`
   background-color: var(--black);
@@ -11,18 +12,27 @@ const Main = styled.main`
   padding-top: 50px;
   padding-left: 5%;
   padding-right: 5%;
+
+  ${({ paddingAll }) => css`
+    padding: ${paddingAll};
+  `}
 `;
 
-function PageDefault(props) {
+function PageDefault({ children, paddingAll }) {
   return (
     <>
       <Menu />
-      <Main>
-        {props.children}
+      <Main paddingAll={paddingAll}>
+        {children}
       </Main>
       <Footer />
     </>
   );
 }
+
+PageDefault.propTypes = {
+  children: PropTypes.shape.isRequired,
+  paddingAll: PropTypes.string.isRequired,
+};
 
 export default PageDefault;
