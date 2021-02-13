@@ -27,9 +27,9 @@ function Home() {
   return (
     <PageDefault paddingAll={0}>
 
-      {dados.length === 0 && <Loader />}
+      {(dados.length === 0) && <Loader /> }
 
-      {dados.length > 0 && (
+      {(dados.length > 0) && (
         <>
           <BannerMain
             videoTiyle={dados[0].videos[0].titulo}
@@ -39,6 +39,7 @@ function Home() {
 
           {dados.map((categoria) => (
             <Carousel
+              key={categoria.id}
               ignoreFirstVideo={categoria.id === 1}
               category={categoria}
             />

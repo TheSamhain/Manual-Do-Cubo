@@ -1,9 +1,15 @@
 import URL_DB from '../config';
 
-const URL_CATEGORIES = `${URL_DB}/categorias`;
+const URL_VIDEOS = `${URL_DB}/videos`;
 
-function getAllWithVideos() {
-  return fetch(`${URL_CATEGORIES}?_embed=videos`)
+function create(videoObject) {
+  return fetch(`${URL_VIDEOS}`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(videoObject),
+  })
     .then(async (respostaServidor) => {
       if (respostaServidor.ok) {
         const resposta = await respostaServidor.json();
@@ -15,5 +21,5 @@ function getAllWithVideos() {
 }
 
 export default {
-  getAllWithVideos,
+  create,
 };

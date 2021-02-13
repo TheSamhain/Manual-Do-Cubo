@@ -12,9 +12,9 @@ function Menu() {
         <img className="Logo" src={Logo} alt="ManualDoCubo Logo" border="0" />
       </Link>
 
-      <Button as={Link} className="ButtonLink" to="/cadastro/video" >
+      {/* <Button as={Link} className="ButtonLink" to="/cadastro/video" >
         Novo Video
-      </Button>
+      </Button> */}
     </nav>
   );
 }

@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Manual do Cubo",
+  "name": "Aplicativo web para aprendizado na resolução de Cubos Mágicos",
   "icons": [
     {
       "src": "favicon.ico",
