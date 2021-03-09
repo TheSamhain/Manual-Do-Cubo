@@ -1,0 +1,69 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-weight: inherit;
+    font-style: inherit;
+    font-size: 100%;
+    font-family: inherit;
+    vertical-align: baseline;
+}
+
+/* remember to define focus styles! */
+:focus {
+    outline: 0;
+}
+
+body {
+    line-height: 1;
+    color: black;
+    background: white;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+caption, th, td {
+    text-align: left;
+    font-weight: normal;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+    content: "";
+}
+
+blockquote, q {
+    quotes: "" "";
+}
+
+:root {
+    --CorEdicao: #FFF2D5;
+    --CorFocado: #FFF9EB;
+    --CorCol8: #FFFEF0;
+    --CorCol1: #FFF3E8;
+    --CorCol7: #FFF0F0;
+    --CorCol3: #F5EDFC;
+    --CorIcones2: #BACEEF;
+    --CorTitJanela: #CCDBF4;
+    --CorCol4: #E1F0FF;
+    --CorCol2: #E4FAFC;
+    --CorCol5: #E3EDF2;
+    --CorCol6: #DBEDD8;
+    --CorFontes: #1B283B;
+    --CorPadrao: #2D4364;
+    --CorMenus: #586984;
+    --CorOpcoes: #78869B;
+    --CorFundo: #97A2B2;
+    --CorPaineis: #B6BEC9;
+    --CorAlterna: #DEE2E9;
+    --CorCampos: #F2F4F7;
+    --CorIcones: #5a7296;
+}

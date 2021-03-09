@@ -1,0 +1,45 @@
+<div>
+    <form id="formulario">
+        <label>
+            <p>CPF</p>
+            <input type="text" name="cpf" required oninput="this.value = cpfMask(this.value)"
+                onblur="verificarCPF(this.value)" inputmode="numeric" />
+        </label>
+
+        <div id="infoCliente">
+
+        </div>
+
+
+        <hr />
+
+        <label>
+            <p>Data de adesão</p>
+            <input type="date" name="dataAdesao" required />
+        </label>
+
+        <label>
+            <p>Tipo</p>
+            <input type="text" name="tipo" required />
+        </label>
+
+        <label>
+            <p>Grupo</p>
+            <input type="text" name="grupo" required />
+        </label>
+
+        <label>
+            <p>Número do contrato</p>
+            <input type="number" min="0" name="numContrato" required />
+        </label>
+
+        <label>
+            <p>Parcelas</p>
+            <input type="number" min="1" name="parcelas" required />
+        </label>
+
+        <hr />
+
+        <button type="submit" onclick="cadastrarVenda()">Salvar</button>
+    </form>
+</div>
