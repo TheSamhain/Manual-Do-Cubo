@@ -1,50 +1,121 @@
 <div>
-    <form id="formulario" >
+    <form id="formulario">
         <label>
-            <p>CPF</p>
-            <input type="text" name="cpf" required oninput="this.value = cpfMask(this.value)" inputmode="numeric" />
+            <p>Tipo de Pessoa</p>
+            <select
+                name="tipoPessoa"
+                onchange="alterarTipoPessoa(this.value)"
+                required
+            >
+                <option value="F">Física</option>
+                <option value="J">Jurídica</option>
+            </select>
+        </label>
+
+        <div id="dadosPessoa">
+            <label>
+                <p>CPF</p>
+                <input
+                    type="text"
+                    name="cpf"
+                    required
+                    oninput="this.value = cpfMask(this.value)"
+                    onblur="verificarDados(this.value)"
+                    inputmode="numeric"
+                />
+            </label>
+
+            <label>
+                <p>Nome completo</p>
+                <input type="text" name="nome" required maxlength="60" />
+            </label>
+
+            <label>
+                <p>Data de Nascimento</p>
+                <input type="date" name="dataNasc" required />
+            </label>
+        </div>
+
+        <hr />
+
+        <label>
+            <p>E-mail</p>
+            <input type="text" name="email" maxlength="200" inputmode="email" />
         </label>
 
         <label>
-            <p>Nome completo</p>
-            <input type="text" name="nome" required maxlength="60" />
+            <p>Telefone 1</p>
+            <input
+                type="text"
+                name="tel1"
+                maxlength="15"
+                inputmode="tel"
+                oninput="this.value = phoneMask(this.value)"
+                required
+            />
         </label>
 
         <label>
-            <p>Data de Nascimento</p>
-            <input type="date" name="dataNasc" required />
+            <p>Telefone 2</p>
+            <input
+                type="text"
+                name="tel2"
+                maxlength="15"
+                inputmode="tel"
+                oninput="this.value = phoneMask(this.value)"
+            />
         </label>
 
         <hr />
 
         <label>
             <p>CEP</p>
-            <input type="text" name="cep" min="0" required  oninput="this.value = cepMask(this.value)" onblur="verificarCep(this.value)" inputmode="numeric" />
+            <input
+                type="text"
+                name="cep"
+                min="0"
+                maxlength="9"
+                required
+                oninput="this.value = cepMask(this.value)"
+                onblur="verificarCep(this.value)"
+                inputmode="numeric"
+            />
         </label>
 
         <label>
             <p>Logradouro</p>
-            <input type="text" name="rua" required />
+            <input type="text" name="rua" required maxlength="50" />
         </label>
 
         <label>
             <p>Número</p>
-            <input type="text" name="numeroCasa" min="0" required inputmode="numeric" />
+            <input
+                type="text"
+                name="numeroCasa"
+                min="0"
+                required
+                inputmode="numeric"
+            />
+        </label>
+
+        <label>
+            <p>Complemento</p>
+            <input type="text" name="complemento" maxlength="40" />
         </label>
 
         <label>
             <p>Bairro</p>
-            <input type="text" name="bairro" required />
+            <input type="text" name="bairro" required maxlength="40" />
         </label>
 
         <label>
             <p>Cidade</p>
-            <input type="text" name="cidade" required />
+            <input type="text" name="cidade" required maxlength="35" />
         </label>
 
         <label>
             <p>UF</p>
-            <select name="estado" required >
+            <select name="estado" required>
                 <option value="AC">Acre</option>
                 <option value="AL">Alagoas</option>
                 <option value="AP">Amapá</option>
@@ -77,6 +148,6 @@
 
         <hr />
 
-        <button type="submit" >Salvar</button>
+        <button type="submit" id="btnSalvarCadastro">Salvar</button>
     </form>
 </div>

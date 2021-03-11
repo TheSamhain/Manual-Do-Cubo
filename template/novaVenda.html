@@ -1,15 +1,30 @@
 <div>
     <form id="formulario">
         <label>
-            <p>CPF</p>
-            <input type="text" name="cpf" required oninput="this.value = cpfMask(this.value)"
-                onblur="verificarCPF(this.value)" inputmode="numeric" />
+            <p>Tipo de Pessoa</p>
+            <select
+                name="tipoPessoa"
+                onchange="alterarTipoPessoaVenda(this.value)"
+                required
+            >
+                <option value="F">Física</option>
+                <option value="J">Jurídica</option>
+            </select>
         </label>
 
-        <div id="infoCliente">
+        <label>
+            <p>CPF</p>
+            <input
+                required
+                type="text"
+                name="cpf"
+                oninput="this.value = cpfMask(this.value)"
+                onblur="carregarDadosCliente(this.value)"
+                inputmode="numeric"
+            />
+        </label>
 
-        </div>
-
+        <div id="infoCliente"></div>
 
         <hr />
 
@@ -40,6 +55,6 @@
 
         <hr />
 
-        <button type="submit" onclick="cadastrarVenda()">Salvar</button>
+        <button type="submit">Salvar</button>
     </form>
 </div>

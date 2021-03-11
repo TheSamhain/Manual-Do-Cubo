@@ -3,12 +3,11 @@
     height: 100%;
     margin-bottom: 0px;
 
-    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+
     border-radius: 5px;
     background-color: white;
 }

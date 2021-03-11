@@ -80,12 +80,12 @@ a {
     color: var(--CorDefault);
 }
 
-#formulario label>p {
+#formulario label > p {
     margin-bottom: 5px;
 }
 
 #formulario input,
-#formulario select  {
+#formulario select {
     background-color: white;
     border: 2px solid var(--CorDefault);
     width: auto;

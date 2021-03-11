@@ -14,7 +14,7 @@ const validaToken = async (token, notificar = false) => {
     })
 
     json = await json.json();
-    
+
     if ((!json.autenticado) && (notificar)) {
         alert('Usuário não autenticado');
         carregarLogin();
@@ -80,21 +80,30 @@ const isValidDate = (dateStr) => {
 
 /**
  * Verifica se o CPF é válido
- * @param  {String} strCPF CPF a ser validado
+ * @param  {String} cpf CPF a ser validado
  * @return {Boolean}       True se for válido, false se não for
  */
-const isValidCPF = strCPF => {
-    strCPF = strCPF.replace(/\D/g, '');
+const isValidCPF = cpf => {
+    cpf = cpf.replace(/\D/g, '');
 
     var Soma = 0;
     var i = 0;
     var Resto;
 
-    if (strCPF == "00000000000")
+    if (cpf == "00000000000000" ||
+        cpf == "11111111111111" ||
+        cpf == "22222222222222" ||
+        cpf == "33333333333333" ||
+        cpf == "44444444444444" ||
+        cpf == "55555555555555" ||
+        cpf == "66666666666666" ||
+        cpf == "77777777777777" ||
+        cpf == "88888888888888" ||
+        cpf == "99999999999999")
         return false;
 
     for (i = 1; i <= 9; i++) {
-        Soma += parseInt(strCPF.substring(i - 1, i)) * (11 - i);
+        Soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
     }
 
     Resto = (Soma * 10) % 11;
@@ -102,23 +111,83 @@ const isValidCPF = strCPF => {
     if ((Resto == 10) || (Resto == 11))
         Resto = 0;
 
-    if (Resto != parseInt(strCPF.substring(9, 10)))
+    if (Resto != parseInt(cpf.substring(9, 10)))
         return false;
 
     Soma = 0;
 
     for (i = 1; i <= 10; i++)
-        Soma += parseInt(strCPF.substring(i - 1, i)) * (12 - i);
+        Soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
 
     Resto = (Soma * 10) % 11;
 
     if ((Resto == 10) || (Resto == 11))
         Resto = 0;
 
-    if (Resto != parseInt(strCPF.substring(10, 11)))
+    if (Resto != parseInt(cpf.substring(10, 11)))
         return false;
 
     return true;
+}
+
+/**
+ * Verifica se o CNPJ é válido
+ * @param  {String} cnpj CNPJ a ser validado
+ * @return {Boolean}       True se for válido, false se não for
+ */
+function isValidCNPJ(cnpj) {
+
+    cnpj = cnpj.replace(/\D/g, '');
+
+    if (cnpj == '')
+        return false;
+
+    if (cnpj.length != 14)
+        return false;
+
+    // Elimina CNPJs invalidos conhecidos
+    if (cnpj == "00000000000000" ||
+        cnpj == "11111111111111" ||
+        cnpj == "22222222222222" ||
+        cnpj == "33333333333333" ||
+        cnpj == "44444444444444" ||
+        cnpj == "55555555555555" ||
+        cnpj == "66666666666666" ||
+        cnpj == "77777777777777" ||
+        cnpj == "88888888888888" ||
+        cnpj == "99999999999999")
+        return false;
+
+    // Valida DVs
+    tamanho = cnpj.length - 2
+    numeros = cnpj.substring(0, tamanho);
+    digitos = cnpj.substring(tamanho);
+    soma = 0;
+    pos = tamanho - 7;
+    for (i = tamanho; i >= 1; i--) {
+        soma += numeros.charAt(tamanho - i) * pos--;
+        if (pos < 2)
+            pos = 9;
+    }
+    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+    if (resultado != digitos.charAt(0))
+        return false;
+
+    tamanho = tamanho + 1;
+    numeros = cnpj.substring(0, tamanho);
+    soma = 0;
+    pos = tamanho - 7;
+    for (i = tamanho; i >= 1; i--) {
+        soma += numeros.charAt(tamanho - i) * pos--;
+        if (pos < 2)
+            pos = 9;
+    }
+    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+    if (resultado != digitos.charAt(1))
+        return false;
+
+    return true;
+
 }
 
 /**
@@ -144,13 +213,28 @@ const formataMoeda = (valor) => {
  * @param  {String} value texto a ser formatado
  * @return {String}       Texto já formatado
  */
- const cpfMask = value => {
+const cpfMask = value => {
     return value
         .replace(/\D/g, '') // substitui qualquer caracter que nao seja numero por nada
         .replace(/(\d{3})(\d)/, '$1.$2') // captura 2 grupos de numero o primeiro de 3 e o segundo de 1, apos capturar o primeiro grupo ele adiciona um ponto antes do segundo grupo de numero
         .replace(/(\d{3})(\d)/, '$1.$2')
         .replace(/(\d{3})(\d{1,2})/, '$1-$2')
         .replace(/(-\d{2})\d+?$/, '$1'); // captura 2 numeros seguidos de um traço e não deixa ser digitado mais nada
+}
+
+/**
+ * Inclui máscara de CNPJ
+ * @param  {String} value texto a ser formatado
+ * @return {String}       Texto já formatado
+ */
+const cnpjMask = value => {
+    return value
+        .replace(/\D/g, '') // substitui qualquer caracter que nao seja numero por nada
+        .replace(/(\d{2})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d)/, '$1/$2')
+        .replace(/(\d{4})(\d{1,2})/, '$1-$2')
+        .replace(/(-\d{2})\d+?$/, '$1');
 }
 
 /**
@@ -205,4 +289,73 @@ const formatDateTime = (date) => {
         day = datePart[2]
 
     return day + '/' + month + '/' + year + ' ' + dateTime.toLocaleTimeString();
+}
+
+/**
+ * Procura o CPF na base de dados
+ * @param  {String} inputCPF CPF para procurar
+ * @return {Promise<Response>} "PROMISE" -> Se o CPF for inválido retorna _false_.    
+ * Se o CPF não existir no cadastro retorna _undefined_.    
+ * Se existir no cadastro retorna os dados do cliente.
+ */
+const procurarCadastro = async (cpfcnpj) => {
+    if (cpfcnpj.length == 14) {
+        if (!isValidCPF(cpfcnpj)) {
+            alert('CPF inválido');
+            return false;
+        }
+    } else if (cpfcnpj.length == 18) {
+        if (!isValidCNPJ(cpfcnpj)) {
+            alert('CNPJ inválido');
+            return false;
+        }
+    } else {
+        return false;
+    }
+
+    let formData = new FormData();
+    formData.append('CPFCNPJ', cpfcnpj);
+    formData.append('TOKEN', localStorage.getItem('login'));
+    formData.append('LOCAL', LOCAL);
+
+    let resp = await fetch('backend/procurarCadastro.php', {
+        method: 'POST',
+        body: formData,
+    })
+
+    let json = await resp.json();
+
+    if (!json.autenticado) {
+        alert(json.erro ? `Erro ao consultar: ${json.erro}.` : 'Usuário não autenticado');
+        carregarLogin();
+        return false;
+    }
+
+    return json.cliente;
+}
+
+/**
+ * Evita que o usuário insira apenas espaços em branco nos Inputs.
+ * @summary
+ * Se o input estiver o __inputmode__ como text ou indefinido não permite colocar espaços apenas no ínicio do campo.
+ * 
+ * Se o input estiver com o __inputmode__ diferente de text não permite colocar esapços nem no ínicio nem no fim.
+ */
+const evitarEspacosInputs = () => {
+    let inputs = document.getElementsByTagName('input');
+
+    for (let input of inputs) {
+        // Verifica se o input já tem uma função OnInput
+        if (!input.oninput) {
+            // Se não tiver coloca uma apenas para não permitir somente espaços no campo
+            if (!!input.attributes.inputmode) {
+                if (input.attributes.inputmode.value == 'text')
+                    input.addEventListener('input', ({ target }) => target.value = target.value.trimStart());
+                else
+                    input.addEventListener('input', ({ target }) => target.value = target.value.trim());
+            } else
+                input.addEventListener('input', ({ target }) => target.value = target.value.trimStart());
+
+        }
+    }
 }

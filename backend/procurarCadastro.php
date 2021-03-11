@@ -4,7 +4,7 @@
     require_once 'config.php';
     require_once 'jwt.php';
     
-    $CPF = $_POST['CPF'];
+    $CPFCNPJ = $_POST['CPFCNPJ'];
     $TOKEN = $_POST['TOKEN'];
     $CHAVE = $_POST['LOCAL'];
  
@@ -30,11 +30,17 @@
     }
     
     // Procura no cadastro pelo CPF
-    $sql = "SELECT * FROM maladir WHERE MDCPF = ? LIMIT 1";
-
+    $sql = "SELECT * FROM maladir WHERE ";
+    
+    if(strlen($CPFCNPJ) == 14){
+        $sql .= " MDCPF = ? LIMIT 1";
+    } else {
+        $sql .= " MDCGC = ? LIMIT 1";
+    }
+    
     $mysqli->set_charset("utf8");
     $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param("s", $CPF);
+    $stmt->bind_param("s", $CPFCNPJ);
     $stmt->execute();
     $result = $stmt->get_result();
     
@@ -42,8 +48,26 @@
         while ($row = mysqli_fetch_assoc($result)) {
             $arr = array(
                 'ID' => $row['MDCODI'],
-                'NOME' => $row['MDFIRM']
+                'EMAIL' => $row['EMAIL'],
+                'TEL1' =>  $row['MDTEL1'],
+                'TEL2' =>  $row['MDTEL2'],
+
+                'ENDCEP' => $row['MDCEP'],
+                'ENDLOGRADOURO' => $row['MDEND'],
+                'ENDNUMERO' => $row['MDNUM'],
+                'ENDBAIRRO' => $row['MDBAIRRO'],
+                'ENDMUNICIPIO' => $row['MDCIDA'],
+                'ENDESTADO' => $row['MDEST'],
+                'ENDCOMPLEMENTO' => $row['MDCOMP']
             );
+
+            if(strlen($CPFCNPJ) == 14){
+                $arr['NOME'] = $row['MDFIRM'];
+                $arr['DTNASCIMENTO'] = $row['NASCIMENTO'];
+            } else {
+                $arr['RAZAO'] = $row['MDFIRM'];
+                $arr['FANTASIA'] = $row['FANTASIA'];                
+            }
 
             $resp['cliente'] = $arr;
         
@@ -52,6 +76,3 @@
     }
 
     return  print(json_encode($resp));
-
-
-?>
