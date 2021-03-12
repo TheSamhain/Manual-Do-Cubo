@@ -275,6 +275,27 @@ const formatDate = (date) => {
     return day + '/' + month + '/' + year;
 }
 
+/**
+ * Inclui máscara da Moeda
+ * @param  {String} value texto a ser formatado
+ * @return {String}       Texto já formatado
+ */
+const currencyMask = value => {
+    
+    if(value.length < 4)
+        value = `000${value}`
+
+    return value
+        .replace(/\D/g, '') // substitui qualquer caracter que nao seja numero por nada
+        .replace(/(\d{14}).+$/, '$1') // Pega os 14 primeiros digitos
+        .replace(/(\d+)(\d{2})/, '$1,$2') // Pega os dois últimos digitos e coloca uma virgula antes deles
+        .replace(/^(0+)([1-9])/, '$2') // Pega o início contendo 0 na frente e seguido de outros números e exclui os zeros na frente
+        .replace(/^(0{2,})(,)/, '0$2') // Pega dois zeros seguidos de uma virugla e transforma em apenas 1 zero
+        .replace(/(\d+)(\d{3})/, '$1.$2') // Pega os 3 últimos dígitos precedidos de outros dígitos e coloca um ponto entre eles
+        .replace(/(\d+)(\d{3})/, '$1.$2') // Pega os 3 últimos dígitos precedidos de outros dígitos e coloca um ponto entre eles
+        .replace(/(\d+)(\d{3})/, '$1.$2') // Pega os 3 últimos dígitos precedidos de outros dígitos e coloca um ponto entre eles
+}
+
 
 /**
  * Formata data do tipo yyyy-mm-dd hh:nn:ss para dd/mm/yyyy hh:nn:ss

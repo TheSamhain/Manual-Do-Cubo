@@ -1,8 +1,61 @@
 const cadastrarVenda = (e) => {
    e.preventDefault();
 
-   //cadastrarCliente(e);
-   console.log(e.target);
+   let { target } = e,
+      dados = new FormData(target),
+      infos = {};
+
+   if (!!dados.get('nome') || !!dados.get('razao')) {
+      if (!cadastrarCliente(e))
+         return false;
+
+      let divInfos = target.getElementsByTagName('div')[0];
+      divInfos.innerHTML = '';
+
+   }
+
+   let dadosVenda = new FormData(target);
+
+   // Pega os dados da venda no formulário
+   for (let pair of dadosVenda.entries()) {
+      if ((pair[1].length == 0) && (document.getElementsByName(pair[0])[0].required)) {
+         document.getElementsByName(pair[0])[0].style.boxShadow = "1px 1px 3px red";
+         alert('É necessário preencher todos os campos corretamente.')
+         return false;
+      }
+
+      document.getElementsByName(pair[0])[0].style.boxShadow = null;
+      infos[pair[0]] = pair[1].trim();
+   }
+
+   let formData = new FormData();
+   formData.append('INFOS', JSON.stringify(infos));
+   formData.append('TOKEN', localStorage.getItem('login'));
+   formData.append('LOCAL', LOCAL);
+
+   fetch('backend/cadastrarVenda.php', {
+      method: 'POST',
+      body: formData,
+   })
+      .then(resp => resp.json())
+      .then(async json => {
+         if (!json.autenticado) {
+            alert(json.erro ? `Erro ao cadastrar: ${json.erro}.` : 'Usuário não autenticado');
+            carregarLogin();
+            return false;
+         }
+
+         if (json.status == 'Erro') {
+            alert(`Um erro ocorreu ao tentar relizar a operação: \n${json.erro}`);
+            return false;
+         }
+
+         alert(`${json.status}!`);
+         telaNovaVenda();
+
+      })
+
+   return true;
 }
 
 const carregarDadosCliente = (cpfcnpj) => {
@@ -25,10 +78,9 @@ const carregarDadosCliente = (cpfcnpj) => {
          inputs.getElementsByTagName('label')[0].remove();
 
          if (cpfcnpj.length == 18) {
-            const dadosPessoa = inputs.getElementsByTagName('label')[1];
-            inputs.getElementsByTagName('label')[0].remove();
+            const dadosPessoa = inputs.getElementsByTagName('div')[1];
 
-               inputRazao = `
+            inputRazao = `
                <label>
                   <p>Razão social</p>
                   <input type="text" name="razao" required maxlength="60" />
@@ -45,6 +97,12 @@ const carregarDadosCliente = (cpfcnpj) => {
          }
 
          infoCliente.innerHTML = inputs.getElementsByTagName('form')[0].innerHTML;
+
+         if (cpfcnpj.length == 18) {
+            document.getElementsByName('razao')[0].focus();
+         } else {
+            document.getElementsByName('nome')[0].focus();
+         }
       } else {
          let nome;
 
@@ -64,6 +122,9 @@ const carregarDadosCliente = (cpfcnpj) => {
 
 const alterarTipoPessoaVenda = (tipo) => {
    const cpfcnpj = document.getElementsByTagName('label')[1];
+   const infoCliente = document.getElementById('infoCliente');
+
+   infoCliente.innerHTML = '';
 
    if (tipo == 'J') {
       cpfcnpj.innerHTML = `

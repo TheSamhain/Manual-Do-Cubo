@@ -34,7 +34,6 @@ function validaCNPJ($cnpj)
     return $cnpj[13] == ($resto < 2 ? 0 : 11 - $resto);
 }
 
-
 function validaCPF($cpf)
 {
     // Extrai somente os números
@@ -69,7 +68,7 @@ function validateDate($date, $format = 'Y-m-d H:i:s')
     return $d && $d->format($format) == $date;
 }
 
-function validatePhone($phone)
+function formatPhone($phone)
 {
     $phone = preg_replace('/[^0-9]/is', '', $phone);
 
@@ -84,13 +83,13 @@ function validatePhone($phone)
             $phone = substr_replace($phone, '(', 0, 0);
             $phone = substr_replace($phone, ')', 3, 0);
             $phone = substr_replace($phone, '-', 9, 0);
-            $phone = substr($phone, 0, 14);
+            $phone = '  '.substr($phone, 0, 14);
         } else {
             $phone = substr_replace($phone, '(', 0, 0);
             $phone = substr_replace($phone, ' ', 3, 0);
             $phone = substr_replace($phone, ')', 3, 0);
             $phone = substr_replace($phone, '-', 9, 0);
-            $phone = substr($phone, 0, 14);
+            $phone = '  '.substr($phone, 0, 14);
         }
     }
 
@@ -102,6 +101,6 @@ function arrayUppercase($value)
     if (is_array($value)) {
         return array_map('arrayUppercase', $value);
     }
-    
+
     return mb_strtoupper($value, 'UTF-8');
 }

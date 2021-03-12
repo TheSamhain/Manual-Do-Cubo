@@ -7,6 +7,7 @@ const cadastrarCliente = (e) => {
         inputDataNasc = document.getElementsByName('dataNasc')[0],
         inputCep = document.getElementsByName('cep')[0],
         inputTel1 = document.getElementsByName('tel1')[0],
+        inputTel2 = document.getElementsByName('tel2')[0],
         inputTipoPessoa = document.getElementsByName('tipoPessoa')[0];
 
     let valido = true;
@@ -17,10 +18,12 @@ const cadastrarCliente = (e) => {
     // Pega os dados do formulário
     for (let pair of dados.entries()) {
         if ((pair[1].length == 0) && (document.getElementsByName(pair[0])[0].required)) {
+            document.getElementsByName(pair[0])[0].style.boxShadow = "1px 1px 3px red";
             alert('É necessário preencher todos os campos corretamente.')
-            return;
+            return false;
         }
 
+        document.getElementsByName(pair[0])[0].style.boxShadow = null;
         infos[pair[0]] = pair[1].trim();
     }
 
@@ -61,9 +64,16 @@ const cadastrarCliente = (e) => {
         inputTel1.style.boxShadow = null;
     }
 
+    if ((infos.tel2.length < 14) && (infos.tel2.length > 0)) {
+        inputTel2.style.boxShadow = "1px 1px 3px red";
+        valido = false;
+    } else {
+        inputTel2.style.boxShadow = null;
+    }
+
     if (!valido) {
         alert('É necessário preencher todos os campos corretamente.');
-        return;
+        return false;
     }
 
     let formData = new FormData();
@@ -77,16 +87,15 @@ const cadastrarCliente = (e) => {
     })
         .then(resp => resp.json())
         .then(async json => {
-            console.log(json);
             if (!json.autenticado) {
-                alert(json.erro ? `Erro ao consultar: ${json.erro}.` : 'Usuário não autenticado');
+                alert(json.erro ? `Erro ao cadastrar: ${json.erro}.` : 'Usuário não autenticado');
                 carregarLogin();
-                return;
+                return false;
             }
 
             if (json.status == 'Erro') {
                 alert(`Um erro ocorreu ao tentar relizar a operação: \n${json.erro}`);
-                return;
+                return false;
             }
 
             let btnCadastro = document.getElementById('btnSalvarCadastro');
@@ -95,6 +104,8 @@ const cadastrarCliente = (e) => {
                 telaNovoCliente();
             }
         })
+
+    return true;
 }
 
 const verificarDados = (cpfcnpj) => {

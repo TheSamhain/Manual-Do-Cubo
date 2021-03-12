@@ -29,28 +29,48 @@
         <hr />
 
         <label>
+            <p>Valor da Carta</p>
+            <input
+                type="text"
+                name="valorCarta"
+                required
+                oninput="this.value = currencyMask(this.value)"
+                value="0,00"
+            />
+        </label>
+
+        <label>
             <p>Data de adesão</p>
             <input type="date" name="dataAdesao" required />
         </label>
 
         <label>
             <p>Tipo</p>
-            <input type="text" name="tipo" required />
+            <select name="tipo" required>
+                <option value="Automóvel">Automóvel</option>
+                <option value="Imóvel">Imóvel</option>
+                <option value="Serviço">Serviço</option>
+            </select>
         </label>
 
         <label>
             <p>Grupo</p>
-            <input type="text" name="grupo" required />
+            <input type="text" name="grupo" />
+        </label>
+
+        <label>
+            <p>Cota</p>
+            <input type="text" name="cota" />
         </label>
 
         <label>
             <p>Número do contrato</p>
-            <input type="number" min="0" name="numContrato" required />
+            <input type="number" min="0" name="numContrato" />
         </label>
 
         <label>
             <p>Parcelas</p>
-            <input type="number" min="1" name="parcelas" required />
+            <input type="number" min="1" name="parcelas" required value="10" />
         </label>
 
         <hr />

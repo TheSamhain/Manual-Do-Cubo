@@ -22,7 +22,7 @@
     }
 
 
-    if($arrINFOS['cpf'] != null){
+    if($arrINFOS['tipoPessoa'] == 'F'){
         if(!validaCPF($arrINFOS['cpf'])){
             $resp['status'] = 'Erro';
             $resp['erro'] = "CPF inválido";
@@ -47,8 +47,8 @@
     }
 
     
-    $arrINFOS['tel1'] = validatePhone($arrINFOS['tel1']);
-    $arrINFOS['tel2'] = validatePhone($arrINFOS['tel2']);
+    $arrINFOS['tel1'] = formatPhone($arrINFOS['tel1']);
+    $arrINFOS['tel2'] = formatPhone($arrINFOS['tel2']);
 
     if(!$arrINFOS['tel1']){
         $resp['status'] = 'Erro';
@@ -74,14 +74,13 @@
     }
 
     $bdArray = array(
-        'PESSOA' => 'F',
-        'EMAIL' => strtolower($arrINFOS['email']),
+        'EMAIL' => mb_strtolower($arrINFOS['email'], 'UTF-8'),
         'DATACAD' => date("Y-m-d"),
         'SITUACAO' => 'APROVADO',
         'DTSITUACAO' => date("Y-m-d"),
         'MDTEL1' => $arrINFOS['tel1'],
         'MDTEL2' => $arrINFOS['tel2'],
-
+        
         'MDCEP' => $arrINFOS['cep'],
         'MDEND' => $arrINFOS['rua'],
         'MDNUM' => $arrINFOS['numeroCasa'],
@@ -90,30 +89,33 @@
         'MDEST' => $arrINFOS['estado'],
         'MDCOMP' => $arrINFOS['complemento']
     );
-
-    if($arrINFOS['cpf'] != null){
+    
+    if($arrINFOS['tipoPessoa'] == 'F'){
+        $bdArray['PESSOA'] = 'F';
         $bdArray['MDCPF'] = $arrINFOS['cpf'];
         $bdArray['MDFIRM'] = $arrINFOS['nome'];
         $bdArray['NASCIMENTO'] = $arrINFOS['dataNasc'];
     } else {
+        $bdArray['PESSOA'] = 'J';
+        $bdArray['MDCGC'] = $arrINFOS['cnpj'];
         $bdArray['MDFIRM'] = $arrINFOS['razao'];
         $bdArray['FANTASIA'] = $arrINFOS['fantasia'];
     }
 
     // Procura no cadastro pelo CPF
-    $sqlSelectCpf = "SELECT * FROM maladir WHERE ";
+    $sqlSelectCpfCnpj = "SELECT * FROM maladir WHERE ";
 
-    if($arrINFOS['cpf'] != null){
-        $sqlSelectCpf .= " MDCPF = ? LIMIT 1";
+    if($arrINFOS['tipoPessoa'] == 'F'){
+        $sqlSelectCpfCnpj .= " MDCPF = ? LIMIT 1";
         $pesq =  $arrINFOS['cpf'];
     } else {
-        $sqlSelectCpf .= " MDCGC = ? LIMIT 1";
+        $sqlSelectCpfCnpj .= " MDCGC = ? LIMIT 1";
         $pesq =  $arrINFOS['cnpj'];
     }
 
 
     $mysqli->set_charset("utf8");
-    $stmt = $mysqli->prepare($sqlSelectCpf);
+    $stmt = $mysqli->prepare($sqlSelectCpfCnpj);
     $stmt->bind_param("s", $pesq);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -132,7 +134,7 @@
             
             $sqlUpdate = substr($sqlUpdate, 0, strlen($sqlUpdate) - 2);
             
-            if($arrINFOS['cpf'] != null){
+            if($arrINFOS['tipoPessoa'] == 'F'){
                 $sqlUpdate .= "WHERE MDCPF = ? ";
             } else {
                 $sqlUpdate .= "WHERE MDCGC = ? ";
