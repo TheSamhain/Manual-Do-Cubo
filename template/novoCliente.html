@@ -1,153 +1,157 @@
-<div>
-    <form id="formulario">
+<form id="formulario">
+    <label>
+        <p>Tipo de Pessoa</p>
+        <select
+            name="tipoPessoa"
+            onchange="alterarTipoPessoa(this.value)"
+            required
+        >
+            <option value="F">Física</option>
+            <option value="J">Jurídica</option>
+        </select>
+    </label>
+
+    <div id="dadosPessoa">
         <label>
-            <p>Tipo de Pessoa</p>
-            <select
-                name="tipoPessoa"
-                onchange="alterarTipoPessoa(this.value)"
-                required
-            >
-                <option value="F">Física</option>
-                <option value="J">Jurídica</option>
-            </select>
-        </label>
-
-        <div id="dadosPessoa">
-            <label>
-                <p>CPF</p>
-                <input
-                    type="text"
-                    name="cpf"
-                    required
-                    oninput="this.value = cpfMask(this.value)"
-                    onblur="verificarDados(this.value)"
-                    inputmode="numeric"
-                />
-            </label>
-
-            <label>
-                <p>Nome completo</p>
-                <input type="text" name="nome" required maxlength="60" autocapitalize="characters" />
-            </label>
-
-            <label>
-                <p>Data de Nascimento</p>
-                <input type="date" name="dataNasc" required />
-            </label>
-        </div>
-
-        <hr />
-
-        <label>
-            <p>E-mail</p>
-            <input type="text" name="email" maxlength="200" inputmode="email" />
-        </label>
-
-        <label>
-            <p>Telefone 1</p>
+            <p>CPF</p>
             <input
                 type="text"
-                name="tel1"
-                maxlength="15"
-                inputmode="tel"
-                oninput="this.value = phoneMask(this.value)"
+                name="cpf"
                 required
-            />
-        </label>
-
-        <label>
-            <p>Telefone 2</p>
-            <input
-                type="text"
-                name="tel2"
-                maxlength="15"
-                inputmode="tel"
-                oninput="this.value = phoneMask(this.value)"
-            />
-        </label>
-
-        <hr />
-
-        <label>
-            <p>CEP</p>
-            <input
-                type="text"
-                name="cep"
-                min="0"
-                maxlength="9"
-                required
-                oninput="this.value = cepMask(this.value)"
-                onblur="verificarCep(this.value)"
+                oninput="this.value = cpfMask(this.value)"
+                onblur="verificarDados(this.value)"
                 inputmode="numeric"
             />
         </label>
 
         <label>
-            <p>Logradouro</p>
-            <input type="text" name="rua" required maxlength="50" />
-        </label>
-
-        <label>
-            <p>Número</p>
+            <p>Nome completo</p>
             <input
                 type="text"
-                name="numeroCasa"
-                min="0"
+                name="nome"
                 required
-                inputmode="numeric"
+                maxlength="60"
+                autocapitalize="characters"
             />
         </label>
 
         <label>
-            <p>Complemento</p>
-            <input type="text" name="complemento" maxlength="40" />
+            <p>Data de Nascimento</p>
+            <input type="date" name="dataNasc" required />
         </label>
+    </div>
 
-        <label>
-            <p>Bairro</p>
-            <input type="text" name="bairro" required maxlength="40" />
-        </label>
+    <hr />
 
-        <label>
-            <p>Cidade</p>
-            <input type="text" name="cidade" required maxlength="35" />
-        </label>
+    <label>
+        <p>E-mail</p>
+        <input type="email" name="email" maxlength="200" inputmode="email" />
+    </label>
 
-        <label>
-            <p>UF</p>
-            <select name="estado" required>
-                <option value="AC">Acre</option>
-                <option value="AL">Alagoas</option>
-                <option value="AP">Amapá</option>
-                <option value="AM">Amazonas</option>
-                <option value="BA">Bahia</option>
-                <option value="CE">Ceará</option>
-                <option value="DF">Distrito Federal</option>
-                <option value="ES">Espírito Santo</option>
-                <option value="GO">Goiás</option>
-                <option value="MA">Maranhão</option>
-                <option value="MT">Mato Grosso</option>
-                <option value="MS">Mato Grosso do Sul</option>
-                <option value="MG">Minas Gerais</option>
-                <option value="PA">Pará</option>
-                <option value="PB">Paraíba</option>
-                <option value="PR">Paraná</option>
-                <option value="PE">Pernambuco</option>
-                <option value="PI">Piauí</option>
-                <option value="RJ">Rio de Janeiro</option>
-                <option value="RN">Rio Grande do Norte</option>
-                <option value="RS">Rio Grande do Sul</option>
-                <option value="RO">Rondônia</option>
-                <option value="RR">Roraima</option>
-                <option value="SC" selected="selected">Santa Catarina</option>
-                <option value="SP">São Paulo</option>
-                <option value="SE">Sergipe</option>
-                <option value="TO">Tocantins</option>
-            </select>
-        </label>
+    <label>
+        <p>Telefone 1</p>
+        <input
+            type="tel"
+            name="tel1"
+            maxlength="15"
+            inputmode="tel"
+            oninput="this.value = phoneMask(this.value)"
+            required
+        />
+    </label>
 
-        <hr />
+    <label>
+        <p>Telefone 2</p>
+        <input
+            type="tel"
+            name="tel2"
+            maxlength="15"
+            inputmode="tel"
+            oninput="this.value = phoneMask(this.value)"
+        />
+    </label>
 
-        <button type="submit" id="btnSalvarCadastro">Salvar</button>
-    </form>
-</div>
+    <hr />
+
+    <label>
+        <p>CEP</p>
+        <input
+            type="text"
+            name="cep"
+            min="0"
+            maxlength="9"
+            required
+            oninput="this.value = cepMask(this.value)"
+            onblur="verificarCep(this.value)"
+            inputmode="numeric"
+        />
+    </label>
+
+    <label>
+        <p>Logradouro</p>
+        <input type="text" name="rua" required maxlength="50" />
+    </label>
+
+    <label>
+        <p>Número</p>
+        <input
+            type="text"
+            name="numeroCasa"
+            min="0"
+            required
+            inputmode="numeric"
+        />
+    </label>
+
+    <label>
+        <p>Complemento</p>
+        <input type="text" name="complemento" maxlength="40" />
+    </label>
+
+    <label>
+        <p>Bairro</p>
+        <input type="text" name="bairro" required maxlength="40" />
+    </label>
+
+    <label>
+        <p>Cidade</p>
+        <input type="text" name="cidade" required maxlength="35" />
+    </label>
+
+    <label>
+        <p>UF</p>
+        <select name="estado" required>
+            <option value="AC">Acre</option>
+            <option value="AL">Alagoas</option>
+            <option value="AP">Amapá</option>
+            <option value="AM">Amazonas</option>
+            <option value="BA">Bahia</option>
+            <option value="CE">Ceará</option>
+            <option value="DF">Distrito Federal</option>
+            <option value="ES">Espírito Santo</option>
+            <option value="GO">Goiás</option>
+            <option value="MA">Maranhão</option>
+            <option value="MT">Mato Grosso</option>
+            <option value="MS">Mato Grosso do Sul</option>
+            <option value="MG">Minas Gerais</option>
+            <option value="PA">Pará</option>
+            <option value="PB">Paraíba</option>
+            <option value="PR">Paraná</option>
+            <option value="PE">Pernambuco</option>
+            <option value="PI">Piauí</option>
+            <option value="RJ">Rio de Janeiro</option>
+            <option value="RN">Rio Grande do Norte</option>
+            <option value="RS">Rio Grande do Sul</option>
+            <option value="RO">Rondônia</option>
+            <option value="RR">Roraima</option>
+            <option value="SC" selected="selected">Santa Catarina</option>
+            <option value="SP">São Paulo</option>
+            <option value="SE">Sergipe</option>
+            <option value="TO">Tocantins</option>
+        </select>
+    </label>
+
+    <hr />
+
+    <button type="submit" id="btnSalvarCadastro">Salvar</button>
+</form>

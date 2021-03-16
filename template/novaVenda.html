@@ -1,81 +1,79 @@
-<div>
-    <form id="formulario">
-        <label>
-            <p>Tipo de Pessoa</p>
-            <select
-                name="tipoPessoa"
-                onchange="alterarTipoPessoaVenda(this.value)"
-                required
-            >
-                <option value="F">Física</option>
-                <option value="J">Jurídica</option>
-            </select>
-        </label>
+<form id="formulario">
+    <label>
+        <p>Tipo de Pessoa</p>
+        <select
+            name="tipoPessoa"
+            onchange="alterarTipoPessoaVenda(this.value)"
+            required
+        >
+            <option value="F">Física</option>
+            <option value="J">Jurídica</option>
+        </select>
+    </label>
 
-        <label>
-            <p>CPF</p>
-            <input
-                required
-                type="text"
-                name="cpf"
-                oninput="this.value = cpfMask(this.value)"
-                onblur="carregarDadosCliente(this.value)"
-                inputmode="numeric"
-            />
-        </label>
+    <label>
+        <p>CPF</p>
+        <input
+            required
+            type="text"
+            name="cpf"
+            oninput="this.value = cpfMask(this.value)"
+            onblur="carregarDadosCliente(this.value)"
+            inputmode="numeric"
+        />
+    </label>
 
-        <div id="infoCliente"></div>
+    <div id="infoCliente"></div>
 
-        <hr />
+    <hr />
 
-        <label>
-            <p>Valor da Carta</p>
-            <input
-                type="text"
-                name="valorCarta"
-                required
-                oninput="currencyMask(this)"
-                onkeyup="setCaretToEnd(this)"
-                value="0,00"
-            />
-        </label>
+    <label>
+        <p>Valor da Carta</p>
+        <input
+            type="text"
+            name="valorCarta"
+            required
+            oninput="currencyMask(this)"
+            onkeyup="setCaretToEnd(this)"
+            value="0,00"
+        />
+    </label>
 
-        <label>
-            <p>Data de adesão</p>
-            <input type="date" name="dataAdesao" required />
-        </label>
+    <label>
+        <p>Data de adesão</p>
+        <input type="date" name="dataAdesao" required />
+    </label>
 
-        <label>
-            <p>Tipo</p>
-            <select name="tipo" required>
-                <option value="Automóvel">Automóvel</option>
-                <option value="Imóvel">Imóvel</option>
-                <option value="Serviço">Serviço</option>
-            </select>
-        </label>
+    <label>
+        <p>Tipo</p>
+        <select name="tipo" required>
+            <option value="Automóvel">Automóvel</option>
+            <option value="Imóvel">Imóvel</option>
+            <option value="Serviço">Serviço</option>
+        </select>
+    </label>
 
-        <label>
-            <p>Grupo</p>
-            <input type="text" name="grupo" />
-        </label>
+    <label>
+        <p>Grupo</p>
+        <input type="text" name="grupo" />
+    </label>
 
-        <label>
-            <p>Cota</p>
-            <input type="text" name="cota" />
-        </label>
+    <label>
+        <p>Cota</p>
+        <input type="text" name="cota" />
+    </label>
 
-        <label>
-            <p>Número do contrato</p>
-            <input type="number" min="0" name="numContrato" />
-        </label>
+    <label>
+        <p>Número do contrato</p>
+        <input type="number" min="0" name="numContrato" />
+    </label>
 
-        <label>
-            <p>Parcelas</p>
-            <input type="number" min="1" name="parcelas" required value="10" />
-        </label>
+    <label>
+        <p>Parcelas</p>
+        <input type="number" min="1" name="parcelas" required value="10" />
+    </label>
 
-        <hr />
+    <hr />
 
-        <button type="submit">Salvar</button>
-    </form>
-</div>
+    <button type="submit">Salvar</button>
+</form>

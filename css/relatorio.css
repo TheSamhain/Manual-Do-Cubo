@@ -1,0 +1,95 @@
+#pesquisa {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    border-bottom: 1px solid var(--CorDefault);
+}
+
+#pesquisa input {
+    background-color: white;
+    border: 0;
+    margin: 1px;
+    margin-left: 5px;
+    flex: 1;
+    color: var(--CorDefault);
+    padding: 0;
+    font-size: 20px;
+}
+
+#pesquisa label {
+    border: 2px solid var(--CorDefault);
+    display: flex;
+    flex-direction: row;
+    margin: 5px 15px;
+    align-items: center;
+}
+
+#pesquisa i {
+    margin: 3px;
+    margin-right: 10px;
+    font-size: 25px;
+}
+
+#listas {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    color: var(--CorDefault);
+}
+
+.itemLista {
+    padding: 5px;
+    border-top: 2px solid var(--CorDefault);
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.linha {
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px;
+}
+
+.linha p:nth-child(2){
+  margin-left: 5px;
+  font-weight: bold;
+}
+
+.parcelas {
+    margin-top: 15px;
+    border-collapse: collapse;
+    align-self: center;
+}
+
+.parcelas td,
+.parcelas th {
+    border: 1px solid var(--CorDefault);
+    padding: 4px;
+    text-align: center;
+}
+
+.parcelas td:nth-child(3) {
+  text-align: right;
+  width: 90px;
+}
+
+.parcelas tr:first-child th {
+    border-top: 0;
+    font-weight: bold;
+}
+
+.parcelas tr td:first-child,
+.parcelas tr th:first-child {
+    border-left: 0;
+}
+
+.parcelas tr td:last-child,
+.parcelas tr th:last-child {
+    border-right: 0;
+}
+
+.parcelas tr:last-child td {
+    border-bottom: 0;
+}

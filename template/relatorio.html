@@ -1,0 +1,15 @@
+<div id="pesquisa">
+    <label>
+        <input
+            type="search"
+            name="pesquisa"
+            maxlength="30"
+            id="inputPesquisa"
+            placeholder="Pesquisar..."
+            onkeyup="validarEntrada(event)"
+        />
+        <i class="bi bi-search" onclick="pesquisar(document.getElementById('inputPesquisa').value)"></i>
+    </label>
+</div>
+
+<div id="listas"></div>

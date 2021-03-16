@@ -5,7 +5,7 @@ const carregarHome = async () => {
     html = await html.text();
     main.innerHTML = html;
 
-    telaNovaVenda();
+    telaRelatorio();
 }
 
 const sair = () => {
@@ -53,4 +53,17 @@ const telaNovaVenda = async () => {
         yyyy = today.getFullYear();
 
     dataAdesao.value = `${yyyy}-${mm}-${dd}`;
+}
+
+const telaRelatorio = async () => {
+    const content = document.getElementById('content');
+    validaToken(localStorage.getItem('login'), true);
+
+    let html = await fetch('template/relatorio.html');
+    html = await html.text();
+    content.innerHTML = html;
+
+    document.getElementById('titulo').innerHTML = "Relatório";
+
+    carregarTudo();
 }
