@@ -18,7 +18,10 @@
     }
     
     // Conecta com a base correta
-    $mysqli = conectarBD($CHAVE);
+    $arrConection = conectarBD($CHAVE);
+    $mysqli = $arrConection[0];
+    $baseCentral = ($arrConection[1] != null && $arrConection[1] != '') ? $arrConection[1].'.' : '' ;
+    $numFilial = $arrConection[2];
 
     if(!$mysqli){
         $resp = array(
@@ -30,7 +33,7 @@
     }
     
     // Procura no cadastro pelo CPF
-    $sql = "SELECT * FROM maladir WHERE ";
+    $sql = "SELECT * FROM ".$baseCentral."maladir WHERE ";
     
     if(strlen($CPFCNPJ) == 14){
         $sql .= " MDCPF = ? LIMIT 1";
@@ -58,8 +61,29 @@
                 'ENDBAIRRO' => $row['MDBAIRRO'],
                 'ENDMUNICIPIO' => $row['MDCIDA'],
                 'ENDESTADO' => $row['MDEST'],
-                'ENDCOMPLEMENTO' => $row['MDCOMP']
+                'ENDCOMPLEMENTO' => $row['MDCOMP'],
+                'COMPARTILHADO' => $row['COMPARTILHADO'] == 'S',
+                'DONO' => trim($row['FILIAL']) == trim($numFilial)
             );
+
+            if(trim($row['FILIAL']) != trim($numFilial)){
+                $sqlDono = "SELECT filiais.NUM, maladir.MDFIRM 
+                            FROM ".$baseCentral."filiais 
+                            INNER JOIN ".$baseCentral."maladir 
+                            ON maladir.MDCODI = filiais.MDCODI
+                            WHERE filiais.NUM = '".trim($row['FILIAL'])."' ";
+    
+                $mysqli->set_charset("utf8");
+                $stmt = $mysqli->prepare($sqlDono);
+                $stmt->execute();
+                $result2 = $stmt->get_result();
+                if (mysqli_num_rows($result2) > 0) {
+                    while ($row2 = mysqli_fetch_assoc($result2)) {
+                        $arr['DONONOME'] = $row2['MDFIRM'];
+                        break;
+                    }
+                }
+            }
 
             if(strlen($CPFCNPJ) == 14){
                 $arr['NOME'] = $row['MDFIRM'];

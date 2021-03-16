@@ -28,7 +28,7 @@ const telaNovoCliente = async () => {
     document.getElementById('titulo').innerHTML = "Cadastro de cliente";
 
     evitarEspacosInputs();
-    
+
 }
 
 const telaNovaVenda = async () => {
@@ -45,4 +45,12 @@ const telaNovaVenda = async () => {
     document.getElementById('titulo').innerHTML = "Cadastro de venda";
 
     evitarEspacosInputs();
+
+    let dataAdesao = document.getElementsByName('dataAdesao')[0],
+        today = new Date(),
+        dd = String(today.getDate()).padStart(2, '0'),
+        mm = String(today.getMonth() + 1).padStart(2, '0'),
+        yyyy = today.getFullYear();
+
+    dataAdesao.value = `${yyyy}-${mm}-${dd}`;
 }

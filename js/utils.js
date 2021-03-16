@@ -280,22 +280,45 @@ const formatDate = (date) => {
  * @param  {String} value texto a ser formatado
  * @return {String}       Texto já formatado
  */
-const currencyMask = value => {
-    
-    if(value.length < 4)
-        value = `000${value}`
+const currencyMask = (input) => {
+    input.value = `000${input.value}`;
 
-    return value
-        .replace(/\D/g, '') // substitui qualquer caracter que nao seja numero por nada
-        .replace(/(\d{14}).+$/, '$1') // Pega os 14 primeiros digitos
-        .replace(/(\d+)(\d{2})/, '$1,$2') // Pega os dois últimos digitos e coloca uma virgula antes deles
-        .replace(/^(0+)([1-9])/, '$2') // Pega o início contendo 0 na frente e seguido de outros números e exclui os zeros na frente
-        .replace(/^(0{2,})(,)/, '0$2') // Pega dois zeros seguidos de uma virugla e transforma em apenas 1 zero
-        .replace(/(\d+)(\d{3})/, '$1.$2') // Pega os 3 últimos dígitos precedidos de outros dígitos e coloca um ponto entre eles
-        .replace(/(\d+)(\d{3})/, '$1.$2') // Pega os 3 últimos dígitos precedidos de outros dígitos e coloca um ponto entre eles
-        .replace(/(\d+)(\d{3})/, '$1.$2') // Pega os 3 últimos dígitos precedidos de outros dígitos e coloca um ponto entre eles
+    input.value =
+        input.value
+            .replace(/\D/g, '') // substitui qualquer caracter que nao seja numero por nada
+            .replace(/(\d{14}).+$/, '$1') // Pega os 14 primeiros digitos
+            .replace(/(\d+)(\d{2})/, '$1,$2') // Pega os dois últimos digitos e coloca uma virgula antes deles
+            .replace(/^(0+)([1-9])/, '$2') // Pega o início contendo 0 na frente e seguido de outros números e exclui os zeros na frente
+            .replace(/^(0{2,})(,)/, '0$2') // Pega dois zeros seguidos de uma virugla e transforma em apenas 1 zero
+            .replace(/(\d+)(\d{3})/, '$1.$2') // Pega os 3 últimos dígitos precedidos de outros dígitos e coloca um ponto entre eles
+            .replace(/(\d+)(\d{3})/, '$1.$2') // Pega os 3 últimos dígitos precedidos de outros dígitos e coloca um ponto entre eles
+            .replace(/(\d+)(\d{3})/, '$1.$2') // Pega os 3 últimos dígitos precedidos de outros dígitos e coloca um ponto entre eles
+
+    setCaretToEnd(input);
+
 }
 
+/**
+ * Move o cursor para o final do cmapo
+ * @param {HTMLElement} input Campo para mover o cursor
+ */
+const setCaretToEnd = (input) => {
+    let len = input.value.length;
+
+    // IE >= 9 and other browsers
+    if (input.setSelectionRange) {
+        input.focus();
+        input.setSelectionRange(len, len);
+    }
+    // IE < 9 
+    else if (input.createTextRange) {
+        var range = input.createTextRange();
+        range.collapse(true);
+        range.moveEnd('character', len);
+        range.moveStart('character', len);
+        range.select();
+    }
+}
 
 /**
  * Formata data do tipo yyyy-mm-dd hh:nn:ss para dd/mm/yyyy hh:nn:ss

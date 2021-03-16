@@ -24,7 +24,10 @@
     }
 
     // Conecta com a base correta
-    $mysqli = conectarBD($CHAVE);
+    $arrConection = conectarBD($CHAVE);
+    $mysqli = $arrConection[0];
+    $baseCentral = ($arrConection[1] != null && $arrConection[1] != '') ? $arrConection[1].'.' : '' ;
+    $numFilial = trim($arrConection[2]);
 
     if (!$mysqli) {
         $resp = array(
@@ -48,6 +51,7 @@
         'DATACAD' => $arrINFOS['dataAdesao'],
         'ALTULTDATA' => $arrINFOS['dataAdesao'],
         'VALORCARTA' => $arrINFOS['valorCarta'],
+        'FILIAL' => $numFilial
     );
 
     if($arrINFOS['tipoPessoa'] == 'F'){
@@ -60,7 +64,7 @@
     $user = json_decode(base64_decode($TOKEN))->NOME;
 
     // Procura no cadastro usuário
-    $sqlSelectUsuario = "SELECT * FROM maladir WHERE MDCODI = (SELECT MDCODI FROM usuarios WHERE REG = ? ) LIMIT 1";
+    $sqlSelectUsuario = "SELECT * FROM ".$baseCentral."maladir WHERE MDCODI = (SELECT MDCODI FROM usuarios WHERE REG = ? ) LIMIT 1";
 
     $mysqli->set_charset("utf8");
     $stmt = $mysqli->prepare($sqlSelectUsuario);
@@ -84,13 +88,15 @@
         return print(json_encode($resp));
     }
 
-    $sqlSelectCliente = "SELECT * FROM maladir WHERE ";
+    $sqlSelectCliente = "SELECT * FROM ".$baseCentral."maladir WHERE ";
     
     if($arrINFOS['tipoPessoa'] == 'F'){
-        $sqlSelectCliente .= " MDCPF = '".$arrINFOS['cpf']."' LIMIT 1 ";
+        $sqlSelectCliente .= " MDCPF = '".$arrINFOS['cpf']."' ";
     } else {
-        $sqlSelectCliente .= " MDCGC = '".$arrINFOS['cnpj']."' LIMIT 1 ";
+        $sqlSelectCliente .= " MDCGC = '".$arrINFOS['cnpj']."' ";
     }
+
+    $sqlSelectCliente .= " AND (COMPARTILHADO = 'S' OR FILIAL = '". $numFilial."')  LIMIT 1 ";
 
     $mysqli->set_charset("utf8");
     $stmt = $mysqli->prepare($sqlSelectCliente);
@@ -117,7 +123,7 @@
     $result = $stmt->get_result();
 
 
-    $sqlInsert = "INSERT INTO conscomiss ( ";
+    $sqlInsert = "INSERT INTO ".$baseCentral."conscomiss ( ";
 
     foreach ($bdArray as $key => $value) {
         $sqlInsert .= "$key, ";

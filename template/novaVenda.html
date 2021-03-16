@@ -34,7 +34,8 @@
                 type="text"
                 name="valorCarta"
                 required
-                oninput="this.value = currencyMask(this.value)"
+                oninput="currencyMask(this)"
+                onkeyup="setCaretToEnd(this)"
                 value="0,00"
             />
         </label>

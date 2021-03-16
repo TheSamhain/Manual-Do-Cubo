@@ -1,13 +1,20 @@
 const cadastrarVenda = (e) => {
    e.preventDefault();
 
+   if (!dono) {
+      alert('Este cadastro já existe em outra loja, mas não está compartilhado.');
+      return;
+   }
+
    let { target } = e,
       dados = new FormData(target),
       infos = {};
 
    if (!!dados.get('nome') || !!dados.get('razao')) {
-      if (!cadastrarCliente(e))
+      if (!cadastrarCliente(e)){
+         alert(`Um erro ocorreu ao tentar relizar o cadastro do cliente.`);
          return false;
+      }
 
       let divInfos = target.getElementsByTagName('div')[0];
       divInfos.innerHTML = '';
@@ -104,6 +111,14 @@ const carregarDadosCliente = (cpfcnpj) => {
             document.getElementsByName('nome')[0].focus();
          }
       } else {
+         if ((!dados.DONO) && (!dados.COMPARTILHADO)) {
+            infoCliente.innerHTML = '';
+            alert(`Este cadastro já existe em outra loja, mas não está compartilhado.\n\nSolicite o compartilhamento para a loja: ${dados.DONONOME}`);
+            dono = false;
+            return;
+         }
+         dono = true;
+
          let nome;
 
          if (cpfcnpj.length == 14) {

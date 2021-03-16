@@ -62,7 +62,10 @@
     }
     
     // Conecta com a base correta
-    $mysqli = conectarBD($CHAVE);
+    $arrConection = conectarBD($CHAVE);
+    $mysqli = $arrConection[0];
+    $baseCentral = ($arrConection[1] != null && $arrConection[1] != '') ? $arrConection[1].'.' : '' ;
+    $numFilial = $arrConection[2];
 
     if(!$mysqli){
         $resp = array(
@@ -87,7 +90,9 @@
         'MDBAIRRO' => $arrINFOS['bairro'],
         'MDCIDA' => $arrINFOS['cidade'],
         'MDEST' => $arrINFOS['estado'],
-        'MDCOMP' => $arrINFOS['complemento']
+        'MDCOMP' => $arrINFOS['complemento'],
+        'COMPARTILHADO' => 'S',
+        'FILIAL' => $numFilial
     );
     
     if($arrINFOS['tipoPessoa'] == 'F'){
@@ -103,7 +108,7 @@
     }
 
     // Procura no cadastro pelo CPF
-    $sqlSelectCpfCnpj = "SELECT * FROM maladir WHERE ";
+    $sqlSelectCpfCnpj = "SELECT * FROM ".$baseCentral."maladir WHERE ";
 
     if($arrINFOS['tipoPessoa'] == 'F'){
         $sqlSelectCpfCnpj .= " MDCPF = ? LIMIT 1";
@@ -123,10 +128,16 @@
     if (mysqli_num_rows($result) > 0) {
         // Atualizar cadastro existente
         while ($row = mysqli_fetch_assoc($result)) {
+            if( (trim($row['FILIAL']) != trim($numFilial)) && ($row['COMPARTILHADO'] != 'S') ){
+                $resp['status'] = 'Erro';
+                $resp['erro'] = "\nEste cadastro já existe em outra loja e não está compartilhado para permitir atualização.";
+                break;
+            }
+
             unset($bdArray['MDCPF']);
             unset($bdArray['MDCGC']);
             
-            $sqlUpdate = "UPDATE maladir SET ";
+            $sqlUpdate = "UPDATE ".$baseCentral."maladir SET ";
             
             foreach ($bdArray as $key => $value) {
                 $sqlUpdate .= "$key = '$value', ";
@@ -156,7 +167,7 @@
         // Cria novo cadastro
         $bdArray['CATEGORIA'] = 'CLIENTE';
 
-        $sqlInsert = "INSERT INTO maladir ( ";
+        $sqlInsert = "INSERT INTO ".$baseCentral."maladir ( ";
         
         foreach ($bdArray as $key => $value) {
             $sqlInsert .= "$key, ";

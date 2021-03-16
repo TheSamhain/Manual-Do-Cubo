@@ -24,7 +24,12 @@ function conectarBD(string $chave){
 
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
-            return mysqli_connect($row['SERVIDOR'], $row['LOGIN'], $row['SENHA'], $row['BASE'], $row['PORTA']);
+            return array(
+                mysqli_connect($row['SERVIDOR'], $row['LOGIN'], $row['SENHA'], $row['BASE'], $row['PORTA']),
+                $row['BASECENTRAL'],
+                $row['FILIAL']
+            );
+
             break;
         }
     } else {

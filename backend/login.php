@@ -9,7 +9,10 @@
     $CHAVE = $_POST['LOCAL'];
     $SENHA = md5($SENHA);
 
-    $mysqli = conectarBD($CHAVE);
+    $arrConection = conectarBD($CHAVE);
+    $mysqli = $arrConection[0];
+    $baseCentral = ($arrConection[1] != null && $arrConection[1] != '') ? $arrConection[1].'.' : '' ;
+    $numFilial = $arrConection[2];
     
     header('Content-Type: application/json');
 
@@ -40,7 +43,7 @@
                 'token' => $token
             );
 
-            if(!!$token){
+            if(!$token){
                 $resp['erro'] = 'Token inválido';
             }
         
@@ -56,28 +59,7 @@
     }
     
     mysqli_stmt_close($stmt);
-    
-    
-    $sql = "SELECT * 
-            FROM configuracoes 
-            WHERE AREA = 'GERAL' 
-              AND SECAO = 'Impressão' 
-              AND ITEM = 'Geral' 
-              AND SUBITEM IN ('Título 1 do cabeçalho', 'Título 2 do cabeçalho', 'Título 3 do cabeçalho') ";
-    
-    $mysqli->set_charset("utf8");
-    $result = mysqli_query($mysqli, $sql);
-    
-    $i = 1;
-    $titulos = array();
-    
-    while ($row = mysqli_fetch_assoc($result)) {
-        $titulos['titulo'.$i] = $row['VALOR'];
-        $i++;
-    }
-    
-    $resp['titulos'] = $titulos;
-
+     
     print json_encode($resp);
     
     $mysqli->close();

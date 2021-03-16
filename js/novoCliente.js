@@ -1,6 +1,11 @@
 const cadastrarCliente = (e) => {
     e.preventDefault();
 
+    if(!dono){
+        alert('Este cadastro já existe em outra loja, mas não está compartilhado.');
+        return;
+    }
+
     const
         inputCPF = document.getElementsByName('cpf')[0],
         inputCNPJ = document.getElementsByName('cnpj')[0],
@@ -138,6 +143,13 @@ const verificarDados = (cpfcnpj) => {
         if (!dados) {
             return;
         }
+
+        if((!dados.DONO) && (!dados.COMPARTILHADO)){
+            alert(`Este cadastro já existe em outra loja, mas não está compartilhado.\n\nSolicite o compartilhamento para a loja: ${dados.DONONOME}`);
+            dono = false;
+            return;
+        }
+        dono = true;
 
         if (tipo == 'F') {
             const
