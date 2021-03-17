@@ -30,6 +30,7 @@
     font-size: 25px;
 }
 
+
 #listas {
     flex: 1;
     display: flex;
@@ -40,11 +41,12 @@
 
 .itemLista {
     padding: 5px;
-    border-top: 2px solid var(--CorDefault);
-    margin-bottom: 15px;
+    border-bottom: 2px solid var(--CorDefault);
+    margin-top: 15px;
     display: flex;
     flex-direction: column;
 }
+
 
 .linha {
     display: flex;
@@ -56,6 +58,7 @@
   margin-left: 5px;
   font-weight: bold;
 }
+
 
 .parcelas {
     margin-top: 15px;
@@ -92,4 +95,8 @@
 
 .parcelas tr:last-child td {
     border-bottom: 0;
+}
+
+.msgAviso {
+    margin: 10px 0;
 }

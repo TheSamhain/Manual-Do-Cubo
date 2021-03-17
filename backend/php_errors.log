@@ -1,8 +1,0 @@
-[16-Mar-2021 15:30:54 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in D:\http\cidade.one.teste\backend\pesquisarVendas.php:58
-Stack trace:
-#0 {main}
-  thrown in D:\http\cidade.one.teste\backend\pesquisarVendas.php on line 58
-[16-Mar-2021 15:30:58 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in D:\http\cidade.one.teste\backend\pesquisarVendas.php:58
-Stack trace:
-#0 {main}
-  thrown in D:\http\cidade.one.teste\backend\pesquisarVendas.php on line 58

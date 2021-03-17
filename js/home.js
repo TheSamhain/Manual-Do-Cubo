@@ -5,7 +5,7 @@ const carregarHome = async () => {
     html = await html.text();
     main.innerHTML = html;
 
-    telaRelatorio();
+    telaLeads();
 }
 
 const sair = () => {
@@ -13,6 +13,16 @@ const sair = () => {
     carregarLogin();
 }
 
+const telaLeads = async () => {
+    const content = document.getElementById('content');
+    validaToken(localStorage.getItem('login'), true);
+
+    let html = await fetch('template/leads.html');
+    html = await html.text();
+    content.innerHTML = html;
+
+    document.getElementById('titulo').innerHTML = "Leads";
+}
 
 const telaNovoCliente = async () => {
     const content = document.getElementById('content');
