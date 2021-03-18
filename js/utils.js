@@ -403,3 +403,10 @@ const evitarEspacosInputs = () => {
         }
     }
 }
+
+/**
+ *  Deixa a primeira letra da palavra em maiúscula e o resto em minusculas
+ * @param {String} word Palavra a ser convertida
+ */
+const capitalizeFirstLetter = (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+

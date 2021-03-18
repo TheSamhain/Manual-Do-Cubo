@@ -148,5 +148,3 @@
     }
 
     print(json_encode($resp));
-
-    ?>

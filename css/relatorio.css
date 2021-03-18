@@ -30,7 +30,6 @@
     font-size: 25px;
 }
 
-
 #listas {
     flex: 1;
     display: flex;
@@ -47,7 +46,6 @@
     flex-direction: column;
 }
 
-
 .parcelas {
     margin-top: 15px;
     border-collapse: collapse;
@@ -62,8 +60,8 @@
 }
 
 .parcelas td:nth-child(3) {
-  text-align: right;
-  width: 90px;
+    text-align: right;
+    width: 90px;
 }
 
 .parcelas tr:first-child th {
@@ -87,4 +85,11 @@
 
 .msgAviso {
     margin: 10px 0;
+}
+
+/* Para COMPUTADOR */
+@media (min-width: 768px) {
+    .itemLista {
+        align-items: center;
+    }
 }

@@ -17,3 +17,7 @@
 .itemLead > .linha {
   margin-top: 10px;
 }
+
+.itemLead > .linha > select {
+  margin-left: 5px;
+}

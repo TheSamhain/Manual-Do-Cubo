@@ -70,7 +70,8 @@ if (mysqli_num_rows($result) > 0) {
       'NOME' => $row['MDFIRM'],
       'TELEFONE' => $row['FONE'],
       'EMAIL' => $row['EMAIL'],
-      'CIDADE' => $row['CIDADE']
+      'CIDADE' => $row['CIDADE'],
+      'CODIGO' => $row['REG'],
     );
   }
 

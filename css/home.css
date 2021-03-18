@@ -60,6 +60,18 @@ i {
     flex-direction: row;
 }
 
+img#logo {
+    width: 50%;
+    height: auto;
+    align-self: center;
+    margin: 10px;
+}
+
 /* Para COMPUTADOR */
 @media (min-width: 768px) {
+    #home {
+        width: 700px;
+        min-width: 700px;
+        max-width: 700px;
+    }
 }

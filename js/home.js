@@ -6,6 +6,10 @@ const carregarHome = async () => {
     main.innerHTML = html;
 
     telaLeads();
+    
+    if (screen.width > 768) {
+        alert('ESTE APLICATIVO É DESTINADO PARA CELULARES \n\nNÃO RECOMENDAMOS O USO EM COMPUTADORES')
+    }
 }
 
 const sair = () => {
@@ -49,6 +53,7 @@ const telaNovaVenda = async () => {
 
     let html = await fetch('template/novaVenda.html');
     html = await html.text();
+
     content.innerHTML = html;
 
     let form = document.getElementsByTagName('form')[0];
@@ -78,4 +83,9 @@ const telaRelatorio = async () => {
     document.getElementById('titulo').innerHTML = "Relatório";
 
     carregarTudo();
+}
+
+const telaComputador = () => {
+    let home = document.getElementById("home");
+    home.innerHTML = '';
 }

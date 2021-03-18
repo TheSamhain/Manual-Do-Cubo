@@ -91,7 +91,7 @@ const cadastrarCliente = (e) => {
         body: formData,
     })
         .then(resp => resp.json())
-        .then(async json => {
+        .then(json => {
             if (!json.autenticado) {
                 alert(json.erro ? `Erro ao cadastrar: ${json.erro}.` : 'Usuário não autenticado');
                 carregarLogin();
