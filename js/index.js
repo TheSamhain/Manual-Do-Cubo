@@ -1,5 +1,5 @@
 const main = document.getElementById('root');
-const LOCAL = 'cidade.one';
+const LOCAL = 'jaragua.one';
 let dono = true;
 
 validaToken(localStorage.getItem('login'))

@@ -53,7 +53,7 @@ if (mysqli_num_rows($result) > 0) {
 
 $MDCODI = $row['MDCODI'];
 
-$sqlVendas = "SELECT CLICPF, CLIMDFIRM, VINCULO FROM  " . $baseCentral . "conscomiss WHERE VENDMDCODI = ?  ORDER BY REG DESC ";
+$sqlLeads = "SELECT * FROM " . $baseCentral . "consleads WHERE VENDCOD = ? ";
 
 $mysqli->set_charset("utf8");
 $stmt = $mysqli->prepare($sqlVendas);
@@ -62,43 +62,21 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if (mysqli_num_rows($result) > 0) {
-  $vendas = array();
+  $leads = array();
 
   while ($row = mysqli_fetch_assoc($result)) {
-    $parcelas = null;
-
-    if ($row['VINCULO'] != null && $row['VINCULO'] > 0) {
-      $sqlParcelas = "SELECT FATURA, DATVENC, VALOPER1, DATPAG, VALOPER2 FROM operfin WHERE VINCULO = ? AND CODIG = ? ORDER BY REG ";
-
-      $mysqli->set_charset("utf8");
-      $stmt = $mysqli->prepare($sqlParcelas);
-      $stmt->bind_param("ii", $row['VINCULO'], $MDCODI);
-      $stmt->execute();
-      $resultParc = $stmt->get_result();
-
-      if (mysqli_num_rows($resultParc) > 0) {
-        $parcelas = array();
-
-        while ($rowParc = mysqli_fetch_assoc($resultParc)) {
-          $parcelas[] = array(
-            'FATURA' => $rowParc['FATURA'],
-            'DTVENCIMENTO' => $rowParc['DATVENC'],
-            'VALOR' => $rowParc['VALOPER1'],
-            'DTPAGAMENTO' => $rowParc['DATPAG'],
-            'VALORPAGO' => $rowParc['VALOPER2']
-          );
-        }
-      }
-    }
-
-    $vendas[] = array(
-      'CLICPF' => $row['CLICPF'],
-      'CLINOME' => $row['CLIMDFIRM'],
-      'PARCELAS' => $parcelas
+    $leads[] = array(
+      'STATUS' => $row['STATUS'],
+      'NOME' => $row['MDFIRM'],
+      'TELEFONE' => $row['FONE'],
+      'EMAIL' => $row['EMAIL'],
+      'CIDADE' => $row['CIDADE']
     );
   }
 
-  $resp['vendas'] = $vendas;
+  $resp['vendas'] = $leads;
 }
+
+
 
 return  print(json_encode($resp));

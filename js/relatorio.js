@@ -69,7 +69,11 @@ const carregarTudo = () => {
         return false;
       }
 
-      listas.innerHTML = '';
+      if(!Array.isArray(json.vendas)){
+        listas.innerHTML = 'Nenhuma venda concretizada ainda.'
+        return;
+      }
+
 
       json.vendas.forEach(venda => {
         const
