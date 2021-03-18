@@ -48,18 +48,6 @@
 }
 
 
-.linha {
-    display: flex;
-    flex-direction: row;
-    margin-top: 5px;
-}
-
-.linha p:nth-child(2){
-  margin-left: 5px;
-  font-weight: bold;
-}
-
-
 .parcelas {
     margin-top: 15px;
     border-collapse: collapse;

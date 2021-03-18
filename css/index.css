@@ -104,8 +104,21 @@ a {
 #formulario button {
     margin-bottom: 70px;
 }
-/* Para COMPUTADOR */
 
+.linha {
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px;
+}
+
+.linha p:nth-child(2){
+  margin-left: 5px;
+  font-weight: bold;
+  word-break: break-word;
+}
+
+
+/* Para COMPUTADOR */
 @media (min-width: 768px) {
     #logoInfoel {
         margin-bottom: 0px;

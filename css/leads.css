@@ -5,3 +5,15 @@
   overflow-y: auto;
   color: var(--CorDefault);
 }
+
+.itemLead {
+  padding: 5px;
+  border-bottom: 2px solid var(--CorDefault);
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 10px;
+}
+
+.itemLead > .linha {
+  margin-top: 10px;
+}

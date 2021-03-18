@@ -22,6 +22,8 @@ const telaLeads = async () => {
     content.innerHTML = html;
 
     document.getElementById('titulo').innerHTML = "Leads";
+
+    carregarLeads();
 }
 
 const telaNovoCliente = async () => {

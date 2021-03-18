@@ -13,6 +13,8 @@ const carregarLeads = () => {
   })
     .then(resp => resp.json())
     .then(json => {
+      console.log(json);
+
       if (!json.autenticado) {
         alert(json.erro ? `Erro ao cadastrar: ${json.erro}.` : 'Usuário não autenticado');
         carregarLogin();
@@ -24,6 +26,12 @@ const carregarLeads = () => {
         return false;
       }
 
+      if(!Array.isArray(json.leads)){
+        listaLeads.innerHTML = 'Nenhum lead para exibir.'
+        return;
+      }
+
+
       json.leads.forEach(lead => {
         const
           itemLista = document.createElement('div'),
@@ -33,7 +41,7 @@ const carregarLeads = () => {
           linhaEmail = document.createElement('div'),
           linhaCidade = document.createElement('div');
 
-        itemLista.className = 'itemLista';
+        itemLista.className = 'itemLead';
 
         // Cria uma linha com o status
         linhaStatus.className = 'linha';

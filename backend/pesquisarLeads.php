@@ -56,7 +56,7 @@ $MDCODI = $row['MDCODI'];
 $sqlLeads = "SELECT * FROM " . $baseCentral . "consleads WHERE VENDCOD = ? ";
 
 $mysqli->set_charset("utf8");
-$stmt = $mysqli->prepare($sqlVendas);
+$stmt = $mysqli->prepare($sqlLeads);
 $stmt->bind_param("i", $MDCODI);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -74,7 +74,7 @@ if (mysqli_num_rows($result) > 0) {
     );
   }
 
-  $resp['vendas'] = $leads;
+  $resp['leads'] = $leads;
 }
 
 
