@@ -1,23 +1,58 @@
 #listaLeads {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  color: var(--CorDefault);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    color: var(--CorDefault);
+    margin-top: 5px;
 }
 
 .itemLead {
-  padding: 5px;
-  border-bottom: 2px solid var(--CorDefault);
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 10px;
+    padding: 5px;
+    border-bottom: 1px solid var(--CorDefault);
+    display: grid;
+    padding-bottom: 10px;
+    grid-template-columns: max-content auto;
+    justify-items: stretch;
+    
 }
 
-.itemLead > .linha {
+.itemLead > input {
+  grid-column: 1 / span 2;
+  margin: 5px 0;
+  width: auto;
+}
+
+.itemLead > button {
+  grid-column: 1 / span 2;
+  margin: 5px 0;
+  width: auto;
+}
+
+.itemLead > select {
+  width: max-content;
+  height: max-content;
+  align-self: end;
+}
+
+.itemLead > p:nth-child(2n){
+  font-weight: bold;
+}
+
+.itemLead > p:nth-child(1n){
+  margin-right: 5px;
+}
+
+
+.itemLead > p {
+  word-break: break-word;
   margin-top: 10px;
 }
 
-.itemLead > .linha > select {
-  margin-left: 5px;
+#grafico svg>g>g:last-child {
+  pointer-events: none;
+}
+
+#grafico {
+margin: 15px;
 }

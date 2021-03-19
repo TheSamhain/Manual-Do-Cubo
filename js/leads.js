@@ -1,7 +1,7 @@
 const carregarLeads = () => {
   let listaLeads = document.getElementById('listaLeads');
 
-  listaLeads.innerHTML = '';
+  listaLeads.innerHTML = '<div id="grafico" ></div>';
 
   let formData = new FormData();
   formData.append('TOKEN', localStorage.getItem('login'));
@@ -13,6 +13,9 @@ const carregarLeads = () => {
   })
     .then(resp => resp.json())
     .then(json => {
+      console.log(json);
+      const leads = JSON.parse(JSON.stringify(json.leads));
+
       if (!json.autenticado) {
         alert(json.erro ? `Erro ao cadastrar: ${json.erro}.` : 'Usuário não autenticado');
         carregarLogin();
@@ -29,14 +32,57 @@ const carregarLeads = () => {
         return;
       }
 
-      json.leads.forEach(lead => {
+
+      // ** GRÁFICOS **
+      // Opões gerais dos gráficos
+      let options = {
+        sliceVisibilityThreshold: 0, // Porcentagem para agupar items em um só chamado de 'Outros',
+        chartArea: {
+          width: "100%"
+        },
+      };
+
+
+
+      // Desenha os gráficos de pesagem por empresa
+      google.charts.load('current', { packages: ['corechart'], 'language': 'pt' });
+
+      google.charts.setOnLoadCallback(graficoLeads);
+
+
+      function graficoLeads() {
+        let filterLeads = new Set();
+        let data = [];
+
+        json.leads.forEach(lead => filterLeads.add(lead.STATUS));
+
+
+        filterLeads.forEach(leadStatus => {
+          let count = json.leads.reduce((accumulator, lead) => (lead.STATUS == leadStatus ? accumulator + 1 : accumulator), 0);
+          data.push([`${leadStatus} = ${count}`, count, `${leadStatus} \n ${count} (${(count / json.leads.length * 100).toLocaleString('pt-BR', { maximumFractionDigits: 2 })}%)`]);
+        });
+
+        // Instantiate and draw our chart, passing in some options.
+
+        dataGraf = new google.visualization.DataTable();
+        dataGraf.addColumn('string', 'Status');
+        dataGraf.addColumn('number', 'Quantidade');
+        dataGraf.addColumn({ type: 'string', role: 'tooltip' });
+        dataGraf.addRows(data);
+
+        let divGraf = document.getElementById('grafico');
+        let chart = new google.visualization.PieChart(divGraf);
+        chart.draw(dataGraf, options);
+      }
+
+      // Incluir items na lista
+      leads.forEach(lead => {
         const itemLista = document.createElement('div');
 
         itemLista.className = 'itemLead';
 
 
         itemLista.innerHTML = `
-        <div class="linha">
           <p>Status:</p>
           <select onchange="exibirBtnSalvar(this)" data-status="${lead.CODIGO}" >
             <option value="${lead.STATUS}" disabled selected >${capitalizeFirstLetter(lead.STATUS)}</option>
@@ -46,7 +92,6 @@ const carregarLeads = () => {
             <option value="PROPOSTA ACEITA" >Proposta aceita</option>
             <option value="PROPOSTA NEGADA" >Proposta negada</option>
           </select>
-        </div>
         `;
 
         delete lead.STATUS;
@@ -57,34 +102,26 @@ const carregarLeads = () => {
             continue;
           }
 
-          const linha = document.createElement('div');
-          linha.className = 'linha';
+          const label = document.createElement('p');
+          const value = document.createElement('p');
 
-          linha.innerHTML = `
-            <p>${capitalizeFirstLetter(info)}:</p>
-            <p>${lead[info]}</p>
-          `;
+          label.innerHTML = `${capitalizeFirstLetter(info)}:`;
+          value.innerHTML = `${lead[info]}`;
 
-          itemLista.appendChild(linha);
+          itemLista.appendChild(label);
+          itemLista.appendChild(value);
 
-          var twStatus = new Typewriter(linha.children[1], { delay: 0, cursor: null });
+          var twStatus = new Typewriter(value, { delay: 0, cursor: null });
           twStatus.typeString(lead[info]).start();
         }
 
-        let divObs = document.createElement('div');
-        divObs.className = 'linha';
-        divObs.innerHTML = `
-        <input 
-          oninput="(() => { 
-            if(this.value != ''){
-              exibirBtnSalvar(this);
-            } 
-          })()" 
-          type="text" 
-          name="obs" 
-          placeholder="Adicionar observação" />`;
+        let inputObs = document.createElement('input');
+        inputObs.type = "text";
+        inputObs.name = "obs";
+        inputObs.placeholder = "Adicionar observação";
+        inputObs.addEventListener('input', (e) => exibirBtnSalvar(e.target));
 
-        itemLista.appendChild(divObs);
+        itemLista.appendChild(inputObs);
 
         listaLeads.appendChild(itemLista);
 
@@ -94,7 +131,10 @@ const carregarLeads = () => {
 }
 
 const exibirBtnSalvar = (input) => {
-  const divItem = input.parentElement.parentElement;
+  if (input.value == '')
+    return;
+
+  const divItem = input.parentElement;
 
   btnSalvar = document.createElement('button');
   btnSalvar.innerHTML = 'Salvar';
@@ -143,6 +183,8 @@ const salvarStatus = (div) => {
       }
 
       alert(`${json.status}!`);
-      telaLeads();
+
+      input.value = '';
+      div.getElementsByTagName('button')[0].remove();
     });
 }

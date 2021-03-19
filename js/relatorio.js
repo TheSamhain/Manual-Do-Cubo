@@ -69,7 +69,7 @@ const carregarTudo = () => {
         return false;
       }
 
-      if(!Array.isArray(json.vendas)){
+      if (!Array.isArray(json.vendas)) {
         listas.innerHTML = 'Nenhuma venda concretizada ainda.'
         return;
       }
@@ -120,6 +120,13 @@ const carregarTudo = () => {
 
           venda.PARCELAS.forEach(parcela => {
             let tr = document.createElement('tr');
+
+            let dataHoje = new Date(),
+              dataVenc = new Date(parcela.DTVENCIMENTO);
+
+            if (!parcela.DTPAGAMENTO && (dataVenc < dataHoje)) {
+              tr.style.color = 'red';
+            }
 
             tr.innerHTML += `
                   <td>${parcela.FATURA}</td>

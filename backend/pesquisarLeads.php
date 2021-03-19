@@ -53,7 +53,17 @@ if (mysqli_num_rows($result) > 0) {
 
 $MDCODI = $row['MDCODI'];
 
-$sqlLeads = "SELECT leads.*, filiais.FILIAL AS LOJA FROM " . $baseCentral . "consleads leads LEFT JOIN " . $baseCentral . "filiais ON leads.FILIAL = filiais.NUM WHERE VENDCOD = ?";
+$sqlLeads = " SELECT leads.*, filiais.FILIAL AS LOJA 
+              FROM " . $baseCentral . "consleads leads 
+              LEFT JOIN " . $baseCentral . "filiais 
+              ON leads.FILIAL = filiais.NUM 
+              WHERE VENDCOD = ? 
+              AND IF(leads.STATUS = 'PROPOSTA ACEITA' OR leads.STATUS = 'PROPOSTA NEGADA', STATUSDH >= subdate(now(), 15), 1=1)
+              ORDER BY 
+                leads.STATUS <> 'DISTRIBUÍDO' , 
+                leads.STATUS <> 'CONTATADO' , 
+                leads.STATUS <> 'EM NEGOCIAÇÃO',
+                leads.STATUS <> 'PROPOSTA ENVIADA' ";
 
 $mysqli->set_charset("utf8");
 $stmt = $mysqli->prepare($sqlLeads);

@@ -53,7 +53,15 @@ if (mysqli_num_rows($result) > 0) {
 
 $MDCODI = $row['MDCODI'];
 
-$sqlVendas = "SELECT CLICPF, CLIMDFIRM, VINCULO FROM  " . $baseCentral . "conscomiss WHERE VENDMDCODI = ?  ORDER BY REG DESC ";
+$sqlVendas = "SELECT CLICPF, CLIMDFIRM, VINCULO
+              FROM " . $baseCentral . "conscomiss
+              WHERE VENDMDCODI = ?
+                AND (
+                  DTADESAO >= SUBDATE(NOW(), INTERVAL 10 MONTH)
+                  OR (SELECT COUNT(*) FROM operfin WHERE VINCULO = conscomiss.VINCULO AND CODIG = conscomiss.VENDMDCODI AND (DATPAG IS NULL OR DATPAG = 0) ORDER BY REG) > 0
+                )
+              ORDER BY REG DESC
+            ";
 
 $mysqli->set_charset("utf8");
 $stmt = $mysqli->prepare($sqlVendas);
