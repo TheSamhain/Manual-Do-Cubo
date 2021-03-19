@@ -36,13 +36,6 @@ if (!$mysqli) {
   return print(json_encode($resp));
 }
 
-if ($arrINFOS["status"] == "NOVO" || $arrINFOS["status"] == "DISTRIBUÍDO" || $arrINFOS["status"] == "") {
-  $resp['status'] = 'Erro';
-  $resp["erro"] = "\nEste status não pode ser cadastrado!";
-
-  return print(json_encode($resp));
-}
-
 $nomeUser = json_decode(base64_decode($TOKEN))->NOME;
 $idUser = json_decode(base64_decode($TOKEN))->ID;
 
@@ -63,9 +56,9 @@ if (mysqli_num_rows($result) > 0) {
 
   return print(json_encode($resp));
 }
+
 // Armazena o código no cadatro deste usuário
 $MDCODI = $row['MDCODI'];
-
 
 $bdArray = array(
   'STATUS' => $arrINFOS['status'],
@@ -73,24 +66,32 @@ $bdArray = array(
   'STATUSDH' => date("Y-m-d H:i:s"),
 );
 
-
 $sqlUpdate = "UPDATE " . $baseCentral . "consleads SET ";
 
-foreach ($bdArray as $key => $value) {
-  $sqlUpdate .= "$key = '$value', ";
+
+// Se o STATUS for diferetne de NOVO ou DISTRIBUÍDO atualizar o STATUS
+if ($arrINFOS["status"] != "NOVO" && $arrINFOS["status"] != "DISTRIBUÍDO" && $arrINFOS["status"] != "") {
+  foreach ($bdArray as $key => $value) {
+    $sqlUpdate .= "$key = '$value', ";
+  }
 }
 
-
-if($arrINFOS['obs'] != '' && $arrINFOS['obs'] != null){
-  $sqlUpdate .= ' OBS = CONCAT(IFNULL(OBS, ""), IF(OBS IS NULL OR OBS = "", "", "\n"), "' .$arrINFOS['obs'].'"),  ';
+// Se houver observação para incluir coloca no update
+if ($arrINFOS['obs'] != '' && $arrINFOS['obs'] != null) {
+  $sqlUpdate .= ' OBS = CONCAT(IFNULL(OBS, ""), IF(OBS IS NULL OR OBS = "", "", "\n"), "' . $arrINFOS['obs'] . '"),  ';
 }
 
-$sqlUpdate .=  ' STATUSHIST = CONCAT("' . $arrINFOS['status'] . ' - ' . date("Y-m-d H:i:s") . ' - ' . $nomeUser.'\n", STATUSHIST) ';
+// Se o status for NOVO ou DISTRIBUÍDO  atualiza histórico apenas como observação
+if ($arrINFOS["status"] != "NOVO" && $arrINFOS["status"] != "DISTRIBUÍDO" && $arrINFOS["status"] != "") {
+  $sqlUpdate .=  ' STATUSHIST = CONCAT("' . $arrINFOS['status'] . ' - ' . date("Y-m-d H:i:s") . ' - ' . $nomeUser . '\n", STATUSHIST) ';
+} else {
+  $sqlUpdate .=  ' STATUSHIST = CONCAT("OBS - ' . date("Y-m-d H:i:s") . ' - ' . $nomeUser . '\n", STATUSHIST) ';
+}
 
 $sqlUpdate .= " WHERE REG = ? AND VENDCOD = ? ";
 
 $stmt = $mysqli->prepare($sqlUpdate);
-$stmt->bind_param("ii", $arrINFOS['codigo'], $MDCODI );
+$stmt->bind_param("ii", $arrINFOS['codigo'], $MDCODI);
 
 if ($stmt->execute()) {
   $resp['status'] = 'Cadastro atualizado';

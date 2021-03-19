@@ -53,7 +53,7 @@ if (mysqli_num_rows($result) > 0) {
 
 $MDCODI = $row['MDCODI'];
 
-$sqlLeads = "SELECT * FROM " . $baseCentral . "consleads WHERE VENDCOD = ? ";
+$sqlLeads = "SELECT leads.*, filiais.FILIAL AS LOJA FROM " . $baseCentral . "consleads leads LEFT JOIN " . $baseCentral . "filiais ON leads.FILIAL = filiais.NUM WHERE VENDCOD = ?";
 
 $mysqli->set_charset("utf8");
 $stmt = $mysqli->prepare($sqlLeads);
@@ -72,6 +72,8 @@ if (mysqli_num_rows($result) > 0) {
       'EMAIL' => $row['EMAIL'],
       'CIDADE' => $row['CIDADE'],
       'CODIGO' => $row['REG'],
+      'CPF' => $row['CPFCNPJ'],
+      'LOJA' => $row['LOJA'],
     );
   }
 

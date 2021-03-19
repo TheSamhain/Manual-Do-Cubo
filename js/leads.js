@@ -37,15 +37,15 @@ const carregarLeads = () => {
 
         itemLista.innerHTML = `
         <div class="linha">
-        <p>Status:</p>
-        <select onchange="exibirSalvar(this)" data-status="${lead.CODIGO}" >
-        <option value="" disabled selected >${capitalizeFirstLetter(lead.STATUS)}</option>
-        <option value="CONTATADO" >Contatado</option>
-        <option value="PROPOSTA ENVIADA" >Proposta enviada</option>
-        <option value="EM NEGOCIAÇÃO" >Em negociação</option>
-        <option value="PROPOSTA ACEITA" >Proposta aceita</option>
-        <option value="PROPOSTA NEGADA" >Proposta negada</option>
-        </select>
+          <p>Status:</p>
+          <select onchange="exibirBtnSalvar(this)" data-status="${lead.CODIGO}" >
+            <option value="${lead.STATUS}" disabled selected >${capitalizeFirstLetter(lead.STATUS)}</option>
+            <option value="CONTATADO" >Contatado</option>
+            <option value="PROPOSTA ENVIADA" >Proposta enviada</option>
+            <option value="EM NEGOCIAÇÃO" >Em negociação</option>
+            <option value="PROPOSTA ACEITA" >Proposta aceita</option>
+            <option value="PROPOSTA NEGADA" >Proposta negada</option>
+          </select>
         </div>
         `;
 
@@ -53,6 +53,10 @@ const carregarLeads = () => {
         delete lead.CODIGO;
 
         for (let info in lead) {
+          if (!lead[info]) {
+            continue;
+          }
+
           const linha = document.createElement('div');
           linha.className = 'linha';
 
@@ -73,14 +77,14 @@ const carregarLeads = () => {
         <input 
           oninput="(() => { 
             if(this.value != ''){
-              exibirSalvar(this);
+              exibirBtnSalvar(this);
             } 
           })()" 
           type="text" 
           name="obs" 
           placeholder="Adicionar observação" />`;
 
-          itemLista.appendChild(divObs);
+        itemLista.appendChild(divObs);
 
         listaLeads.appendChild(itemLista);
 
@@ -89,7 +93,7 @@ const carregarLeads = () => {
     });
 }
 
-const exibirSalvar = (input) => {
+const exibirBtnSalvar = (input) => {
   const divItem = input.parentElement.parentElement;
 
   btnSalvar = document.createElement('button');
@@ -107,12 +111,6 @@ const salvarStatus = (div) => {
     input = div.getElementsByTagName('input')[0],
     valor = select.value,
     codigo = select.getAttribute('data-status');
-
-  if (valor == "NOVO" || valor == "DISTRIBUÍDO" || valor == "") {
-    alert("Este status não pode ser cadastrado!");
-    return;
-  }
-
 
   const infos = {
     status: valor,
@@ -132,7 +130,7 @@ const salvarStatus = (div) => {
     .then(resp => resp.json())
     .then(json => {
       console.log(json);
-      
+
       if (!json.autenticado) {
         alert(json.erro ? `Erro ao cadastrar: ${json.erro}.` : 'Usuário não autenticado');
         carregarLogin();

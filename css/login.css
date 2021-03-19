@@ -40,6 +40,11 @@
     justify-content: center;
 }
 
+form.login-part {
+    justify-content: flex-start;
+    padding-top: 35px;
+}
+
 /* Para COMPUTADOR */
 
 @media (min-width: 768px) {
@@ -47,5 +52,9 @@
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         height: 450px;
         width: 350px;
+    }
+
+    form.login-part {
+        justify-content: center;
     }
 }
