@@ -5,7 +5,7 @@ const carregarHome = async () => {
     html = await html.text();
     main.innerHTML = html;
 
-    telaLeads();
+    telaRelatorio();
     
     if (screen.width > 768) {
         alert('ESTE APLICATIVO É DESTINADO PARA CELULARES \n\nNÃO RECOMENDAMOS O USO EM COMPUTADORES')

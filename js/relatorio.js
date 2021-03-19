@@ -1,6 +1,10 @@
 const pesquisar = (text) => {
   text = text.trim();
 
+  if(text == ''){
+    return;
+  }
+
   let items = document.getElementsByClassName('itemLista');
 
   for (let item of items) {
@@ -32,15 +36,7 @@ const pesquisar = (text) => {
 }
 
 const validarEntrada = (event) => {
-  let items = document.getElementsByClassName('itemLista');
-
-  for (let item of items) {
-    item.style.display = "flex";
-  }
-
-  if (event.target.value.length > 4)
-    pesquisar(event.target.value);
-
+  alert(event.key)
 }
 
 const carregarTudo = () => {
