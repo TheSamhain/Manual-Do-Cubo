@@ -48,8 +48,6 @@ const pesquisar = (text) => {
           trs = tbody.children;
 
         for (const tr of trs) {
-          console.log(tr.style.color == 'red');
-
           if (tr.style.color == 'red') {
             esconder = false;
             break;

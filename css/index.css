@@ -70,20 +70,49 @@ a {
     padding: 5px;
     display: flex;
     flex-direction: column;
-    margin-bottom: 70px;
+    /* margin-bottom: 70px; */
+
+    color: var(--CorDefault);
 }
 
 #formulario label {
     margin: 5px 0px;
     display: flex;
     flex-direction: column;
-    color: var(--CorDefault);
+}
+
+#formulario h1 {
+    font-weight: bold;
+    font-size: large;
 }
 
 #formulario label > p {
     margin-bottom: 5px;
 }
 
+#formulario div {
+    margin-left: 15px;
+    margin-bottom: 20px;
+}
+
+#formulario #infoCliente {
+    margin-bottom: 0px;
+}
+
+#formulario #dadosPessoa {
+    margin-bottom: 0px;
+    margin-left: 0px;
+}
+
+#formulario input,
+#formulario select {
+    width: auto;
+    font-family: "Calibri", sans-serif;
+    padding: 5px;
+    color: var(--CorDefault);
+    font-size: 15px;
+}
+/*
 #formulario input,
 #formulario select {
     font-family: "Calibri", sans-serif;
@@ -100,6 +129,7 @@ a {
     border-top: 1px solid #aaa;
     width: 80%;
 }
+*/
 
 #formulario button {
     margin-bottom: 70px;
@@ -112,13 +142,11 @@ a {
     margin-right: 5px;
 }
 
-
-.linha p:nth-child(2){
-  margin-left: 5px;
-  font-weight: bold;
-  word-break: break-word;
+.linha p:nth-child(2) {
+    margin-left: 5px;
+    font-weight: bold;
+    word-break: break-word;
 }
-
 
 /* Para COMPUTADOR */
 @media (min-width: 768px) {

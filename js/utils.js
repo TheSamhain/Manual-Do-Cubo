@@ -410,3 +410,32 @@ const evitarEspacosInputs = () => {
  */
 const capitalizeFirstLetter = (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
 
+
+/**
+ * Inclui o botão salvar no final do form
+ */
+ const incluirSalvar = () => {
+    const
+        form = document.getElementsByTagName('form')[0],
+        btnSalvar = document.createElement('button');
+
+    let dados = new FormData(form);
+
+    // Pega os dados do formulário
+    for (let pair of dados.entries()) {
+        if ((pair[1].length == 0) && (document.getElementsByName(pair[0])[0].required)) {
+            return false;
+        }
+    }
+
+    btnSalvar.type = "submit";
+    btnSalvar.innerHTML = "Salvar";
+
+    if (!!dados.get('nome') || !!dados.get('razao')) {
+        btnSalvar.id = "btnSalvarCadastro";
+    }
+    
+    if(form.getElementsByTagName('button').length === 0){
+        form.appendChild(btnSalvar);
+    }
+}

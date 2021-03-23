@@ -24,6 +24,7 @@
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    margin: 0px 10px;
 }
 
 /* BARRA DE NAVEGAÇÃO */
@@ -49,6 +50,7 @@ i {
     flex-direction: row;
     justify-content: space-between;
     height: 100%;
+    padding: 5px;
 }
 
 #home nav li {

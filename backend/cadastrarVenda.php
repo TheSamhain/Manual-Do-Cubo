@@ -41,6 +41,13 @@
     $arrINFOS['valorCarta'] = preg_replace('/[^0-9]/is', '',  $arrINFOS['valorCarta']);
     $arrINFOS['valorCarta'] = substr_replace($arrINFOS['valorCarta'], '.', strlen($arrINFOS['valorCarta']) - 2, 0);
 
+    if($arrINFOS['valorCarta'] <= 0){
+        $resp['status'] = 'Erro';
+        $resp['erro'] = "Valor da carta inválido";
+
+        return print(json_encode($resp));
+    }
+
     $bdArray = array(
         'DTADESAO' => $arrINFOS['dataAdesao'],
         'TIPO' => $arrINFOS['tipo'],

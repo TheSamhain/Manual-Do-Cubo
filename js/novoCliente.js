@@ -1,7 +1,7 @@
 const cadastrarCliente = (e) => {
     e.preventDefault();
 
-    if(!dono){
+    if (!dono) {
         alert('Este cadastro já existe em outra loja, mas não está compartilhado.');
         return;
     }
@@ -31,6 +31,10 @@ const cadastrarCliente = (e) => {
         document.getElementsByName(pair[0])[0].style.boxShadow = null;
         infos[pair[0]] = pair[1].trim();
     }
+
+    let dateParts = infos.dataNasc.split('/');
+    infos.dataNasc = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`
+    
 
     if (tipo == 'F') {
         if (!isValidCPF(infos.cpf)) {
@@ -138,13 +142,12 @@ const verificarDados = (cpfcnpj) => {
         inputComplemento = document.getElementsByName('complemento')[0];
 
 
-
     procurarCadastro(cpfcnpj).then(dados => {
         if (!dados) {
             return;
         }
 
-        if((!dados.DONO) && (!dados.COMPARTILHADO)){
+        if ((!dados.DONO) && (!dados.COMPARTILHADO)) {
             alert(`Este cadastro já existe em outra loja, mas não está compartilhado.\n\nSolicite o compartilhamento para a loja: ${dados.DONONOME}`);
             dono = false;
             return;
@@ -152,18 +155,12 @@ const verificarDados = (cpfcnpj) => {
         dono = true;
 
         if (tipo == 'F') {
-            const
-                inputDataNasc = document.getElementsByName('dataNasc')[0],
-                inputNome = document.getElementsByName('nome')[0];
+            document.getElementsByName('dataNasc')[0].value = dados.DTNASCIMENTO;
+            document.getElementsByName('nome')[0].value = dados.NOME;
 
-            inputDataNasc.value = dados.DTNASCIMENTO;
-            inputNome.value = dados.NOME;
         } else {
-            const inputRazao = document.getElementsByName('razao')[0],
-                inputFantasia = document.getElementsByName('fantasia')[0];
-
-            inputRazao.value = dados.RAZAO;
-            inputFantasia.value = dados.FANTASIA;
+            document.getElementsByName('razao')[0].value = dados.RAZAO;
+            document.getElementsByName('fantasia')[0].value = dados.FANTASIA;
         }
 
         inputEmail.value = dados.EMAIL;
@@ -177,6 +174,8 @@ const verificarDados = (cpfcnpj) => {
         inputCidade.value = dados.ENDMUNICIPIO;
         inputEstado.value = dados.ENDESTADO;
         inputComplemento.value = dados.ENDCOMPLEMENTO;
+
+        incluirSalvar();
     });
 }
 
@@ -212,10 +211,8 @@ const verificarCep = (cep) => {
 
                 if (json.logradouro) {
                     inputRua.value = json.logradouro;
-                    inputNumCasa.focus();
-                } else {
-                    inputRua.focus();
                 }
+                focus();
             });
         })
         .catch((e) => {
@@ -272,5 +269,17 @@ const alterarTipoPessoa = (tipo) => {
 
 
         dadosPessoa.innerHTML = inputCPF + inputNome + inputDataNasc;
+    }
+}
+
+const validarDataNasc = (input) => {
+    if (!input.value)
+        return;
+
+    if (!isValidDate(input.value)) {
+        input.style.boxShadow = "1px 1px 3px red";
+        alert('Data de nascimento inválida');
+    } else {
+        input.style.boxShadow = null;
     }
 }

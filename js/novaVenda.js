@@ -6,19 +6,32 @@ const cadastrarVenda = (e) => {
       return;
    }
 
+   const inputValor = document.getElementsByName('valorCarta')[0];
+   let valido = true;
+
    let { target } = e,
       dados = new FormData(target),
       infos = {};
 
    if (!!dados.get('nome') || !!dados.get('razao')) {
-      if (!cadastrarCliente(e)){
+      if (!cadastrarCliente(e)) {
          alert(`Um erro ocorreu ao tentar relizar o cadastro do cliente.`);
          return false;
       }
 
       let divInfos = target.getElementsByTagName('div')[0];
       divInfos.innerHTML = '';
+   }
 
+   if (inputValor.value == '' || justNumbers(inputValor.value) == 0) {
+      inputValor.style.boxShadow = "1px 1px 3px red";
+      valido = false;
+   }
+
+
+   if (!valido) {
+      alert('É necessário preencher todos os campos corretamente.');
+      return false;
    }
 
    let dadosVenda = new FormData(target);
@@ -66,7 +79,9 @@ const cadastrarVenda = (e) => {
 }
 
 const carregarDadosCliente = (cpfcnpj) => {
-   const infoCliente = document.getElementById('infoCliente');
+   const
+      infoCliente = document.getElementById('infoCliente'),
+      inputValor = document.getElementsByName('valorCarta')[0];
 
    procurarCadastro(cpfcnpj).then(async (dados) => {
       if (dados === false) {
@@ -80,7 +95,6 @@ const carregarDadosCliente = (cpfcnpj) => {
          let inputs = document.createElement('div');
          inputs.innerHTML = html;
 
-         inputs.getElementsByTagName('button')[0].remove();
          inputs.getElementsByTagName('label')[0].remove();
          inputs.getElementsByTagName('label')[0].remove();
 
@@ -130,6 +144,15 @@ const carregarDadosCliente = (cpfcnpj) => {
          }
 
          infoCliente.innerHTML = nome;
+
+
+         // Esconder teclado no celular
+         setTimeout(() => {
+            inputValor.focus();
+            setTimeout(() => {
+               inputValor.blur();
+            }, 50);
+         }, 50);
       }
    });
 
