@@ -13,7 +13,6 @@ const carregarLeads = () => {
   })
     .then(resp => resp.json())
     .then(json => {
-      console.log(json);
       const leads = JSON.parse(JSON.stringify(json.leads));
 
       if (!json.autenticado) {
@@ -169,8 +168,6 @@ const salvarStatus = (div) => {
   })
     .then(resp => resp.json())
     .then(json => {
-      console.log(json);
-
       if (!json.autenticado) {
         alert(json.erro ? `Erro ao cadastrar: ${json.erro}.` : 'Usuário não autenticado');
         carregarLogin();
