@@ -30,6 +30,14 @@
 }
 */
 
+#resumo {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    color: var(--CorDefault);
+    margin: 5px 0px;
+}
+
 #pesquisa i {
     margin: 3px;
     margin-right: 10px;

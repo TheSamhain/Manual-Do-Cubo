@@ -1,17 +1,36 @@
 const pesquisar = (text) => {
   text = text.trim();
+  
+  const input = document.getElementById('inputPesquisa');
 
-  if(text == ''){
+  // Esconder teclado no celular
+  setTimeout(() => {
+    input.focus();
+    setTimeout(() => {
+      input.blur();
+    }, 50);
+  }, 50);
+
+  // Limpar pesquisa se não houver nada digitado
+  if (text == '') {
+    limparPesquisa();
     return;
   }
+  
+  input.value = '';
 
-  let items = document.getElementsByClassName('itemLista');
+  const
+    items = document.getElementsByClassName('itemLista'),
+    resumo = document.getElementById('resumo');
 
-  for (let item of items) {
+  let qtde = 0;
+
+  for (const item of items) {
     let esconder = true;
 
     for (let data of item.children) {
 
+      // Procura nas informações se há algo com a pesquisa
       if (data.tagName == 'DIV') {
         const regex = new RegExp(`${text}${justNumbers(text) == '' ? '' : ('|' + justNumbers(text))}`, 'ig');
         let cont = data.children[1].innerHTML;
@@ -21,22 +40,64 @@ const pesquisar = (text) => {
         }
       }
 
-      if (data.tagName == 'TABLE') {
+      let venc = (text.search(/venci/ig) >= 0) || (text.search(/atrasa/ig) >= 0);
+      // Se for pesqusiado por  vencido ou atrasado procura na tabela se há algum registro vencido e não pago
+      if ((data.tagName == 'TABLE') && venc) {
+        const
+          tbody = data.querySelector('tbody'),
+          trs = tbody.children;
+
+        for (const tr of trs) {
+          console.log(tr.style.color == 'red');
+
+          if (tr.style.color == 'red') {
+            esconder = false;
+            break;
+          }
+        }
 
       }
 
+      if(!esconder){
+        break;
+      }
     }
 
-    if (esconder)
+    if (esconder) {
       item.style.display = "none";
-    else
+    } else {
       item.style.display = "flex";
+      qtde++;
+    }
 
   }
+
+  resumo.innerHTML = `<p>Filtro: <b>${text}</b></p>
+                      <p>Registros: <b>${qtde}</b></p>`
+
+}
+
+const limparPesquisa = () => {
+  const
+    items = document.getElementsByClassName('itemLista'),
+    resumo = document.getElementById('resumo');
+
+  for (const item of items) {
+    item.style.display = "flex";
+  }
+
+  resumo.innerHTML = '';
+
 }
 
 const validarEntrada = (event) => {
-  alert(event.key)
+  const
+    input = event.target,
+    valor = input.value;
+
+  if (event.key == "Enter") {
+    pesquisar(valor);
+  }
 }
 
 const carregarTudo = () => {
