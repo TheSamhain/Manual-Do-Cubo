@@ -36,7 +36,8 @@ const carregarLeads = () => {
       let options = {
         sliceVisibilityThreshold: 0, // Porcentagem para agupar items em um só chamado de 'Outros',
         chartArea: {
-          width: "100%"
+          width: "100%",
+          height: "100%"
         },
       };
 
@@ -154,7 +155,10 @@ const salvarStatus = (div) => {
           }
 
           div.innerHTML = criarItemLista(json.lead, false).innerHTML;
-          div.classList.remove('destacado');
+          
+          if(json.lead.STATUS != 'DISTRIBUÍDO'){            
+            div.classList.remove('destacado');
+          } 
         });
 
     });
