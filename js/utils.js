@@ -276,11 +276,59 @@ const formatDate = (date) => {
 }
 
 /**
+ *  Deixa a primeira letra da palavra em maiúscula e o resto em minusculas
+ * @param {String} word Palavra a ser convertida
+ */
+ const capitalizeFirstLetter = (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+
+
+/**
+ * Formata data do tipo yyyy-mm-dd hh:nn:ss para dd/mm/yyyy hh:nn:ss
+ * @param  {String} date Data para ser convertida
+ * @return {String} Data no formato dd/mm/yyyy hh:nn:ss
+ */
+const formatDateTime = (date) => {
+    let dateTime = new Date(date),
+        datePart = date.match(/\d+/g),
+        year = datePart[0],
+        month = datePart[1],
+        day = datePart[2]
+
+    return day + '/' + month + '/' + year + ' ' + dateTime.toLocaleTimeString();
+}
+
+/**
+ * Evita que o usuário insira apenas espaços em branco nos Inputs.
+ * @summary
+ * Se o input estiver o __inputmode__ como text ou indefinido não permite colocar espaços apenas no ínicio do campo.
+ * 
+ * Se o input estiver com o __inputmode__ diferente de text não permite colocar esapços nem no ínicio nem no fim.
+ */
+ const evitarEspacosInputs = () => {
+    let inputs = document.getElementsByTagName('input');
+
+    for (let input of inputs) {
+        // Verifica se o input já tem uma função OnInput
+        if (!input.oninput) {
+            // Se não tiver coloca uma apenas para não permitir somente espaços no campo
+            if (!!input.attributes.inputmode) {
+                if (input.attributes.inputmode.value == 'text')
+                    input.addEventListener('input', ({ target }) => target.value = target.value.trimStart());
+                else
+                    input.addEventListener('input', ({ target }) => target.value = target.value.trim());
+            } else
+                input.addEventListener('input', ({ target }) => target.value = target.value.trimStart());
+
+        }
+    }
+}
+
+/**
  * Inclui máscara da Moeda
  * @param  {String} value texto a ser formatado
  * @return {String}       Texto já formatado
  */
-const currencyMask = (input) => {
+ const currencyMask = (input) => {
     input.value = `000${input.value}`;
 
     input.value =
@@ -320,20 +368,6 @@ const setCaretToEnd = (input) => {
     }
 }
 
-/**
- * Formata data do tipo yyyy-mm-dd hh:nn:ss para dd/mm/yyyy hh:nn:ss
- * @param  {String} date Data para ser convertida
- * @return {String} Data no formato dd/mm/yyyy hh:nn:ss
- */
-const formatDateTime = (date) => {
-    let dateTime = new Date(date),
-        datePart = date.match(/\d+/g),
-        year = datePart[0],
-        month = datePart[1],
-        day = datePart[2]
-
-    return day + '/' + month + '/' + year + ' ' + dateTime.toLocaleTimeString();
-}
 
 /**
  * Procura o CPF na base de dados
@@ -378,37 +412,7 @@ const procurarCadastro = async (cpfcnpj) => {
     return json.cliente;
 }
 
-/**
- * Evita que o usuário insira apenas espaços em branco nos Inputs.
- * @summary
- * Se o input estiver o __inputmode__ como text ou indefinido não permite colocar espaços apenas no ínicio do campo.
- * 
- * Se o input estiver com o __inputmode__ diferente de text não permite colocar esapços nem no ínicio nem no fim.
- */
-const evitarEspacosInputs = () => {
-    let inputs = document.getElementsByTagName('input');
 
-    for (let input of inputs) {
-        // Verifica se o input já tem uma função OnInput
-        if (!input.oninput) {
-            // Se não tiver coloca uma apenas para não permitir somente espaços no campo
-            if (!!input.attributes.inputmode) {
-                if (input.attributes.inputmode.value == 'text')
-                    input.addEventListener('input', ({ target }) => target.value = target.value.trimStart());
-                else
-                    input.addEventListener('input', ({ target }) => target.value = target.value.trim());
-            } else
-                input.addEventListener('input', ({ target }) => target.value = target.value.trimStart());
-
-        }
-    }
-}
-
-/**
- *  Deixa a primeira letra da palavra em maiúscula e o resto em minusculas
- * @param {String} word Palavra a ser convertida
- */
-const capitalizeFirstLetter = (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
 
 
 /**
@@ -429,7 +433,7 @@ const capitalizeFirstLetter = (word) => word.charAt(0).toUpperCase() + word.slic
     }
 
     btnSalvar.type = "submit";
-    btnSalvar.innerHTML = "Salvar";
+    btnSalvar.innerHTML = "Incluir";
 
     if (!!dados.get('nome') || !!dados.get('razao')) {
         btnSalvar.id = "btnSalvarCadastro";

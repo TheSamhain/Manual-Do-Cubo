@@ -3,6 +3,8 @@
     flex-direction: column;
     align-items: center;
     padding: 5px;
+    
+    border-bottom: 1px solid var(--CorDefault);
 }
 
 #pesquisa input {
@@ -54,7 +56,7 @@
 
 .itemLista {
     padding: 5px;
-    border-bottom: 2px solid var(--CorDefault);
+    border-bottom: 1px solid var(--CorDefault);
     margin-top: 15px;
     display: flex;
     flex-direction: column;

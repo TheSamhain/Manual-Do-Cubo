@@ -76,14 +76,15 @@ if (mysqli_num_rows($result) > 0) {
 
   while ($row = mysqli_fetch_assoc($result)) {
     $leads[] = array(
+      'CODIGO' => $row['REG'],
       'STATUS' => $row['STATUS'],
       'NOME' => $row['MDFIRM'],
       'TELEFONE' => $row['FONE'],
       'EMAIL' => $row['EMAIL'],
       'CIDADE' => $row['CIDADE'],
-      'CODIGO' => $row['REG'],
       'CPF' => $row['CPFCNPJ'],
       'LOJA' => $row['LOJA'],
+      'OBS' => str_replace("\n" , "<br/>", $row['OBS'])
     );
   }
 

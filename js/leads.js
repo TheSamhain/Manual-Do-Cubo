@@ -13,8 +13,6 @@ const carregarLeads = () => {
   })
     .then(resp => resp.json())
     .then(json => {
-      const leads = JSON.parse(JSON.stringify(json.leads));
-
       if (!json.autenticado) {
         alert(json.erro ? `Erro ao cadastrar: ${json.erro}.` : 'Usuário não autenticado');
         carregarLogin();
@@ -31,6 +29,7 @@ const carregarLeads = () => {
         return;
       }
 
+      const leads = JSON.parse(JSON.stringify(json.leads));
 
       // ** GRÁFICOS **
       // Opões gerais dos gráficos
@@ -75,56 +74,7 @@ const carregarLeads = () => {
       }
 
       // Incluir items na lista
-      leads.forEach(lead => {
-        const itemLista = document.createElement('div');
-
-        itemLista.className = 'itemLead';
-
-
-        itemLista.innerHTML = `
-          <p>Status:</p>
-          <select onchange="exibirBtnSalvar(this)" data-status="${lead.CODIGO}" >
-            <option value="${lead.STATUS}" disabled selected >${capitalizeFirstLetter(lead.STATUS)}</option>
-            <option value="CONTATADO" >Contatado</option>
-            <option value="PROPOSTA ENVIADA" >Proposta enviada</option>
-            <option value="EM NEGOCIAÇÃO" >Em negociação</option>
-            <option value="PROPOSTA ACEITA" >Proposta aceita</option>
-            <option value="PROPOSTA NEGADA" >Proposta negada</option>
-          </select>
-        `;
-
-        delete lead.STATUS;
-        delete lead.CODIGO;
-
-        for (let info in lead) {
-          if (!lead[info]) {
-            continue;
-          }
-
-          const label = document.createElement('p');
-          const value = document.createElement('p');
-
-          label.innerHTML = `${capitalizeFirstLetter(info)}:`;
-          value.innerHTML = `${lead[info]}`;
-
-          itemLista.appendChild(label);
-          itemLista.appendChild(value);
-
-          var twStatus = new Typewriter(value, { delay: 0, cursor: null });
-          twStatus.typeString(lead[info]).start();
-        }
-
-        let inputObs = document.createElement('input');
-        inputObs.type = "text";
-        inputObs.name = "obs";
-        inputObs.placeholder = "Adicionar observação";
-        inputObs.addEventListener('input', (e) => exibirBtnSalvar(e.target));
-
-        itemLista.appendChild(inputObs);
-
-        listaLeads.appendChild(itemLista);
-
-      });
+      leads.forEach(lead => listaLeads.appendChild(criarItemLista(lead)));
 
     });
 }
@@ -169,7 +119,7 @@ const salvarStatus = (div) => {
     .then(resp => resp.json())
     .then(json => {
       if (!json.autenticado) {
-        alert(json.erro ? `Erro ao cadastrar: ${json.erro}.` : 'Usuário não autenticado');
+        alert(json.erro ? `Erro ao atualizar: ${json.erro}.` : 'Usuário não autenticado');
         carregarLogin();
         return false;
       }
@@ -179,9 +129,94 @@ const salvarStatus = (div) => {
         return false;
       }
 
-      alert(`${json.status}!`);
+      const idLead = div.getElementsByTagName('p')[1].innerHTML;
 
-      input.value = '';
-      div.getElementsByTagName('button')[0].remove();
+      let leadData = new FormData();
+      leadData.append('TOKEN', localStorage.getItem('login'));
+      leadData.append('LOCAL', LOCAL);
+      leadData.append('ID', idLead);
+
+      fetch('backend/procurarUmLead.php', {
+        method: 'POST',
+        body: leadData,
+      })
+        .then(resp => resp.json())
+        .then(json => {
+          if (!json.autenticado) {
+            alert(json.erro ? `Erro ao atualizar lead: ${json.erro}.` : 'Usuário não autenticado');
+            carregarLogin();
+            return false;
+          }
+
+          if (json.status == 'Erro') {
+            alert(`Um erro ocorreu ao exibir lead aualizado. Atualize a lista`);
+            return false;
+          }
+
+          div.innerHTML = criarItemLista(json.lead, false).innerHTML;
+          div.classList.remove('destacado');
+        });
+
     });
+}
+
+const criarItemLista = (lead, Typewrite = true) => {
+  if (lead.STATUS == 'NOVO') {
+    return;
+  }
+
+  const itemLista = document.createElement('div');
+
+  itemLista.className = 'itemLead';
+
+  if (lead.STATUS == 'DISTRIBUÍDO') {
+    itemLista.classList.add('destacado');
+  }
+
+
+  itemLista.innerHTML = `
+    <p>Registro:</p><p>${lead.CODIGO}</p>
+    <p>Status:</p>
+    <select onchange="exibirBtnSalvar(this)" data-status="${lead.CODIGO}" >
+      <option value="${lead.STATUS}" disabled selected >${capitalizeFirstLetter(lead.STATUS)}</option>
+      <option value="CONTATADO" >Contatado</option>
+      <option value="PROPOSTA ENVIADA" >Proposta enviada</option>
+      <option value="EM NEGOCIAÇÃO" >Em negociação</option>
+      <option value="PROPOSTA ACEITA" >Proposta aceita</option>
+      <option value="PROPOSTA NEGADA" >Proposta negada</option>
+    </select>
+  `;
+
+  delete lead.STATUS;
+  delete lead.CODIGO;
+
+  for (let info in lead) {
+    if (!lead[info]) {
+      continue;
+    }
+
+    const label = document.createElement('p');
+    const value = document.createElement('p');
+
+    label.innerHTML = `${capitalizeFirstLetter(info)}:`;
+    value.innerHTML = `${lead[info]}`;
+
+    itemLista.appendChild(label);
+    itemLista.appendChild(value);
+
+    if ( (info != "OBS") && (Typewrite) ) {
+      var twStatus = new Typewriter(value, { delay: 0, cursor: null });
+      twStatus.typeString(lead[info]).start();
+    }
+  }
+
+  let inputObs = document.createElement('input');
+  inputObs.type = "text";
+  inputObs.name = "obs";
+  inputObs.placeholder = "Adicionar observação";
+  inputObs.addEventListener('input', (e) => exibirBtnSalvar(e.target));
+
+  itemLista.appendChild(inputObs);
+
+  return itemLista;
 }

@@ -30,13 +30,12 @@ const cadastrarCliente = (e) => {
 
         document.getElementsByName(pair[0])[0].style.boxShadow = null;
         infos[pair[0]] = pair[1].trim();
-    }
-
-    let dateParts = infos.dataNasc.split('/');
-    infos.dataNasc = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`
+    }    
     
-
     if (tipo == 'F') {
+        let dateParts = infos.dataNasc.split('/');
+        infos.dataNasc = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`
+
         if (!isValidCPF(infos.cpf)) {
             inputCPF.style.boxShadow = "1px 1px 3px red";
             valido = false;

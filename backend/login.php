@@ -1,5 +1,6 @@
 <?php
     error_reporting(E_ERROR | E_PARSE |  E_CORE_ERROR |    E_COMPILE_ERROR | E_COMPILE_WARNING |  E_USER_ERROR | E_STRICT  | E_RECOVERABLE_ERROR);
+    header('Content-Type: application/json');
     
     require_once 'config.php';
     require_once 'jwt.php';
@@ -9,12 +10,13 @@
     $CHAVE = $_POST['LOCAL'];
     $SENHA = md5($SENHA);
 
+    
     $arrConection = conectarBD($CHAVE);
     $mysqli = $arrConection[0];
     $baseCentral = ($arrConection[1] != null && $arrConection[1] != '') ? $arrConection[1].'.' : '' ;
     $numFilial = $arrConection[2];
-    
-    header('Content-Type: application/json');
+
+
 
     if(!$mysqli){
         $resp = array(
@@ -63,5 +65,3 @@
     print json_encode($resp);
     
     $mysqli->close();
-
-?>

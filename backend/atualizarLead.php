@@ -78,7 +78,7 @@ if ($arrINFOS["status"] != "NOVO" && $arrINFOS["status"] != "DISTRIBUÍDO" && $a
 
 // Se houver observação para incluir coloca no update
 if ($arrINFOS['obs'] != '' && $arrINFOS['obs'] != null) {
-  $sqlUpdate .= ' OBS = CONCAT(IFNULL(OBS, ""), IF(OBS IS NULL OR OBS = "", "", "\n"), "' . $arrINFOS['obs'] . '"),  ';
+  $sqlUpdate .= ' OBS = CONCAT(IFNULL(OBS, ""), IF(OBS IS NULL OR OBS = "", "", "\n"), "' . $arrINFOS['obs'] . ' - ", date_format(current_timestamp(), "%d/%m/%y %h:%i"), "  - '.$nomeUser.'"),  ';
 }
 
 // Se o status for NOVO ou DISTRIBUÍDO  atualiza histórico apenas como observação

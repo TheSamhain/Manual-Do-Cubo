@@ -1,0 +1,50 @@
+#locais {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 0px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 5px;
+    background-color: white;
+    overflow-y: hidden;
+}
+
+#locais h1 {
+  margin-top:  50px;
+  font-size: 20pt;
+  color: var(--CorFontes);
+  text-align: center;
+}
+
+#locais #lista {
+  margin-top: 20px;
+  flex: 1;
+  width: 100%;
+  overflow-y: auto;
+}
+
+#locais #logo-target {
+  margin-top: 50px;
+}
+
+#lista > ul {
+  border-top: 1px solid var(--CorDefault);
+  overflow-y: auto;
+}
+
+#lista > ul li {
+  font-size: 20pt;
+  color: var(--CorFontes);
+  background-color: white;
+  border-bottom: 1px solid  var(--CorDefault);;
+  padding: 14px;
+}
+
+#lista > ul li:active  {
+  color: white;
+  background-color: var(--CorDefault);
+}

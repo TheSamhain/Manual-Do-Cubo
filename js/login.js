@@ -9,33 +9,7 @@ const carregarLogin = async () => {
     let form = document.getElementById('login').getElementsByTagName('form')[0];
     form.addEventListener('submit', (e) => e.preventDefault());
 
-    let logoTarget = document.getElementById('logo-target');
-    let logo = await fetch('assets/logo-one.xml');
-    logo = await logo.text();
-
-    logoTarget.innerHTML = logo;
-
-    let t1 = anime.timeline({
-        complete: () => {
-            anime({
-                targets: '#logo path, #Consorcio',
-                easing: 'linear',
-                loop: false,
-                fill: '#1a3c62'
-            });
-        }
-    });
-
-    t1.add({
-        targets: '#logo path',
-        strokeDashoffset: [anime.setDashoffset, 0],
-        easing: 'easeInOutSine',
-        direction: 'alternate',
-        duration: 1000,
-        loop: false,
-    })
-    
-    t1.remove('#Consorcio');
+    carregarLogo();
 }
 
 const entrar = () => {
@@ -73,5 +47,9 @@ const entrar = () => {
                     alert(json.erro);
                 }
             }
+        })
+        .catch(err => {
+            console.log(err);
+            alert('Erro:\n\n' + err.message);
         })
 }

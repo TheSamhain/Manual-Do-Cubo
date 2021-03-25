@@ -17,8 +17,12 @@
     
 }
 
+.destacado {
+  background-color: rgb(255, 255, 236);
+}
+
 .itemLead > input {
-  grid-column: 1 / span 2;
+  grid-column-start: 2;
   margin: 5px 0;
   width: auto;
 }
@@ -54,5 +58,6 @@
 }
 
 #grafico {
-margin: 15px;
+padding: 15px;
+border-bottom: 1px solid var(--CorDefault);
 }

@@ -1,9 +1,9 @@
 <?php
 $SEGREDO = 'oneWEB2021'; // Segredo do JWT
 
-function conectarBD(string $chave){
+function conectarBD($chave){
     if($chave == ''){
-        return false;
+        return array(false, false, false);
     }
 
     // CNX mobiles
@@ -11,7 +11,7 @@ function conectarBD(string $chave){
     $cnxUsuario_bd = "cnxmobiles";
     $cnxSenha_bd = "movinfoel7913";
     $cnxBasedados = "cnx_mobiles";
-    $cnxPorta = 3308;
+    $cnxPorta = 3309;
     $cnxMysqli = mysqli_connect($cnxServidor, $cnxUsuario_bd, $cnxSenha_bd, $cnxBasedados, $cnxPorta);
 
     $sql = 'SELECT * FROM parametros WHERE CHAVE = ? AND APP = "ONE_WEB" LIMIT 1 ';
@@ -23,17 +23,15 @@ function conectarBD(string $chave){
     $result = $stmt->get_result();
 
     if (mysqli_num_rows($result) > 0) {
-        while ($row = mysqli_fetch_assoc($result)) {
-            return array(
-                mysqli_connect($row['SERVIDOR'], $row['LOGIN'], $row['SENHA'], $row['BASE'], $row['PORTA']),
-                $row['BASECENTRAL'],
-                $row['FILIAL']
-            );
+        $row = mysqli_fetch_assoc($result);
 
-            break;
-        }
+        return array(
+            mysqli_connect($row['SERVIDOR'], $row['LOGIN'], $row['SENHA'], $row['BASE'], $row['PORTA']),
+            $row['BASECENTRAL'],
+            $row['FILIAL']
+        );
     } else {
-        return false;
+        return array(false, false, false);
     }
 }
 ?>
