@@ -418,7 +418,7 @@ const procurarCadastro = async (cpfcnpj) => {
 /**
  * Inclui o botão salvar no final do form
  */
- const incluirSalvar = () => {
+ const incluirSalvar = (title = "Incluir") => {
     const
         form = document.getElementsByTagName('form')[0],
         btnSalvar = document.createElement('button');
@@ -433,7 +433,7 @@ const procurarCadastro = async (cpfcnpj) => {
     }
 
     btnSalvar.type = "submit";
-    btnSalvar.innerHTML = "Incluir";
+    btnSalvar.innerHTML = title;
 
     if (!!dados.get('nome') || !!dados.get('razao')) {
         btnSalvar.id = "btnSalvarCadastro";
@@ -441,5 +441,7 @@ const procurarCadastro = async (cpfcnpj) => {
     
     if(form.getElementsByTagName('button').length === 0){
         form.appendChild(btnSalvar);
+    } else {
+        form.getElementsByTagName('button')[0].innerHTML = title;
     }
 }

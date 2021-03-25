@@ -1,6 +1,8 @@
+var novoCliente = true;
+
 const cadastrarCliente = (e) => {
     e.preventDefault();
-
+    
     if (!dono) {
         alert('Este cadastro já existe em outra loja, mas não está compartilhado.');
         return;
@@ -118,6 +120,8 @@ const cadastrarCliente = (e) => {
 
 const verificarDados = (cpfcnpj) => {
     let tipo;
+    novoCliente = true;
+    incluirSalvar();
 
     if (cpfcnpj.length == 14) {
         tipo = 'F';
@@ -154,7 +158,7 @@ const verificarDados = (cpfcnpj) => {
         dono = true;
 
         if (tipo == 'F') {
-            document.getElementsByName('dataNasc')[0].value = dados.DTNASCIMENTO;
+            document.getElementsByName('dataNasc')[0].value = formatDate(dados.DTNASCIMENTO);
             document.getElementsByName('nome')[0].value = dados.NOME;
 
         } else {
@@ -174,7 +178,8 @@ const verificarDados = (cpfcnpj) => {
         inputEstado.value = dados.ENDESTADO;
         inputComplemento.value = dados.ENDCOMPLEMENTO;
 
-        incluirSalvar();
+        incluirSalvar("Salvar");
+        novoCliente = false;
     });
 }
 
