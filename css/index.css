@@ -59,7 +59,7 @@ a {
 #logoInfoel {
     text-align: center;
     margin: 10px;
-    margin-bottom: 80px;
+    flex: 1;
 }
 
 #logoInfoel img {
@@ -163,6 +163,7 @@ a {
 @media (min-width: 768px) {
     #logoInfoel {
         margin-bottom: 0px;
+        flex: 0;
     }
 
     #root {

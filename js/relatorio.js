@@ -104,7 +104,7 @@ const carregarTudo = () => {
   listas.innerHTML = '';
 
   let formData = new FormData();
-  formData.append('TOKEN', localStorage.getItem('login'));
+  formData.append('TOKEN', localStorage.getItem('login.' + param));
   formData.append('LOCAL', LOCAL);
 
   fetch('backend/pesquisarVendas.php', {

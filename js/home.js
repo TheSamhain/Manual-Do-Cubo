@@ -1,9 +1,12 @@
 const carregarHome = async () => {
-    validaToken(localStorage.getItem('login'), true);
+    validaToken(localStorage.getItem('login.' + param), true);
 
     let html = await fetch('template/home.html');
     html = await html.text();
     main.innerHTML = html;
+
+    const NOME = JSON.parse(atob(localStorage.getItem('login.' + param))).NOME;
+    document.getElementById('nomeUsuario').innerHTML = NOME;
 
     telaLeads();
     
@@ -13,13 +16,13 @@ const carregarHome = async () => {
 }
 
 const sair = () => {
-    localStorage.removeItem('login');
+    localStorage.removeItem('login.' + param);
     carregarLogin();
 }
 
 const telaLeads = async () => {
     const content = document.getElementById('content');
-    validaToken(localStorage.getItem('login'), true);
+    validaToken(localStorage.getItem('login.' + param), true);
 
     content.innerHTML = "<div id='listaLeads'></div>";
 
@@ -30,7 +33,7 @@ const telaLeads = async () => {
 
 const telaNovoCliente = async () => {
     const content = document.getElementById('content');
-    validaToken(localStorage.getItem('login'), true);
+    validaToken(localStorage.getItem('login.' + param), true);
 
     let html = await fetch('template/novoCliente.html');
     html = await html.text();
@@ -47,7 +50,7 @@ const telaNovoCliente = async () => {
 
 const telaNovaVenda = async () => {
     const content = document.getElementById('content');
-    validaToken(localStorage.getItem('login'), true);
+    validaToken(localStorage.getItem('login.' + param), true);
 
     let html = await fetch('template/novaVenda.html');
     html = await html.text();
@@ -72,7 +75,7 @@ const telaNovaVenda = async () => {
 
 const telaRelatorio = async () => {
     const content = document.getElementById('content');
-    validaToken(localStorage.getItem('login'), true);
+    validaToken(localStorage.getItem('login.' + param), true);
 
     let html = await fetch('template/relatorio.html');
     html = await html.text();

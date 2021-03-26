@@ -393,7 +393,7 @@ const procurarCadastro = async (cpfcnpj) => {
 
     let formData = new FormData();
     formData.append('CPFCNPJ', cpfcnpj);
-    formData.append('TOKEN', localStorage.getItem('login'));
+    formData.append('TOKEN', localStorage.getItem('login.' + param));
     formData.append('LOCAL', LOCAL);
 
     let resp = await fetch('backend/procurarCadastro.php', {

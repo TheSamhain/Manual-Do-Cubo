@@ -1,5 +1,5 @@
 const carregarLogin = async () => {
-    localStorage.removeItem('login');
+    localStorage.removeItem('login.' + param);
     
     let html = await fetch('template/login.html');
     html = await html.text();
@@ -38,7 +38,7 @@ const entrar = () => {
         .then(resp => resp.json())
         .then(json => {
             if (json.logado) {
-                localStorage.setItem('login', json.token);                
+                localStorage.setItem('login.' + param, json.token);                
                 carregarHome();
             } else {
                 if (!json.erro) {

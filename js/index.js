@@ -5,8 +5,8 @@ const
 
 var dono = true;
 
-if(param){
-    validaToken(localStorage.getItem('login'))
+if (param) {
+    validaToken(localStorage.getItem('login.' + param))
         .then(autenticado => {
             if (!autenticado) {
                 carregarLogin();
@@ -45,6 +45,6 @@ const carregarLogo = async () => {
         duration: 1000,
         loop: false,
     })
-    
+
     t1.remove('#Consorcio');
 }

@@ -88,7 +88,7 @@ const cadastrarCliente = (e) => {
 
     let formData = new FormData();
     formData.append('INFOS', JSON.stringify(infos));
-    formData.append('TOKEN', localStorage.getItem('login'));
+    formData.append('TOKEN', localStorage.getItem('login.' + param));
     formData.append('LOCAL', LOCAL);
 
     fetch('backend/cadastrarCliente.php', {

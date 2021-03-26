@@ -10,6 +10,9 @@
 
     border-radius: 5px;
     background-color: white;
+    flex: 1;
+
+    margin-top: 20px;
 }
 
 #login label {
@@ -41,6 +44,7 @@ form.login-part {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         height: 450px;
         width: 350px;
+        flex: none;
     }
 
     form.login-part {

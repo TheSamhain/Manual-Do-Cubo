@@ -1,5 +1,5 @@
 const carregarLocais = async () => {
-  localStorage.removeItem('login');
+  //localStorage.removeItem('login.' + param);
 
   let html = await fetch('template/locais.html');
   html = await html.text();

@@ -4,7 +4,7 @@ const carregarLeads = () => {
   listaLeads.innerHTML = '<div id="grafico" ></div>';
 
   let formData = new FormData();
-  formData.append('TOKEN', localStorage.getItem('login'));
+  formData.append('TOKEN', localStorage.getItem('login.' + param));
   formData.append('LOCAL', LOCAL);
 
   fetch('backend/pesquisarLeads.php', {
@@ -109,7 +109,7 @@ const salvarStatus = (div) => {
   }
 
   let formData = new FormData();
-  formData.append('TOKEN', localStorage.getItem('login'));
+  formData.append('TOKEN', localStorage.getItem('login.' + param));
   formData.append('LOCAL', LOCAL);
   formData.append('INFOS', JSON.stringify(infos));
 
@@ -133,7 +133,7 @@ const salvarStatus = (div) => {
       const idLead = div.getElementsByTagName('p')[1].innerHTML;
 
       let leadData = new FormData();
-      leadData.append('TOKEN', localStorage.getItem('login'));
+      leadData.append('TOKEN', localStorage.getItem('login.' + param));
       leadData.append('LOCAL', LOCAL);
       leadData.append('ID', idLead);
 
