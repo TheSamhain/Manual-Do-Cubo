@@ -21,7 +21,7 @@ if (param) {
 const carregarLogo = async () => {
     // Carrega a logo da ONE
     let logoTarget = document.getElementById('logo-target');
-    let logo = await fetch('assets/logo-one.xml');
+    let logo = await fetch('assets/logo-one.svg');
     logo = await logo.text();
 
     logoTarget.innerHTML = logo;
