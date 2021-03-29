@@ -72,7 +72,7 @@ function formatPhone($phone)
 {
     $phone = preg_replace('/[^0-9]/is', '', $phone);
 
-    if (strlen($phone) < 8) {
+    if (strlen($phone) < 10) {
         return false;
     } else {
         $phone = substr($phone, 0, 11);
@@ -83,13 +83,13 @@ function formatPhone($phone)
             $phone = substr_replace($phone, '(', 0, 0);
             $phone = substr_replace($phone, ')', 3, 0);
             $phone = substr_replace($phone, '-', 9, 0);
-            $phone = '  '.substr($phone, 0, 14);
+            $phone = '  ' . substr($phone, 0, 14);
         } else {
             $phone = substr_replace($phone, '(', 0, 0);
             $phone = substr_replace($phone, ' ', 3, 0);
             $phone = substr_replace($phone, ')', 3, 0);
             $phone = substr_replace($phone, '-', 9, 0);
-            $phone = '  '.substr($phone, 0, 14);
+            $phone = '  ' . substr($phone, 0, 14);
         }
     }
 
@@ -103,4 +103,35 @@ function arrayUppercase($value)
     }
 
     return mb_strtoupper($value, 'UTF-8');
+}
+
+/**
+ * Insere um registro na tabela desejada
+ */
+function inserirRegistro(array $campos, $tabela, $mysqli, $resp = array(), $baseCentral = '')
+{
+    $sqlInsert = "INSERT INTO " . $baseCentral . $tabela . " ( ";
+
+    foreach ($campos as $key => $value) {
+        $sqlInsert .= "$key, ";
+    }
+
+    $sqlInsert = substr($sqlInsert, 0, strlen($sqlInsert) - 2) . " ) VALUES ( ";
+
+    foreach ($campos as $key => $value) {
+        $sqlInsert .= "'$value', ";
+    }
+
+    $sqlInsert = substr($sqlInsert, 0, strlen($sqlInsert) - 2) . " ) ";
+
+    $stmt = $mysqli->prepare($sqlInsert);
+
+    if ($stmt->execute()) {
+        $resp['status'] = 'Cadastro realizado';
+    } else {
+        $resp['status'] = 'Erro';
+        $resp['erro'] = "Não foi possível realizar o cadastro";
+    }
+
+    return $resp;
 }

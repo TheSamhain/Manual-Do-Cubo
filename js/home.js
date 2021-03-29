@@ -27,6 +27,9 @@ const telaLeads = async () => {
     let html = await fetch('template/leads.html');
     html = await html.text();
     content.innerHTML = html;
+    
+    let form = document.getElementsByTagName('form')[0];
+    form.addEventListener('submit', (e) => e.preventDefault() );
 
     document.getElementById('titulo').innerHTML = "Leads";
 

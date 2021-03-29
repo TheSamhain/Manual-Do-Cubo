@@ -1,3 +1,6 @@
+/**
+ * Carrega a lista de Leads e exibe o gráfico
+ */
 const carregarLeads = () => {
   let listaLeads = document.getElementById('listaLeads');
 
@@ -47,6 +50,9 @@ const carregarLeads = () => {
       google.charts.setOnLoadCallback(graficoLeads);
 
 
+      /**
+       * Cria o gráfico dos status
+       */
       function graficoLeads() {
         let filterLeads = new Set();
         let data = [];
@@ -84,7 +90,13 @@ const carregarLeads = () => {
     });
 }
 
-const exibirBtnSalvar = (input) => {
+/**
+ * Exibe o botão de salvar no item da lista que o chamou
+ * @param {HTMLInputElement} input Campo que exibe o botão, pode ser input, select etc
+ * @param {Function} onclick Função executada pelo botão salvar
+ * @param {String} title Título do botão, por default é "Salvar"
+ */
+const exibirBtnSalvar = (input, onclick, title = "Salvar") => {
   if (input.value == '') {
     return;
   }
@@ -92,23 +104,22 @@ const exibirBtnSalvar = (input) => {
   const divItem = input.parentElement;
 
   btnSalvar = document.createElement('button');
-  btnSalvar.innerHTML = 'Salvar';
-  btnSalvar.addEventListener('click', () => salvarStatus(divItem));
+  btnSalvar.innerHTML = title;
+  btnSalvar.addEventListener('click', () => onclick(divItem));
 
   if (divItem.getElementsByTagName('button').length === 0) {
     divItem.appendChild(btnSalvar);
   }
 }
 
+/**
+ * Altera o status do lead ou inclui um a nova observação
+ * @param {HTMLDivElement} div Div com as informações do lead
+ */
 const salvarStatus = (div) => {
   const
     select = div.getElementsByTagName('select')[0],
-    input = div.getElementsByTagName('input')[0],
-    reg = div.getElementsByTagName("p")[0];
-
-  if (reg.innerHTML != "Registro:") {
-    return cadastrarNovoLead(div);
-  }
+    input = div.getElementsByTagName('input')[0];
 
   const
     valor = select.value,
@@ -176,6 +187,12 @@ const salvarStatus = (div) => {
     });
 }
 
+/**
+ * Cria um item da lista com as informções do lead
+ * @param {JSON} lead Informações do lead, nome, cpf, email, cidade, telefone, loja
+ * @param {Boolean} Typewrite Define se vai ser executado a animação de digitação para as informações
+ * @returns {HTMLDivElement} Retorna uma div com as informações do lead
+ */
 const criarItemLista = (lead, Typewrite = true) => {
   if (lead.STATUS == 'NOVO') {
     return;
@@ -191,9 +208,9 @@ const criarItemLista = (lead, Typewrite = true) => {
 
 
   itemLista.innerHTML = `
-    <p>Registro:</p><p>${lead.CODIGO}</p>
+    <p class="registro">Registro:</p><p>${lead.CODIGO}</p>
     <p>Status:</p>
-    <select onchange="exibirBtnSalvar(this)" data-status="${lead.CODIGO}" >
+    <select onchange="exibirBtnSalvar(this, salvarStatus)" data-status="${lead.CODIGO}" >
       <option value="${lead.STATUS}" disabled selected >${capitalizeFirstLetter(lead.STATUS)}</option>
       <option value="CONTATADO" >Contatado</option>
       <option value="PROPOSTA ENVIADA" >Proposta enviada</option>
@@ -230,13 +247,16 @@ const criarItemLista = (lead, Typewrite = true) => {
   inputObs.type = "text";
   inputObs.name = "obs";
   inputObs.placeholder = "Adicionar observação";
-  inputObs.addEventListener('input', (e) => exibirBtnSalvar(e.target));
+  inputObs.addEventListener('input', (e) => exibirBtnSalvar(e.target, salvarStatus));
 
   itemLista.appendChild(inputObs);
 
   return itemLista;
 }
 
+/**
+ * Exibe ou esconde os campos para cadastrar um novo lead
+ */
 const incluirLeadDiv = () => {
   const novoLead = document.getElementById("novoLead");
 
@@ -247,6 +267,10 @@ const incluirLeadDiv = () => {
   }
 }
 
+/**
+ * Cadastra um novo lead no sistema
+ * @param {HTMLDivElement} div 
+ */
 const cadastrarNovoLead = (div) => {
   const
     inputs = div.getElementsByTagName('input'),
@@ -259,13 +283,17 @@ const cadastrarNovoLead = (div) => {
     infos = {};
 
   for (input of inputs) {
-    if ((input.name == "nome") && (input.value == '')) {
-      return alert('O nome precisa ser informado.');
+    if ((input.required) && (input.value.length == 0)) {
+      input.style.boxShadow = "1px 1px 3px red"
+      alert(`O ${input.name} precisa ser informado.`);
+      return;
     }
 
     infos[input.name] = input.value.trim();
   }
 
+  infos.status = div.getElementsByTagName('select').value;
+  
   // Valida o CPF
   if (!isValidCPF(infos.cpf) && (infos.cpf.length > 0)) {
     inputCPF.style.boxShadow = "1px 1px 3px red";
@@ -292,9 +320,62 @@ const cadastrarNovoLead = (div) => {
 
   if (!valido) {
     alert('É necessário preencher todos os campos corretamente.');
-    return false;
+    return;
   }
 
+  let formData = new FormData();
+  formData.append('TOKEN', localStorage.getItem('login.' + param));
+  formData.append('LOCAL', LOCAL);
+  formData.append('INFOS', JSON.stringify(infos));
+
+  fetch('backend/leads/cadastrarLead.php', {
+    method: 'POST',
+    body: formData,
+  })
+    .then(resp => resp.json())
+    .then(json => {
+
+      if (!json.autenticado) {
+        alert(json.erro ? `Erro ao cadastrar: ${json.erro}.` : 'Usuário não autenticado');
+        carregarLogin();
+        return;
+      }
+
+      if (json.status == 'Erro') {
+        alert(`Um erro ocorreu ao tentar relizar a operação: \n${json.erro}`);
+        return;
+      }
+
+      div.getElementsByTagName('button')[0].remove();
+      
+      for (input of inputs) {
+        input.value = '';
+      }
+      
+      incluirLeadDiv();
+    });
+
+}
 
 
+const procurarLead = (input) => {
+  const
+    valor = input.value,
+    inputNome = document.getElementsByName('nome')[0],
+    inputTelefone = document.getElementsByName('telefone')[0],
+    inputEmail = document.getElementsByName('email')[0],
+    inputCidade = document.getElementsByName('cidade')[0];
+
+  procurarCadastro(valor)
+    .then(json => {
+
+      if (!!json) {
+        exibirBtnSalvar(input, cadastrarNovoLead, 'Incluir')
+
+        inputEmail.value = json.EMAIL;
+        inputTelefone.value = json.TEL1.trim();
+        inputNome.value = json.NOME;
+        inputCidade.value = json.ENDMUNICIPIO;
+      }
+    });
 }

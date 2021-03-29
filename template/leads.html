@@ -6,9 +6,32 @@
         <i class="bi bi-caret-down-fill"></i>
     </div>
 
-    <div id="novoLead">
+    <form id="novoLead">
+        <p>Status:</p>
+        <select name="status">
+          <option value="CONTATADO" >Contatado</option>
+          <option value="PROPOSTA ENVIADA" >Proposta enviada</option>
+          <option value="EM NEGOCIAÇÃO" >Em negociação</option>
+          <option value="PROPOSTA ACEITA" >Proposta aceita</option>
+          <option value="PROPOSTA NEGADA" >Proposta negada</option>
+        </select>
+
+        <p>CPF:</p>
+        <input
+            type="text"
+            name="cpf"
+            oninput="this.value = cpfMask(this.value)"
+            onblur="procurarLead(this)"
+            inputmode="numeric"
+        />
+
         <p>Nome:</p>
-        <input type="text" name="nome" oninput="exibirBtnSalvar(this)" />
+        <input
+            type="text"
+            name="nome"
+            onblur="exibirBtnSalvar(this, cadastrarNovoLead, 'Incluir')"
+            required
+        />
 
         <p>Telefone:</p>
         <input
@@ -25,16 +48,7 @@
         <p>Cidade:</p>
         <input type="text" name="cidade" />
 
-        <p>CPF:</p>
-        <input
-            type="text"
-            name="cpf"
-            oninput="this.value = cpfMask(this.value)"
-            onblur="procurarCadastro(this.value).then(json => (!!json) && alert('Este CPF já está cadastrado como um cliente'))"
-            inputmode="numeric"
-        />
-
         <p>Obs:</p>
-        <input type="text" name="obs" />
-    </div>
+        <input type="text" name="obs"/>
+    </form>
 </div>

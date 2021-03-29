@@ -13,11 +13,31 @@ $CHAVE = $_POST["LOCAL"];
 $arrINFOS = json_decode($INFOS, true);
 $arrINFOS = array_map("arrayUppercase", $arrINFOS);
 $arrINFOS = array_map("trim", $arrINFOS);
+
 // Valida o token 
 $resp = array("autenticado" => JWTvalidate($TOKEN, $SEGREDO));
 
 if (!JWTvalidate($TOKEN, $SEGREDO)) {
   return print json_encode($resp);
+}
+
+
+if (!validaCPF($arrINFOS['cpf']) && ($arrINFOS['cpf'] != '')) {
+  $resp['status'] = 'Erro';
+  $resp['erro'] = "CPF inválido";
+
+  return print(json_encode($resp));
+}
+
+if (($arrINFOS['telefone'] != '')) {
+  $arrINFOS['telefone'] = formatPhone($arrINFOS['telefone']);
+
+  if (!$arrINFOS['telefone']) {
+    $resp['status'] = 'Erro';
+    $resp['erro'] = "Telefone inválido";
+
+    return print(json_encode($resp));
+  }
 }
 
 // Conecta com a base correta
@@ -57,46 +77,28 @@ if (mysqli_num_rows($result) > 0) {
 }
 
 // Armazena o código no cadatro deste usuário
-$MDCODI = $row['MDCODI'];
+$VENDCODI = $row['MDCODI'];
+
 
 $bdArray = array(
+  'DATA' => date("Y-m-d"),
+  'CPFCNPJ' => $arrINFOS['cpf'],
+  'MDFIRM' => $arrINFOS['nome'],
+  'FONE' => $arrINFOS['telefone'],
+  'EMAIL' => mb_strtolower($arrINFOS['email'], 'UTF-8'),
+  'CIDADE' => $arrINFOS['cidade'],
+  'CANAL' => 'APLICATIVO',
   'STATUS' => $arrINFOS['status'],
-  'STATUSUSER' => mb_strtoupper($nomeUser, 'UTF-8'),
+  'VENDCOD' => $VENDCODI,
+  'VENDNOME' => $nomeUser,
+  'OBS' => $arrINFOS['obs'],
+  'FILIAL' => $numFilial,
+  'STATUSHIST' => $arrINFOS['status'] . ' - ' . date("d/m/Y H:i:s") . ' - ' . $nomeUser,
   'STATUSDH' => date("Y-m-d H:i:s"),
+  'STATUSUSER' => $nomeUser,
 );
 
-$sqlUpdate = "UPDATE " . $baseCentral . "consleads SET ";
 
-
-// Se o STATUS for diferetne de NOVO ou DISTRIBUÍDO atualizar o STATUS
-if ($arrINFOS["status"] != "NOVO" && $arrINFOS["status"] != "DISTRIBUÍDO" && $arrINFOS["status"] != "") {
-  foreach ($bdArray as $key => $value) {
-    $sqlUpdate .= "$key = '$value', ";
-  }
-}
-
-// Se houver observação para incluir coloca no update
-if ($arrINFOS['obs'] != '' && $arrINFOS['obs'] != null) {
-  $sqlUpdate .= ' OBS = CONCAT(IFNULL(OBS, ""), IF(OBS IS NULL OR OBS = "", "", "\n"), "' . $arrINFOS['obs'] . ' - ", date_format(current_timestamp(), "%d/%m/%y %h:%i"), "  - '.$nomeUser.'"),  ';
-}
-
-// Se o status for NOVO ou DISTRIBUÍDO  atualiza histórico apenas como observação
-if ($arrINFOS["status"] != "NOVO" && $arrINFOS["status"] != "DISTRIBUÍDO" && $arrINFOS["status"] != "") {
-  $sqlUpdate .=  ' STATUSHIST = CONCAT("' . $arrINFOS['status'] . ' - ' . date("Y-m-d H:i:s") . ' - ' . $nomeUser . '\n", STATUSHIST) ';
-} else {
-  $sqlUpdate .=  ' STATUSHIST = CONCAT("OBS - ' . date("Y-m-d H:i:s") . ' - ' . $nomeUser . '\n", STATUSHIST) ';
-}
-
-$sqlUpdate .= " WHERE REG = ? AND VENDCOD = ? ";
-
-$stmt = $mysqli->prepare($sqlUpdate);
-$stmt->bind_param("ii", $arrINFOS['codigo'], $MDCODI);
-
-if ($stmt->execute()) {
-  $resp['status'] = 'Cadastro atualizado';
-} else {
-  $resp['status'] = 'Erro';
-  $resp['erro'] = "Não foi possível atualizar o cadastro";
-}
+$resp = inserirRegistro($bdArray, "consleads", $mysqli, $resp, $baseCentral);
 
 return print(json_encode($resp));

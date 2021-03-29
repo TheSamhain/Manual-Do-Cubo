@@ -1,114 +1,119 @@
 #listaLeads {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  color: var(--CorDefault);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    color: var(--CorDefault);
 }
 
 .itemLead {
-  padding: 5px;
-  border-bottom: 1px solid var(--CorDefault);
-  display: grid;
-  padding-bottom: 10px;
-  grid-template-columns: max-content auto;
-  justify-items: stretch;
-    
+    padding: 5px;
+    border-bottom: 1px solid var(--CorDefault);
+    display: grid;
+    padding-bottom: 10px;
+    grid-template-columns: max-content auto;
+    justify-items: stretch;
 }
 
 .destacado {
-  background-color: rgb(255, 255, 236);
+    background-color: rgb(255, 255, 236);
 }
 
 .itemLead > input {
-  grid-column-start: 2;
-  margin: 5px 0;
-  width: auto;
+    grid-column-start: 2;
+    margin: 5px 0;
+    width: auto;
 }
 
 .itemLead > button {
-  grid-column: 1 / span 2;
-  margin: 5px 0;
-  width: auto;
+    grid-column: 1 / span 2;
+    margin: 5px 0;
+    width: auto;
 }
 
 .itemLead > select {
-  width: max-content;
-  height: max-content;
-  align-self: end;
+    width: max-content;
+    height: max-content;
+    align-self: end;
 }
 
-.itemLead > p:nth-child(2n){
-  font-weight: bold;
+.itemLead > p:nth-child(2n) {
+    font-weight: bold;
 }
 
-.itemLead > p:nth-child(1n){
-  margin-right: 5px;
+.itemLead > p:nth-child(1n) {
+    margin-right: 5px;
 }
 
 .itemLead > p {
-  word-break: break-word;
-  margin-top: 10px;
+    word-break: break-word;
+    margin-top: 10px;
 }
 
-#grafico svg>g>g:last-child {
-  pointer-events: none;
+#grafico svg > g > g:last-child {
+    pointer-events: none;
 }
 
 #grafico {
-padding: 15px;
+    padding: 15px;
 }
 
 #titloGrafico {
-  align-self: center;
-  font-size: 20px;
-  margin-top: 5px;
+    align-self: center;
+    font-size: 20px;
+    margin-top: 5px;
 }
 
 #incluirLead {
-  display: flex;
-  flex-direction: row;
-  border: 1px solid var(--CorDefault);
-  align-items: center;
-  margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid var(--CorDefault);
+    align-items: center;
+    margin-top: 10px;
 }
 
-#incluirLead > p{
-  margin: 5px;
-  font-size: 18px;
-  flex: 1;
+#incluirLead > p {
+    margin: 5px;
+    font-size: 18px;
+    flex: 1;
 }
 
 #incluirLead > i {
-  margin: 3px;
-  margin-right: 10px;
-  font-size: 25px;
+    margin: 3px;
+    margin-right: 10px;
+    font-size: 25px;
 }
 
 #novoLead {
-  display: grid;
-  grid-template-columns: max-content auto;
-  padding: 5px;
-  padding-bottom: 10px;
-  justify-items: stretch;
-  align-items: center;
+    display: grid;
+    grid-template-columns: max-content auto;
+    padding: 5px;
+    padding-bottom: 10px;
+    justify-items: stretch;
+    align-items: center;
+    margin: 10px 0px;
 
-  display: none;
-  border-bottom: 1px solid var(--CorDefault);
+    display: none;
+    border-bottom: 1px solid var(--CorDefault);
 }
 
 #novoLead > input {
-  grid-column-start: 2;
-  margin: 5px 0;
-  width: auto;
+    grid-column-start: 2;
+    margin: 5px 0;
+    width: auto;
 }
 
 #novoLead > p {
-  margin-right: 5px;
+    margin-right: 5px;
 }
 
 #novoLead > button {
-  grid-column: 1 / span 2;
-  margin: 5px 0;
-  width: auto;
+    grid-column: 1 / span 2;
+    margin: 5px 0;
+    width: auto;
+}
+
+#novoLead > select {
+    height: 30px;
+    font-size: 15px;
 }
