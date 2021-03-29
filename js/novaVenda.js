@@ -53,7 +53,7 @@ const cadastrarVenda = (e) => {
    formData.append('TOKEN', localStorage.getItem('login.' + param));
    formData.append('LOCAL', LOCAL);
 
-   fetch('backend/cadastrarVenda.php', {
+   fetch('backend/vendas/cadastrarVenda.php', {
       method: 'POST',
       body: formData,
    })

@@ -396,7 +396,7 @@ const procurarCadastro = async (cpfcnpj) => {
     formData.append('TOKEN', localStorage.getItem('login.' + param));
     formData.append('LOCAL', LOCAL);
 
-    let resp = await fetch('backend/procurarCadastro.php', {
+    let resp = await fetch('backend/clientes/procurarCadastro.php', {
         method: 'POST',
         body: formData,
     })

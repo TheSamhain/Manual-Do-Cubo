@@ -1,8 +1,8 @@
 <?php
 error_reporting(E_ERROR | E_PARSE |  E_CORE_ERROR |    E_COMPILE_ERROR | E_COMPILE_WARNING |  E_USER_ERROR | E_STRICT  | E_RECOVERABLE_ERROR);
 
-require_once 'config.php';
-require_once 'jwt.php';
+require_once '../config.php';
+require_once '../jwt.php';
 
 $ID = $_POST['ID'];
 $TOKEN = $_POST['TOKEN'];

@@ -2,8 +2,8 @@
     error_reporting(E_ERROR | E_PARSE |  E_CORE_ERROR |    E_COMPILE_ERROR | E_COMPILE_WARNING |  E_USER_ERROR | E_STRICT  | E_RECOVERABLE_ERROR);
     header('Content-Type: application/json');
     
-    require_once 'config.php';
-    require_once 'jwt.php';
+    require_once '../config.php';
+    require_once '../jwt.php';
     
     $USUARIO = $_POST['USUARIO'];
     $SENHA = $_POST['SENHA'];

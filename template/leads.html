@@ -1,0 +1,40 @@
+<div id="listaLeads">
+    <div id="grafico"></div>
+
+    <div id="incluirLead" onclick="incluirLeadDiv()">
+        <p>Incluir novo lead</p>
+        <i class="bi bi-caret-down-fill"></i>
+    </div>
+
+    <div id="novoLead">
+        <p>Nome:</p>
+        <input type="text" name="nome" oninput="exibirBtnSalvar(this)" />
+
+        <p>Telefone:</p>
+        <input
+            name="telefone"
+            type="tel"
+            maxlength="15"
+            inputmode="tel"
+            oninput="this.value = phoneMask(this.value)"
+        />
+
+        <p>Email:</p>
+        <input type="email" name="email" maxlength="200" inputmode="email" />
+
+        <p>Cidade:</p>
+        <input type="text" name="cidade" />
+
+        <p>CPF:</p>
+        <input
+            type="text"
+            name="cpf"
+            oninput="this.value = cpfMask(this.value)"
+            onblur="procurarCadastro(this.value).then(json => (!!json) && alert('Este CPF já está cadastrado como um cliente'))"
+            inputmode="numeric"
+        />
+
+        <p>Obs:</p>
+        <input type="text" name="obs" />
+    </div>
+</div>

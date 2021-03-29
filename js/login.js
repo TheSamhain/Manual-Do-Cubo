@@ -31,7 +31,7 @@ const entrar = () => {
     formData.append('SENHA', senha.toUpperCase());
     formData.append('LOCAL', LOCAL);
 
-    fetch('backend/login.php', {
+    fetch('backend/login/login.php', {
         method: 'POST',
         body: formData,
     })

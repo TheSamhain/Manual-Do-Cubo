@@ -7,7 +7,7 @@ const carregarLocais = async () => {
 
   carregarLogo();
 
-  fetch('backend/procurarLocais.php', {
+  fetch('backend/login/procurarLocais.php', {
     method: 'POST'
   })
     .then(resp => resp.json())

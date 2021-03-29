@@ -1,13 +1,11 @@
 const carregarLeads = () => {
   let listaLeads = document.getElementById('listaLeads');
 
-  listaLeads.innerHTML = '<div id="grafico" ></div>';
-
   let formData = new FormData();
   formData.append('TOKEN', localStorage.getItem('login.' + param));
   formData.append('LOCAL', LOCAL);
 
-  fetch('backend/pesquisarLeads.php', {
+  fetch('backend/leads/pesquisarLeads.php', {
     method: 'POST',
     body: formData,
   })
@@ -37,8 +35,8 @@ const carregarLeads = () => {
         sliceVisibilityThreshold: 0, // Porcentagem para agupar items em um só chamado de 'Outros',
         chartArea: {
           width: "100%",
-          height: "100%"
-        },
+          height: "100%",
+        }
       };
 
 
@@ -70,6 +68,12 @@ const carregarLeads = () => {
         dataGraf.addRows(data);
 
         let divGraf = document.getElementById('grafico');
+
+        let title = document.createElement("p");
+        title.innerHTML = "Resumo dos status";
+        title.id = "titloGrafico";
+
+        divGraf.parentElement.insertBefore(title, divGraf)
         let chart = new google.visualization.PieChart(divGraf);
         chart.draw(dataGraf, options);
       }
@@ -81,8 +85,9 @@ const carregarLeads = () => {
 }
 
 const exibirBtnSalvar = (input) => {
-  if (input.value == '')
+  if (input.value == '') {
     return;
+  }
 
   const divItem = input.parentElement;
 
@@ -99,12 +104,19 @@ const salvarStatus = (div) => {
   const
     select = div.getElementsByTagName('select')[0],
     input = div.getElementsByTagName('input')[0],
+    reg = div.getElementsByTagName("p")[0];
+
+  if (reg.innerHTML != "Registro:") {
+    return cadastrarNovoLead(div);
+  }
+
+  const
     valor = select.value,
     codigo = select.getAttribute('data-status');
 
   const infos = {
-    status: valor,
     codigo,
+    status: valor,
     obs: input.value
   }
 
@@ -113,7 +125,7 @@ const salvarStatus = (div) => {
   formData.append('LOCAL', LOCAL);
   formData.append('INFOS', JSON.stringify(infos));
 
-  fetch('backend/atualizarLead.php', {
+  fetch('backend/leads/atualizarLead.php', {
     method: 'POST',
     body: formData,
   })
@@ -137,7 +149,7 @@ const salvarStatus = (div) => {
       leadData.append('LOCAL', LOCAL);
       leadData.append('ID', idLead);
 
-      fetch('backend/procurarUmLead.php', {
+      fetch('backend/leads/procurarUmLead.php', {
         method: 'POST',
         body: leadData,
       })
@@ -155,10 +167,10 @@ const salvarStatus = (div) => {
           }
 
           div.innerHTML = criarItemLista(json.lead, false).innerHTML;
-          
-          if(json.lead.STATUS != 'DISTRIBUÍDO'){            
+
+          if (json.lead.STATUS != 'DISTRIBUÍDO') {
             div.classList.remove('destacado');
-          } 
+          }
         });
 
     });
@@ -208,7 +220,7 @@ const criarItemLista = (lead, Typewrite = true) => {
     itemLista.appendChild(label);
     itemLista.appendChild(value);
 
-    if ( (info != "OBS") && (Typewrite) ) {
+    if ((info != "OBS") && (Typewrite)) {
       var twStatus = new Typewriter(value, { delay: 0, cursor: null });
       twStatus.typeString(lead[info]).start();
     }
@@ -223,4 +235,66 @@ const criarItemLista = (lead, Typewrite = true) => {
   itemLista.appendChild(inputObs);
 
   return itemLista;
+}
+
+const incluirLeadDiv = () => {
+  const novoLead = document.getElementById("novoLead");
+
+  if (!(novoLead.style.display) || (novoLead.style.display == "none")) {
+    novoLead.style.display = 'grid';
+  } else {
+    novoLead.style.display = 'none';
+  }
+}
+
+const cadastrarNovoLead = (div) => {
+  const
+    inputs = div.getElementsByTagName('input'),
+    inputCPF = document.getElementsByName('cpf')[0],
+    inputTelefone = document.getElementsByName('telefone')[0],
+    inputEmail = document.getElementsByName('email')[0];
+
+  let
+    valido = true,
+    infos = {};
+
+  for (input of inputs) {
+    if ((input.name == "nome") && (input.value == '')) {
+      return alert('O nome precisa ser informado.');
+    }
+
+    infos[input.name] = input.value.trim();
+  }
+
+  // Valida o CPF
+  if (!isValidCPF(infos.cpf) && (infos.cpf.length > 0)) {
+    inputCPF.style.boxShadow = "1px 1px 3px red";
+    valido = false;
+  } else {
+    inputCPF.style.boxShadow = null;
+  }
+
+  // Valida o telefone
+  if ((infos.telefone.length < 14) && (infos.telefone.length > 0)) {
+    inputTelefone.style.boxShadow = "1px 1px 3px red";
+    valido = false;
+  } else {
+    inputTelefone.style.boxShadow = null;
+  }
+
+  // Valida o email
+  if (!isValidEmail(infos.email) && (infos.email.length > 0)) {
+    inputEmail.style.boxShadow = "1px 1px 3px red";
+    valido = false;
+  } else {
+    inputEmail.style.boxShadow = null;
+  }
+
+  if (!valido) {
+    alert('É necessário preencher todos os campos corretamente.');
+    return false;
+  }
+
+
+
 }

@@ -24,7 +24,9 @@ const telaLeads = async () => {
     const content = document.getElementById('content');
     validaToken(localStorage.getItem('login.' + param), true);
 
-    content.innerHTML = "<div id='listaLeads'></div>";
+    let html = await fetch('template/leads.html');
+    html = await html.text();
+    content.innerHTML = html;
 
     document.getElementById('titulo').innerHTML = "Leads";
 

@@ -107,7 +107,7 @@ const carregarTudo = () => {
   formData.append('TOKEN', localStorage.getItem('login.' + param));
   formData.append('LOCAL', LOCAL);
 
-  fetch('backend/pesquisarVendas.php', {
+  fetch('backend/relatorio/pesquisarVendas.php', {
     method: 'POST',
     body: formData,
   })

@@ -1,18 +1,18 @@
 #listaLeads {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    color: var(--CorDefault);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  color: var(--CorDefault);
 }
 
 .itemLead {
-    padding: 5px;
-    border-bottom: 1px solid var(--CorDefault);
-    display: grid;
-    padding-bottom: 10px;
-    grid-template-columns: max-content auto;
-    justify-items: stretch;
+  padding: 5px;
+  border-bottom: 1px solid var(--CorDefault);
+  display: grid;
+  padding-bottom: 10px;
+  grid-template-columns: max-content auto;
+  justify-items: stretch;
     
 }
 
@@ -46,7 +46,6 @@
   margin-right: 5px;
 }
 
-
 .itemLead > p {
   word-break: break-word;
   margin-top: 10px;
@@ -58,5 +57,58 @@
 
 #grafico {
 padding: 15px;
-border-bottom: 1px solid var(--CorDefault);
+}
+
+#titloGrafico {
+  align-self: center;
+  font-size: 20px;
+  margin-top: 5px;
+}
+
+#incluirLead {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid var(--CorDefault);
+  align-items: center;
+  margin-top: 10px;
+}
+
+#incluirLead > p{
+  margin: 5px;
+  font-size: 18px;
+  flex: 1;
+}
+
+#incluirLead > i {
+  margin: 3px;
+  margin-right: 10px;
+  font-size: 25px;
+}
+
+#novoLead {
+  display: grid;
+  grid-template-columns: max-content auto;
+  padding: 5px;
+  padding-bottom: 10px;
+  justify-items: stretch;
+  align-items: center;
+
+  display: none;
+  border-bottom: 1px solid var(--CorDefault);
+}
+
+#novoLead > input {
+  grid-column-start: 2;
+  margin: 5px 0;
+  width: auto;
+}
+
+#novoLead > p {
+  margin-right: 5px;
+}
+
+#novoLead > button {
+  grid-column: 1 / span 2;
+  margin: 5px 0;
+  width: auto;
 }

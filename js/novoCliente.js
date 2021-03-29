@@ -15,7 +15,8 @@ const cadastrarCliente = (e) => {
         inputCep = document.getElementsByName('cep')[0],
         inputTel1 = document.getElementsByName('tel1')[0],
         inputTel2 = document.getElementsByName('tel2')[0],
-        inputTipoPessoa = document.getElementsByName('tipoPessoa')[0];
+        inputTipoPessoa = document.getElementsByName('tipoPessoa')[0],
+        inputEmail = document.getElementsByName('email')[0];
 
     let valido = true;
     let dados = new FormData(e.target);
@@ -34,10 +35,13 @@ const cadastrarCliente = (e) => {
         infos[pair[0]] = pair[1].trim();
     }    
     
+
+    // Valida os dados da pessoa
     if (tipo == 'F') {
         let dateParts = infos.dataNasc.split('/');
         infos.dataNasc = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`
 
+        //Valida o CPF
         if (!isValidCPF(infos.cpf)) {
             inputCPF.style.boxShadow = "1px 1px 3px red";
             valido = false;
@@ -45,6 +49,7 @@ const cadastrarCliente = (e) => {
             inputCPF.style.boxShadow = null;
         }
 
+        // Valida a data de nascimento
         if (!isValidDate(formatDate(infos.dataNasc))) {
             inputDataNasc.style.boxShadow = "1px 1px 3px red";
             valido = false;
@@ -52,6 +57,7 @@ const cadastrarCliente = (e) => {
             inputDataNasc.style.boxShadow = null;
         }
     } else {
+        // Valida o CNPJ
         if (!isValidCNPJ(infos.cnpj)) {
             inputCNPJ.style.boxShadow = "1px 1px 3px red";
             valido = false;
@@ -60,6 +66,7 @@ const cadastrarCliente = (e) => {
         }
     }
 
+    // Valida o CEP
     if (infos.cep.length < 9) {
         inputCep.style.boxShadow = "1px 1px 3px red";
         valido = false;
@@ -67,6 +74,7 @@ const cadastrarCliente = (e) => {
         inputCep.style.boxShadow = null;
     }
 
+    //Valida os telefones
     if (infos.tel1.length < 14) {
         inputTel1.style.boxShadow = "1px 1px 3px red";
         valido = false;
@@ -81,6 +89,14 @@ const cadastrarCliente = (e) => {
         inputTel2.style.boxShadow = null;
     }
 
+    // Valida o email
+    if (!isValidEmail(infos.email) && (infos.email.length > 0)) {
+        inputEmail.style.boxShadow = "1px 1px 3px red";
+        valido = false;
+      } else {
+        inputEmail.style.boxShadow = null;
+      }
+
     if (!valido) {
         alert('É necessário preencher todos os campos corretamente.');
         return false;
@@ -91,7 +107,7 @@ const cadastrarCliente = (e) => {
     formData.append('TOKEN', localStorage.getItem('login.' + param));
     formData.append('LOCAL', LOCAL);
 
-    fetch('backend/cadastrarCliente.php', {
+    fetch('backend/clientes/cadastrarCliente.php', {
         method: 'POST',
         body: formData,
     })
