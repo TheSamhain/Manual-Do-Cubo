@@ -1,3 +1,5 @@
+var arrayLeads = [];
+
 /**
  * Carrega a lista de Leads e exibe o gráfico
  */
@@ -32,62 +34,64 @@ const carregarLeads = () => {
 
       const leads = JSON.parse(JSON.stringify(json.leads));
 
-      // ** GRÁFICOS **
-      // Opões gerais dos gráficos
-      let options = {
-        sliceVisibilityThreshold: 0, // Porcentagem para agupar items em um só chamado de 'Outros',
-        chartArea: {
-          width: "100%",
-          height: "100%",
-        }
-      };
-
-
-
-      // Desenha os gráficos de pesagem por empresa
-      google.charts.load('current', { packages: ['corechart'], 'language': 'pt' });
-
-      google.charts.setOnLoadCallback(graficoLeads);
-
-
-      /**
-       * Cria o gráfico dos status
-       */
-      function graficoLeads() {
-        let filterLeads = new Set();
-        let data = [];
-
-        json.leads.forEach(lead => filterLeads.add(lead.STATUS));
-
-
-        filterLeads.forEach(leadStatus => {
-          let count = json.leads.reduce((accumulator, lead) => (lead.STATUS == leadStatus ? accumulator + 1 : accumulator), 0);
-          data.push([`${leadStatus} = ${count}`, count, `${leadStatus} \n ${count} (${(count / json.leads.length * 100).toLocaleString('pt-BR', { maximumFractionDigits: 2 })}%)`]);
-        });
-
-        // Instantiate and draw our chart, passing in some options.
-
-        dataGraf = new google.visualization.DataTable();
-        dataGraf.addColumn('string', 'Status');
-        dataGraf.addColumn('number', 'Quantidade');
-        dataGraf.addColumn({ type: 'string', role: 'tooltip' });
-        dataGraf.addRows(data);
-
-        let divGraf = document.getElementById('grafico');
-
-        let title = document.createElement("p");
-        title.innerHTML = "Resumo dos status";
-        title.id = "titloGrafico";
-
-        divGraf.parentElement.insertBefore(title, divGraf)
-        let chart = new google.visualization.PieChart(divGraf);
-        chart.draw(dataGraf, options);
-      }
+      arrayLeads = json.leads;
+      criarGrafico();
 
       // Incluir items na lista
       leads.forEach(lead => listaLeads.appendChild(criarItemLista(lead)));
 
     });
+}
+
+/**
+ * Cria o gráfico apartir dos dados existentes na variável global **arrayLeads**
+ */
+const criarGrafico = () => {
+  // ** GRÁFICOS **
+  // Opões gerais dos gráficos
+  let options = {
+    sliceVisibilityThreshold: 0, // Porcentagem para agupar items em um só chamado de 'Outros',
+    chartArea: {
+      width: "100%",
+      height: "100%",
+    }
+  };
+
+  // Desenha os gráficos de pesagem por empresa
+  google.charts.load('current', { packages: ['corechart'], 'language': 'pt' });
+
+  google.charts.setOnLoadCallback(graficoLeads);
+
+  /**
+   * Cria o gráfico dos status
+   */
+  function graficoLeads() {
+    let filterLeads = new Set();
+    let data = [];
+
+    arrayLeads.forEach(lead => filterLeads.add(lead.STATUS));
+
+
+    filterLeads.forEach(leadStatus => {
+      let count = arrayLeads.reduce((accumulator, lead) => (lead.STATUS == leadStatus ? accumulator + 1 : accumulator), 0);
+      data.push([`${leadStatus} = ${count}`, count, `${leadStatus} \n ${count} (${(count / arrayLeads.length * 100).toLocaleString('pt-BR', { maximumFractionDigits: 2 })}%)`]);
+    });
+
+    // Instantiate and draw our chart, passing in some options.
+
+    dataGraf = new google.visualization.DataTable();
+    dataGraf.addColumn('string', 'Status');
+    dataGraf.addColumn('number', 'Quantidade');
+    dataGraf.addColumn({ type: 'string', role: 'tooltip' });
+    dataGraf.addRows(data);
+
+    let divGraf = document.getElementById('grafico');
+
+    document.getElementById("titloGrafico").innerHTML = "Resumo dos status";
+
+    let chart = new google.visualization.PieChart(divGraf);
+    chart.draw(dataGraf, options);
+  }
 }
 
 /**
@@ -173,13 +177,28 @@ const salvarStatus = (div) => {
           }
 
           if (json.status == 'Erro') {
-            alert(`Um erro ocorreu ao exibir lead aualizado. Atualize a lista`);
+            alert(`Um erro ocorreu ao exibir lead atualizado. Atualize a lista`);
             return false;
           }
 
-          div.innerHTML = criarItemLista(json.lead, false).innerHTML;
+          let
+            id = -1,
+            lead = JSON.parse(JSON.stringify(json.lead));
 
-          if (json.lead.STATUS != 'DISTRIBUÍDO') {
+          arrayLeads.forEach((lead, index) => {
+            if (lead.CODIGO == json.lead.CODIGO) {
+              id = index;
+            }
+          });
+
+          if (id >= 0) {
+            arrayLeads[id] = json.lead;
+            criarGrafico();
+          }
+
+          div.innerHTML = criarItemLista(lead, false).innerHTML;
+
+          if (lead.STATUS != 'DISTRIBUÍDO') {
             div.classList.remove('destacado');
           }
         });
@@ -292,8 +311,8 @@ const cadastrarNovoLead = (div) => {
     infos[input.name] = input.value.trim();
   }
 
-  infos.status = div.getElementsByTagName('select').value;
-  
+  infos.status = div.getElementsByTagName('select')[0].value;
+
   // Valida o CPF
   if (!isValidCPF(infos.cpf) && (infos.cpf.length > 0)) {
     inputCPF.style.boxShadow = "1px 1px 3px red";
@@ -347,16 +366,48 @@ const cadastrarNovoLead = (div) => {
       }
 
       div.getElementsByTagName('button')[0].remove();
-      
+
       for (input of inputs) {
         input.value = '';
       }
-      
+
+      let leadData = new FormData();
+      leadData.append('TOKEN', localStorage.getItem('login.' + param));
+      leadData.append('LOCAL', LOCAL);
+      leadData.append('ID', json.id);
+
+      fetch('backend/leads/procurarUmLead.php', {
+        method: 'POST',
+        body: leadData,
+      })
+        .then(resp => resp.json())
+        .then(json => {
+          if (!json.autenticado) {
+            alert(json.erro ? `Erro ao atualizar lead: ${json.erro}.` : 'Usuário não autenticado');
+            carregarLogin();
+            return false;
+          }
+
+          if (json.status == 'Erro') {
+            alert(`Um erro ocorreu ao exibir lead atualizado. Atualize a lista`);
+            return false;
+          }
+
+          let lead = JSON.parse(JSON.stringify(json.lead));
+
+          arrayLeads.push(json.lead);
+          criarGrafico();
+
+          let listaLeads = document.getElementById('listaLeads');
+
+          listaLeads.appendChild(criarItemLista(lead, false))
+        });
+
+
       incluirLeadDiv();
     });
 
 }
-
 
 const procurarLead = (input) => {
   const

@@ -98,7 +98,14 @@ $bdArray = array(
   'STATUSUSER' => $nomeUser,
 );
 
+$cadastro = inserirRegistro($bdArray, "consleads", $mysqli, $baseCentral);
 
-$resp = inserirRegistro($bdArray, "consleads", $mysqli, $resp, $baseCentral);
+if($cadastro && ($cadastro > 0)){
+  $resp['status'] = 'Cadastro realizado';
+  $resp['id'] = $cadastro;
+} else {
+  $resp['status'] = 'Erro';
+  $resp['erro'] = "Não foi possível realizar o cadastro";
+}
 
 return print(json_encode($resp));

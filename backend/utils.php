@@ -108,8 +108,10 @@ function arrayUppercase($value)
 /**
  * Insere um registro na tabela desejada
  */
-function inserirRegistro(array $campos, $tabela, $mysqli, $resp = array(), $baseCentral = '')
+function inserirRegistro(array $campos, $tabela, $mysqli,  $baseCentral = '')
 {
+    $resp = array();
+
     $sqlInsert = "INSERT INTO " . $baseCentral . $tabela . " ( ";
 
     foreach ($campos as $key => $value) {
@@ -126,12 +128,10 @@ function inserirRegistro(array $campos, $tabela, $mysqli, $resp = array(), $base
 
     $stmt = $mysqli->prepare($sqlInsert);
 
-    if ($stmt->execute()) {
-        $resp['status'] = 'Cadastro realizado';
+    if ($stmt->execute()) {        
+        return mysqli_insert_id($mysqli);
     } else {
-        $resp['status'] = 'Erro';
-        $resp['erro'] = "Não foi possível realizar o cadastro";
+        return false;
     }
-
-    return $resp;
+    
 }
