@@ -15,10 +15,10 @@ const carregarHome = async () => {
     }
 }
 
-const sair = () => {
-    localStorage.removeItem('login.' + param);
-    carregarLogin();
+const telaUsuario = async () => { 
+
 }
+
 
 const telaLeads = async () => {
     const content = document.getElementById('content');
