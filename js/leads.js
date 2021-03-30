@@ -371,6 +371,8 @@ const cadastrarNovoLead = (div) => {
         input.value = '';
       }
 
+      div.getElementsByTagName('select')[0].value = "DISTRIBUÍDO";
+
       let leadData = new FormData();
       leadData.append('TOKEN', localStorage.getItem('login.' + param));
       leadData.append('LOCAL', LOCAL);
