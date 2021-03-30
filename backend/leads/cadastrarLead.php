@@ -78,6 +78,7 @@ if (mysqli_num_rows($result) > 0) {
 
 // Armazena o código no cadatro deste usuário
 $VENDCODI = $row['MDCODI'];
+$VENDNOME = $row['MDFIRM'];
 
 
 $bdArray = array(
@@ -89,16 +90,21 @@ $bdArray = array(
   'CIDADE' => $arrINFOS['cidade'],
   'CANAL' => 'APLICATIVO',
   'STATUS' => $arrINFOS['status'],
-  'VENDCOD' => $VENDCODI,
-  'VENDNOME' => $nomeUser,
   'OBS' => $arrINFOS['obs'],
-  'FILIAL' => $numFilial,
   'STATUSHIST' => $arrINFOS['status'] . ' - ' . date("d/m/Y H:i:s") . ' - ' . $nomeUser,
   'STATUSDH' => date("Y-m-d H:i:s"),
   'STATUSUSER' => $nomeUser,
 );
 
-$cadastro = inserirRegistro($bdArray, "consleads", $mysqli, $baseCentral);
+if($arrINFOS['status'] != 'NOVO'){
+  $bdArray['VENDCOD'] = $VENDCODI;
+  $bdArray['VENDNOME']  = $VENDNOME;
+  $bdArray['FILIAL'] = $numFilial;
+} else {
+  $bdArray['FILIAL'] = '00';
+}
+
+$cadastro = inserirRegistro($mysqli, $bdArray, "consleads", $baseCentral);
 
 if($cadastro && ($cadastro > 0)){
   $resp['status'] = 'Cadastro realizado';

@@ -353,7 +353,6 @@ const cadastrarNovoLead = (div) => {
   })
     .then(resp => resp.json())
     .then(json => {
-
       if (!json.autenticado) {
         alert(json.erro ? `Erro ao cadastrar: ${json.erro}.` : 'Usuário não autenticado');
         carregarLogin();
@@ -372,7 +371,12 @@ const cadastrarNovoLead = (div) => {
       }
 
       div.getElementsByTagName('select')[0].value = "DISTRIBUÍDO";
+      incluirLeadDiv();
 
+      if (infos.status == "NOVO") {
+        return;
+      }
+      
       let leadData = new FormData();
       leadData.append('TOKEN', localStorage.getItem('login.' + param));
       leadData.append('LOCAL', LOCAL);
@@ -402,11 +406,10 @@ const cadastrarNovoLead = (div) => {
 
           let listaLeads = document.getElementById('listaLeads');
 
-          listaLeads.appendChild(criarItemLista(lead, false))
+          //listaLeads.appendChild(criarItemLista(lead, false))
+          const newDiv = criarItemLista(lead, false);
+          listaLeads.insertBefore(newDiv, listaLeads.getElementsByClassName('itemLead')[0]);
         });
-
-
-      incluirLeadDiv();
     });
 
 }

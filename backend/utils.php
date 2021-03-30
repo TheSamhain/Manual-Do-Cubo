@@ -107,8 +107,14 @@ function arrayUppercase($value)
 
 /**
  * Insere um registro na tabela desejada
+ * @param  mysqli $mysqli Conexão com MySQL
+ * @param  array $campos Array contendo as informaçõe para inserir na tabela.  
+ * As chaves devem ser os nomes dos campos e os valores são os inseridos na tabela
+ * @param  string $tabela Nome da tabela para inserir o registro
+ * @param  string $baseCentral (opcional) - Nome da base central
+ * @return false|int Retorna o id do registro cadastrado ou false se não conseguir cadastrar
  */
-function inserirRegistro(array $campos, $tabela, $mysqli,  $baseCentral = '')
+function inserirRegistro($mysqli, array $campos, $tabela,  $baseCentral = '')
 {
     $resp = array();
 
