@@ -17,7 +17,8 @@
         <div id="dadosPessoa">
             <label>
                 <p>CPF</p>
-                <input
+                <input 
+                    autocomplete="off"
                     type="text"
                     name="cpf"
                     required
@@ -29,7 +30,8 @@
 
             <label>
                 <p>Nome completo</p>
-                <input
+                <input 
+                    autocomplete="off"
                     type="text"
                     name="nome"
                     required
@@ -41,6 +43,7 @@
             <label>
                 <p>Data de Nascimento</p>
                 <input 
+                    autocomplete="off" 
                     type="text" 
                     name="dataNasc" 
                     oninput="this.value = dataNascMask(this.value)" 
@@ -54,7 +57,8 @@
     <div>
         <label>
             <p>E-mail</p>
-            <input
+            <input 
+                autocomplete="off"
                 type="email"
                 name="email"
                 maxlength="200"
@@ -64,7 +68,8 @@
 
         <label>
             <p>Telefone 1</p>
-            <input
+            <input 
+                autocomplete="off"
                 type="tel"
                 name="tel1"
                 maxlength="15"
@@ -76,7 +81,8 @@
 
         <label>
             <p>Telefone 2</p>
-            <input
+            <input 
+                autocomplete="off"
                 type="tel"
                 name="tel2"
                 maxlength="15"
@@ -90,7 +96,8 @@
     <div>
         <label>
             <p>CEP</p>
-            <input
+            <input 
+                autocomplete="off"
                 type="text"
                 name="cep"
                 min="0"
@@ -137,22 +144,23 @@
 
         <label>
             <p>Cidade</p>
-            <input type="text" name="cidade" required maxlength="35" />
+            <input autocomplete="off" type="text" name="cidade" required maxlength="35" />
         </label>
 
         <label>
             <p>Bairro</p>
-            <input type="text" name="bairro" required maxlength="40" />
+            <input autocomplete="off" type="text" name="bairro" required maxlength="40" />
         </label>
 
         <label>
             <p>Logradouro</p>
-            <input type="text" name="rua" required maxlength="50" />
+            <input autocomplete="off" type="text" name="rua" required maxlength="50" />
         </label>
 
         <label>
             <p>Número</p>
-            <input
+            <input 
+                autocomplete="off"
                 type="text"
                 name="numeroCasa"
                 min="0"
@@ -164,7 +172,7 @@
 
         <label>
             <p>Complemento</p>
-            <input type="text" name="complemento" maxlength="40" />
+            <input autocomplete="off" type="text" name="complemento" maxlength="40" />
         </label>
     </div>
 </form>

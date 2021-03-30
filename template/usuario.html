@@ -1,0 +1,24 @@
+<div id="infosUser">
+    <label>
+        <p>Nova senha</p>
+        <input autocomplete="off" required type="password" name="senha1" />
+    </label>
+
+    <label>
+        <p>Confirmar nova senha</p>
+        <input autocomplete="off" type="password" name="senha2" />
+    </label>
+
+    <label class="mostrarSenha">
+        <input
+            type="checkbox"
+            name="mostrarSenha"
+            onchange="exibirSenha(this.checked)"
+        />
+        <p>Mostrar senha</p>
+    </label>
+</div>
+
+<button id="btnSalvar" onclick="salvarInfoUsuario()">Salvar</button>
+
+<button id="btnSair" onclick="sair()">Desconectar</button>

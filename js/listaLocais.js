@@ -3,7 +3,7 @@ const carregarLocais = async () => {
 
   let html = await fetch('template/locais.html');
   html = await html.text();
-  main.innerHTML = html;
+  app.innerHTML = html;
 
   carregarLogo();
 

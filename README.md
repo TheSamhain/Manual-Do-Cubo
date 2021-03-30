@@ -6,15 +6,15 @@ Também é possivel visualizar o relatório de vendas e comissões.
 
 # :clipboard: TO-DO
 
-## PROFIN
+## :chart_with_upwards_trend: PROFIN
 - [ ] Ao alterar o status para novo, deve limpar as informações do vendedor no app desktop
 
 
-## APP MOBILE ONE
+## :iphone: APP MOBILE ONE
 
 - [x] Na tela de login, posicionar a logo e os campos pouco mais para cima
 
-### Lista de Leads
+### :bar_chart: Lista de Leads
 - [x] Alinhar as informações do banco de dados  
 - [x] Mostrar em qual loja está o lead  
 - [x] CPF/CNPJ Condicional  
@@ -28,7 +28,7 @@ Também é possivel visualizar o relatório de vendas e comissões.
 - [x] Permitir que o vendedor cadastre LEADS.  
 - [ ] Permitir que o vendedor altere sua própria senha.  
 
-### Relatório de vendas
+### :page_facing_up: Relatório de vendas
 - [x] Listar todas as vendas no período de 1 ano ou enquanto tiver uma parcela da comissão em aberto  
 - [x] Colocar a fonte do texto da parcela vencida e não paga em vermelho  
 - [x] Remover as bordas dos campos e colocar uma cor de fundo suave  
@@ -37,7 +37,7 @@ Também é possivel visualizar o relatório de vendas e comissões.
 - [x] Remover a linha abaixo do campo de seleção.  
 
 
-## Cadastro de clientes
+## :smiley: Cadastro de clientes
 - [x] Remover as bordas dos campos e colocar uma cor de fundo suave  
 - [x] Melhorar o agrupamento dos campos. Remover as linhas de grupo
    - Dados da pessoa
@@ -51,7 +51,7 @@ Também é possivel visualizar o relatório de vendas e comissões.
 - [x] Só mostrar o campo SALVAR se tiver alguma alteração  
 
 
-## Cadastro de vendas
+## :money_with_wings: Cadastro de vendas
 - [x] Remover as bordas dos campos e colocar uma cor de fundo suave
 - [x] Melhorar o agrupamento dos campos. Remover as linhas de grupo
 - [x] Só mostrar o campo SALVAR se tiver alguma alteração

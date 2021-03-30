@@ -17,6 +17,7 @@
 
         <p>CPF:</p>
         <input
+            autocomplete="off"
             type="text"
             name="cpf"
             oninput="this.value = cpfMask(this.value)"
@@ -26,6 +27,7 @@
 
         <p>Nome:</p>
         <input
+            autocomplete="off"
             type="text"
             name="nome"
             onblur="exibirBtnSalvar(this, cadastrarNovoLead, 'Incluir')"
@@ -34,6 +36,7 @@
 
         <p>Telefone:</p>
         <input
+            autocomplete="off"
             name="telefone"
             type="tel"
             maxlength="15"
@@ -42,12 +45,12 @@
         />
 
         <p>Email:</p>
-        <input type="email" name="email" maxlength="200" inputmode="email" />
+        <input type="email" name="email" maxlength="200" inputmode="email" autocomplete="off" />
 
         <p>Cidade:</p>
-        <input type="text" name="cidade" />
+        <input type="text" name="cidade" autocomplete="off" />
 
         <p>Obs:</p>
-        <input type="text" name="obs"/>
+        <input type="text" name="obs" autocomplete="off" />
     </form>
 </div>

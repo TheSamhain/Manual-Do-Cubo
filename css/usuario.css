@@ -1,0 +1,41 @@
+  #infosUser{
+  flex: 1;
+  color: var(--CorDefault);
+}
+
+#infosUser label > p{
+  margin: 5px 0;
+}
+
+#infosUser label{
+  display: flex;
+  flex-direction: column;
+}
+
+#infosUser label.mostrarSenha{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+
+#infosUser label.mostrarSenha p {
+  flex: 1;
+}
+
+#infosUser label.mostrarSenha input{
+  flex: 0;
+  height: 15px;
+  min-width: 15px;
+}
+
+#btnSair{
+  margin-bottom: 70px;
+  margin-top: 10px;
+}
+
+#btnSalvar{
+  margin-bottom: 10px;
+  margin-top: 10px;
+}

@@ -1,21 +1,38 @@
-const carregarHome = async () => {
+const carregarMain = async () => {
     validaToken(localStorage.getItem('login.' + param), true);
 
-    let html = await fetch('template/home.html');
+    let html = await fetch('template/main.html');
     html = await html.text();
-    main.innerHTML = html;
+    app.innerHTML = html;
 
     const NOME = JSON.parse(atob(localStorage.getItem('login.' + param))).NOME;
     document.getElementById('nomeUsuario').innerHTML = NOME;
 
-    telaLeads();
-    
+    fetch('backend/login/procurarLocais.php', {
+        method: 'POST'
+    })
+        .then(resp => resp.json())
+        .then(json => {
+            let local = json.lista.find(item => item.LOCAL == LOCAL.split('.')[0])
+
+            document.getElementById('cidade').innerHTML = local.EMPRESA;
+        });
+
     if (screen.width > 768) {
         alert('ESTE APLICATIVO É DESTINADO PARA CELULARES \n\nNÃO RECOMENDAMOS O USO EM COMPUTADORES')
     }
+
+    // telaLeads();
+    telaUsuario();
 }
 
-const telaUsuario = async () => { 
+const telaUsuario = async () => {
+    const content = document.getElementById('content');
+    validaToken(localStorage.getItem('login.' + param), true);
+
+    let html = await fetch('template/usuario.html');
+    html = await html.text();
+    content.innerHTML = html;
 
 }
 
@@ -27,9 +44,9 @@ const telaLeads = async () => {
     let html = await fetch('template/leads.html');
     html = await html.text();
     content.innerHTML = html;
-    
+
     let form = document.getElementsByTagName('form')[0];
-    form.addEventListener('submit', (e) => e.preventDefault() );
+    form.addEventListener('submit', (e) => e.preventDefault());
 
     document.getElementById('titulo').innerHTML = "Leads";
 
@@ -89,9 +106,4 @@ const telaRelatorio = async () => {
     document.getElementById('titulo').innerHTML = "Relatório";
 
     carregarTudo();
-}
-
-const telaComputador = () => {
-    let home = document.getElementById("home");
-    home.innerHTML = '';
 }

@@ -1,5 +1,5 @@
 const
-    main = document.getElementById('root'),
+    app = document.getElementById('root'),
     param = new URLSearchParams(window.location.search).get('local'),
     LOCAL = param + '.one';
 
@@ -11,7 +11,7 @@ if (param) {
             if (!autenticado) {
                 carregarLogin();
             } else {
-                carregarHome();
+                carregarMain();
             }
         });
 } else {

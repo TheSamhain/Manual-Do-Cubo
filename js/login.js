@@ -3,7 +3,7 @@ const carregarLogin = async () => {
     
     let html = await fetch('template/login.html');
     html = await html.text();
-    main.innerHTML = html;
+    app.innerHTML = html;
     
     
     let form = document.getElementById('login').getElementsByTagName('form')[0];
@@ -39,7 +39,7 @@ const entrar = () => {
         .then(json => {
             if (json.logado) {
                 localStorage.setItem('login.' + param, json.token);                
-                carregarHome();
+                carregarMain();
             } else {
                 if (!json.erro) {
                     alert('Erro ao realizar login, tente novamente mais tarde.');
