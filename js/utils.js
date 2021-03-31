@@ -37,6 +37,8 @@ const justNumbers = text => text.replace(/\D/g, '');
  */
 const justAlpha = text => text.replace(/[^a-zA-Z ]/g, '');
 
+const avoidSpace = text => text.replace(/\s/g, '')
+
 /**
  * Valida email inserido utilizando regex
  * @param  {String} email email a ser verificado
@@ -279,7 +281,7 @@ const formatDate = (date) => {
  *  Deixa a primeira letra da palavra em maiúscula e o resto em minusculas
  * @param {String} word Palavra a ser convertida
  */
- const capitalizeFirstLetter = (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+const capitalizeFirstLetter = (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
 
 
 /**
@@ -304,7 +306,7 @@ const formatDateTime = (date) => {
  * 
  * Se o input estiver com o __inputmode__ diferente de text não permite colocar esapços nem no ínicio nem no fim.
  */
- const evitarEspacosInputs = () => {
+const evitarEspacosInputs = () => {
     let inputs = document.getElementsByTagName('input');
 
     for (let input of inputs) {
@@ -328,7 +330,7 @@ const formatDateTime = (date) => {
  * @param  {String} value texto a ser formatado
  * @return {String}       Texto já formatado
  */
- const currencyMask = (input) => {
+const currencyMask = (input) => {
     input.value = `000${input.value}`;
 
     input.value =
@@ -418,7 +420,7 @@ const procurarCadastro = async (cpfcnpj) => {
 /**
  * Inclui o botão salvar no final do form
  */
- const incluirSalvar = (title = "Incluir") => {
+const incluirSalvar = (title = "Incluir") => {
     const
         form = document.getElementsByTagName('form')[0],
         btnSalvar = document.createElement('button');
@@ -438,8 +440,8 @@ const procurarCadastro = async (cpfcnpj) => {
     if (!!dados.get('nome') || !!dados.get('razao')) {
         btnSalvar.id = "btnSalvarCadastro";
     }
-    
-    if(form.getElementsByTagName('button').length === 0){
+
+    if (form.getElementsByTagName('button').length === 0) {
         form.appendChild(btnSalvar);
     } else {
         form.getElementsByTagName('button')[0].innerHTML = title;

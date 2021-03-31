@@ -21,6 +21,10 @@ function JWTvalidate($token = '', $secret = '')
     $arr = json_decode($arr);
     $concat = '';
 
+    if($arr == null){
+        return false;
+    }
+
     foreach ($arr as $key => $value) {
         if ($key != 'HASH') {
             $concat = $concat . $value;

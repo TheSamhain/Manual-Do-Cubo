@@ -22,8 +22,7 @@ const carregarMain = async () => {
         alert('ESTE APLICATIVO É DESTINADO PARA CELULARES \n\nNÃO RECOMENDAMOS O USO EM COMPUTADORES')
     }
 
-    // telaLeads();
-    telaUsuario();
+    telaLeads();
 }
 
 const telaUsuario = async () => {
@@ -34,6 +33,8 @@ const telaUsuario = async () => {
     html = await html.text();
     content.innerHTML = html;
 
+    
+    document.getElementById('titulo').innerHTML = "Perfil";
 }
 
 
@@ -106,4 +107,9 @@ const telaRelatorio = async () => {
     document.getElementById('titulo').innerHTML = "Relatório";
 
     carregarTudo();
+}
+
+const sair = () => {
+    localStorage.removeItem('login.' + param);
+    carregarLogin();
 }

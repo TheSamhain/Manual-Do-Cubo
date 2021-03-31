@@ -1,5 +1,4 @@
-  #infosUser{
-  flex: 1;
+#infosUser{
   color: var(--CorDefault);
 }
 
@@ -10,32 +9,34 @@
 #infosUser label{
   display: flex;
   flex-direction: column;
-}
-
-#infosUser label.mostrarSenha{
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
   align-items: center;
 }
 
 
-#infosUser label.mostrarSenha p {
-  flex: 1;
-}
-
-#infosUser label.mostrarSenha input{
-  flex: 0;
-  height: 15px;
-  min-width: 15px;
-}
-
-#btnSair{
-  margin-bottom: 70px;
-  margin-top: 10px;
-}
 
 #btnSalvar{
   margin-bottom: 10px;
-  margin-top: 10px;
+  margin-top: 20px;
+  width: 206px;
+  align-self: center;
+}
+
+
+#confirmaSenha {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 23px;
+  width: 206px;
+}
+
+#confirmaSenha i {
+  font-size: 19px;
+  background-color: #ecf5ff;
+  padding: 1px;
+}
+
+#confirmaSenha input {
+  height: auto;
+  width: 170px;
 }

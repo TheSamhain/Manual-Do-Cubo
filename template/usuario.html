@@ -1,24 +1,38 @@
 <div id="infosUser">
     <label>
+        <p>Senha atual</p>
+        <input
+            autocomplete="off"
+            required
+            type="text"
+            name="senhaAtual"
+            oninput="this.value = avoidSpace(this.value)"
+        />
+    </label>
+
+    <label>
         <p>Nova senha</p>
-        <input autocomplete="off" required type="password" name="senha1" />
+        <input
+            autocomplete="off"
+            required
+            type="password"
+            name="novaSenha1"
+            oninput="this.value = avoidSpace(this.value)"
+        />
     </label>
 
     <label>
         <p>Confirmar nova senha</p>
-        <input autocomplete="off" type="password" name="senha2" />
-    </label>
-
-    <label class="mostrarSenha">
-        <input
-            type="checkbox"
-            name="mostrarSenha"
-            onchange="exibirSenha(this.checked)"
-        />
-        <p>Mostrar senha</p>
+        <div id="confirmaSenha">
+            <input
+                autocomplete="off"
+                type="password"
+                name="novaSenha2"
+                oninput="this.value = avoidSpace(this.value)"
+            />
+            <i class="bi bi-eye-fill" onclick="exibirSenha()"></i>
+        </div>
     </label>
 </div>
 
 <button id="btnSalvar" onclick="salvarInfoUsuario()">Salvar</button>
-
-<button id="btnSair" onclick="sair()">Desconectar</button>
