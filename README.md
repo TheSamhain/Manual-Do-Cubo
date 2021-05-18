@@ -26,7 +26,7 @@ Também é possivel visualizar o relatório de vendas e comissões.
 - [x] Trocar o ícone do atalho leads.  
 - [x] Colocar a barra de atalhos acima do título da janela  
 - [x] Permitir que o vendedor cadastre LEADS.  
-- [ ] Permitir que o vendedor altere sua própria senha.  
+- [x] Permitir que o vendedor altere sua própria senha.  
 
 ### :page_facing_up: Relatório de vendas
 - [x] Listar todas as vendas no período de 1 ano ou enquanto tiver uma parcela da comissão em aberto  
