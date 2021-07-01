@@ -4,11 +4,7 @@
     <div>
         <label>
             <p>Tipo de Pessoa</p>
-            <select
-                name="tipoPessoa"
-                onchange="alterarTipoPessoa(this.value)"
-                required
-            >
+            <select name="tipoPessoa" onchange="alterarTipoPessoa(this.value)" required>
                 <option value="F">Física</option>
                 <option value="J">Jurídica</option>
             </select>
@@ -16,39 +12,20 @@
 
         <div id="dadosPessoa">
             <label>
-                <p>CPF</p>
-                <input 
-                    autocomplete="off"
-                    type="text"
-                    name="cpf"
-                    required
-                    oninput="this.value = cpfMask(this.value)"
-                    onblur="verificarDados(this.value)"
-                    inputmode="numeric"
-                />
+                <p>CPF *</p>
+                <input autocomplete="off" type="text" name="cpf" required oninput="this.value = cpfMask(this.value)"
+                    onblur="verificarDados(this.value)" inputmode="numeric" />
             </label>
 
             <label>
-                <p>Nome completo</p>
-                <input 
-                    autocomplete="off"
-                    type="text"
-                    name="nome"
-                    required
-                    maxlength="60"
-                    autocapitalize="characters"
-                />
+                <p>Nome completo *</p>
+                <input autocomplete="off" type="text" name="nome" required maxlength="60" autocapitalize="characters" />
             </label>
 
             <label>
-                <p>Data de Nascimento</p>
-                <input 
-                    autocomplete="off" 
-                    type="text" 
-                    name="dataNasc" 
-                    oninput="this.value = dataNascMask(this.value)" 
-                    onblur="validarDataNasc(this)"
-                    required />
+                <p>Data de Nascimento *</p>
+                <input autocomplete="off" type="text" name="dataNasc" oninput="this.value = dataNascMask(this.value)"
+                    onblur="validarDataNasc(this)" required />
             </label>
         </div>
     </div>
@@ -57,56 +34,28 @@
     <div>
         <label>
             <p>E-mail</p>
-            <input 
-                autocomplete="off"
-                type="email"
-                name="email"
-                maxlength="200"
-                inputmode="email"
-            />
+            <input autocomplete="off" type="email" name="email" maxlength="200" inputmode="email" />
         </label>
 
         <label>
-            <p>Telefone 1</p>
-            <input 
-                autocomplete="off"
-                type="tel"
-                name="tel1"
-                maxlength="15"
-                inputmode="tel"
-                oninput="this.value = phoneMask(this.value)"
-                required
-            />
+            <p>Telefone 1 *</p>
+            <input autocomplete="off" type="tel" name="tel1" maxlength="15" inputmode="tel"
+                oninput="this.value = phoneMask(this.value)" required />
         </label>
 
         <label>
             <p>Telefone 2</p>
-            <input 
-                autocomplete="off"
-                type="tel"
-                name="tel2"
-                maxlength="15"
-                inputmode="tel"
-                oninput="this.value = phoneMask(this.value)"
-            />
+            <input autocomplete="off" type="tel" name="tel2" maxlength="15" inputmode="tel"
+                oninput="this.value = phoneMask(this.value)" />
         </label>
     </div>
 
     <h1>Endereço</h1>
     <div>
         <label>
-            <p>CEP</p>
-            <input 
-                autocomplete="off"
-                type="text"
-                name="cep"
-                min="0"
-                maxlength="9"
-                required
-                oninput="this.value = cepMask(this.value)"
-                onblur="verificarCep(this.value)"
-                inputmode="numeric"
-            />
+            <p>CEP *</p>
+            <input autocomplete="off" type="text" name="cep" min="0" maxlength="9" required
+                oninput="this.value = cepMask(this.value)" onblur="verificarCep(this.value)" inputmode="numeric" />
         </label>
 
         <label>
@@ -143,36 +92,32 @@
         </label>
 
         <label>
-            <p>Cidade</p>
+            <p>Cidade *</p>
             <input autocomplete="off" type="text" name="cidade" required maxlength="35" />
         </label>
 
         <label>
-            <p>Bairro</p>
+            <p>Bairro *</p>
             <input autocomplete="off" type="text" name="bairro" required maxlength="40" />
         </label>
 
         <label>
-            <p>Logradouro</p>
+            <p>Logradouro *</p>
             <input autocomplete="off" type="text" name="rua" required maxlength="50" />
         </label>
 
         <label>
             <p>Número</p>
-            <input 
-                autocomplete="off"
-                type="text"
-                name="numeroCasa"
-                min="0"
-                required
-                inputmode="numeric"
-                onblur="incluirSalvar(novoCliente ? 'Incluir' : 'Salvar')"
-            />
+            <input autocomplete="off" type="text" name="numeroCasa" min="0" inputmode="numeric"
+                onblur="incluirSalvar(novoCliente ? 'Incluir' : 'Salvar')" />
         </label>
 
         <label>
             <p>Complemento</p>
             <input autocomplete="off" type="text" name="complemento" maxlength="40" />
         </label>
+
+        <br />
+        <h1>* Dados obrigatórios</h1>
     </div>
 </form>

@@ -26,14 +26,14 @@ function JWTvalidate($token = '', $secret = '')
     }
 
     foreach ($arr as $key => $value) {
-        if ($key != 'HASH') {
+        if ($key != 'hash') {
             $concat = $concat . $value;
         }
     }
 
-    $hash = hash_hmac($arr->ALGO, $concat, $secret);
+    $hash = hash_hmac($arr->algo, $concat, $secret);
 
-    if ($hash == $arr->HASH) {
+    if ($hash == $arr->hash) {
         $resp = true;
     }
 
@@ -52,8 +52,8 @@ function JWTcreate($arr = array(), $secret = '')
     }
 
     $TOKEN = array();
-    $HASH = '';
-    $ALGO = 'md5';
+    $hash = '';
+    $algo = 'md5';
 
     foreach ($arr as $key => $value) {
         if($value == null || $value == '' || $value == 'null'){
@@ -61,12 +61,12 @@ function JWTcreate($arr = array(), $secret = '')
         }
 
         $TOKEN[$key] = $value;
-        $HASH = $HASH . $value;
+        $hash = $hash . $value;
     }
 
     $TOKEN['CREATED'] = time();
-    $TOKEN['ALGO'] = $ALGO;
-    $TOKEN['HASH'] = hash_hmac($ALGO, $HASH . time() . $ALGO, $secret);
+    $TOKEN['algo'] = $algo;
+    $TOKEN['hash'] = hash_hmac($algo, $hash . time() . $algo, $secret);
 
     return base64_encode(json_encode($TOKEN));
 }
