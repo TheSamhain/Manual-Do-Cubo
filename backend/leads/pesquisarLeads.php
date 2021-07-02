@@ -55,7 +55,7 @@ $MDCODI = $row['MDCODI'];
 
 $sqlLeads = " SELECT leads.*, filiais.FILIAL AS LOJA 
               FROM " . $baseCentral . "consleads leads 
-              LEFT JOIN " . $baseCentral . "filiais 
+              LEFT JOIN filiais 
               ON leads.FILIAL = filiais.NUM 
               WHERE VENDCOD = ? 
               AND IF(leads.STATUS = 'PROPOSTA ACEITA' OR leads.STATUS = 'PROPOSTA NEGADA', STATUSDH >= subdate(now(), 15), 1=1)

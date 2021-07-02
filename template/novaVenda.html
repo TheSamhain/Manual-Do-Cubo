@@ -3,11 +3,7 @@
     <div id="tipoPessoa">
         <label>
             <p>Tipo de Pessoa</p>
-            <select
-                name="tipoPessoa"
-                onchange="alterarTipoPessoaVenda(this.value)"
-                required
-            >
+            <select name="tipoPessoa" onchange="alterarTipoPessoaVenda(this.value)" required>
                 <option value="F">Física</option>
                 <option value="J">Jurídica</option>
             </select>
@@ -15,15 +11,8 @@
 
         <label>
             <p>CPF *</p>
-            <input 
-                autocomplete="off"
-                required
-                type="text"
-                name="cpf"
-                oninput="this.value = cpfMask(this.value)"
-                onblur="carregarDadosCliente(this.value)"
-                inputmode="numeric"
-            />
+            <input autocomplete="off" required type="text" name="cpf" oninput="this.value = cpfMask(this.value)"
+                onblur="carregarDadosCliente(this.value)" inputmode="numeric" />
         </label>
     </div>
 
@@ -33,15 +22,8 @@
     <div id="tipoPessoa">
         <label>
             <p>Valor da Carta *</p>
-            <input 
-                autocomplete="off"
-                type="text"
-                name="valorCarta"
-                required
-                oninput="currencyMask(this)"
-                onkeyup="setCaretToEnd(this)"
-                value="0,00"
-            />
+            <input autocomplete="off" type="text" name="valorCarta" required oninput="currencyMask(this)"
+                onkeyup="setCaretToEnd(this)" value="0,00" />
         </label>
 
         <label>
@@ -78,9 +60,19 @@
             <input autocomplete="off" type="number" min="1" name="parcelas" required value="10" />
         </label>
 
-        <br />        
+        <label>
+            <p>Meia Parcela?</p>
+            <select name="meiaparcela" required>
+                <option value="1">Não</option>
+                <option value="2">Sim</option>
+            </select>
+        </label>
+
+
+
+        <br />
         <h1>* Dados obrigatórios</h1>
     </div>
 
-    <button type="submit" >Incluir</button>
+    <button type="submit">Incluir</button>
 </form>

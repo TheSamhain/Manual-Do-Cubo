@@ -48,18 +48,62 @@
         return print(json_encode($resp));
     }
 
+
     $bdArray = array(
         'DTADESAO' => $arrINFOS['dataAdesao'],
         'TIPO' => $arrINFOS['tipo'],
         'COTA' => $arrINFOS['cota'],
         'GRUPO' => $arrINFOS['grupo'],
         'CONTRATO' => $arrINFOS['numContrato'],
-
+        'MEIAPARC' =>  ($arrINFOS['meiaparcela'] == '1') ? 'N' : 'S',
         'DATACAD' => date("Y-m-d H:i:s"),
         'ALTULTDATA' => $arrINFOS['dataAdesao'],
         'VALORCARTA' => $arrINFOS['valorCarta'],
         'FILIAL' => $numFilial
     );
+
+    $sqlSelectComissoes = "SELECT * FROM consparams WHERE DESCRICAO LIKE '%".$arrINFOS['tipo']."%' or DESCRICAO LIKE '%imposto%' or DESCRICAO like '%diretoria%' ";
+    $mysqli->set_charset("utf8");
+    $stmt = $mysqli->prepare($sqlSelectComissoes);
+    $stmt->execute();
+    $resultParams = $stmt->get_result();
+
+    while ($row = mysqli_fetch_assoc($resultParams)) {
+        $desc = strtolower($row["DESCRICAO"]);
+
+        if(strpos($desc, "vendedor") > -1){
+            $bdArray['VENDPERC'] = $row["VALOR"];            
+        }
+
+        if(strpos($desc, "supervisor") > -1){
+            $bdArray['SUPERPERC'] = $row["VALOR"];            
+        }
+        
+        if(strpos($desc, "loja") > -1){
+            $bdArray['LOJAPERC'] = $row["VALOR"];            
+        }
+
+        if(strpos($desc, "geral") > -1){
+            $bdArray['COMISPERC'] = $row["VALOR"];            
+        }
+
+        if(strpos($desc, "imposto") > -1){
+            $bdArray['IMPPERC'] = $row["VALOR"];            
+        }
+        
+        if(strpos($desc, "diretoria") > -1){
+            $bdArray['DIRPERC'] = $row["VALOR"];            
+        }
+
+    }
+
+    $bdArray['COMISVALOR'] = ($bdArray['VALORCARTA'] / $arrINFOS['meiaparcela']) * ($bdArray['COMISPERC'] / 100);
+    $bdArray['IMPVALOR'] = $bdArray['COMISVALOR'] * ($bdArray['IMPPERC'] / 100);
+    $bdArray['SALDO'] = $bdArray['COMISVALOR'] - $bdArray['IMPVALOR'];
+    $bdArray['DIRVALOR'] = $bdArray['SALDO'] * ($bdArray['DIRPERC'] / 100);
+    $bdArray['VENDVALOR'] = $bdArray['SALDO'] * ($bdArray['VENDPERC'] / 100);
+    $bdArray['SUPERVALOR'] = $bdArray['SALDO'] * ($bdArray['SUPERPERC'] / 100);
+    $bdArray['LOJAVALOR'] = $bdArray['SALDO'] * ($bdArray['LOJAPERC'] / 100);      
 
     if($arrINFOS['tipoPessoa'] == 'F'){
         $bdArray['CLICPF'] = $arrINFOS['cpf'];
@@ -77,10 +121,10 @@
     $stmt = $mysqli->prepare($sqlSelectUsuario);
     $stmt->bind_param("i", $idUser);
     $stmt->execute();
-    $result = $stmt->get_result();
+    $resultUsuario = $stmt->get_result();
 
-    if (mysqli_num_rows($result) > 0) {
-        while ($row = mysqli_fetch_assoc($result)) {
+    if (mysqli_num_rows($resultUsuario) > 0) {
+        while ($row = mysqli_fetch_assoc($resultUsuario)) {
             $bdArray['VENDMDCODI'] = $row['MDCODI'];
             $bdArray['VENDMDFIRM'] = $row['MDFIRM'];
             $bdArray['USUARIO'] = $user;

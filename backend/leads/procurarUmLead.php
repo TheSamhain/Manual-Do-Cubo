@@ -35,7 +35,7 @@ if (!$mysqli) {
 
 $sqlLeads = " SELECT leads.*, filiais.FILIAL AS LOJA 
               FROM " . $baseCentral . "consleads leads 
-              LEFT JOIN " . $baseCentral . "filiais 
+              LEFT JOIN filiais 
               ON leads.FILIAL = filiais.NUM 
               WHERE leads.REG = ? ";
 

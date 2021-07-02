@@ -69,7 +69,7 @@ if (mysqli_num_rows($result) > 0) {
 
     if (trim($row['FILIAL']) != trim($numFilial)) {
         $sqlDono = "SELECT filiais.NUM, maladir.MDFIRM 
-                            FROM " . $baseCentral . "filiais 
+                            FROM filiais 
                             INNER JOIN " . $baseCentral . "maladir 
                             ON maladir.MDCODI = filiais.MDCODI
                             WHERE filiais.NUM = '" . trim($row['FILIAL']) . "' ";
