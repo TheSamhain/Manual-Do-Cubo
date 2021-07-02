@@ -55,7 +55,7 @@
         'GRUPO' => $arrINFOS['grupo'],
         'CONTRATO' => $arrINFOS['numContrato'],
 
-        'DATACAD' => $arrINFOS['dataAdesao'],
+        'DATACAD' => date("Y-m-d H:i:s"),
         'ALTULTDATA' => $arrINFOS['dataAdesao'],
         'VALORCARTA' => $arrINFOS['valorCarta'],
         'FILIAL' => $numFilial

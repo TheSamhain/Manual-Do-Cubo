@@ -77,7 +77,7 @@ if (!$mysqli) {
 
 $bdArray = array(
     'EMAIL' => mb_strtolower($arrINFOS['email'], 'UTF-8'),
-    'DATACAD' => date("Y-m-d"),
+    'DATACAD' => date("Y-m-d H:i:s"),
     'SITUACAO' => 'APROVADO',
     'DTSITUACAO' => date("Y-m-d"),
     'MDTEL1' => $arrINFOS['tel1'],
