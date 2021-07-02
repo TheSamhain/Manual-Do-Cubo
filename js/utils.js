@@ -422,7 +422,9 @@ const procurarCadastro = async (cpfcnpj) => {
  */
 const incluirSalvar = (title = "Incluir") => {
     const
-        form = document.getElementsByTagName('form')[0],
+        form = document.getElementsByTagName('form')[0];
+
+    /*   
         btnSalvar = document.createElement('button');
 
     let dados = new FormData(form);
@@ -440,7 +442,8 @@ const incluirSalvar = (title = "Incluir") => {
     if (!!dados.get('nome') || !!dados.get('razao')) {
         btnSalvar.id = "btnSalvarCadastro";
     }
-
+    */
+   
     if (form.getElementsByTagName('button').length === 0) {
         form.appendChild(btnSalvar);
     } else {

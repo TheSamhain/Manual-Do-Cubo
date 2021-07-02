@@ -117,6 +117,8 @@ const carregarDadosCliente = (cpfcnpj) => {
             dadosPessoa.innerHTML = inputRazao + inputFantasia;
          }
 
+         inputs.getElementsByTagName('button')[0].remove();
+
          infoCliente.innerHTML = inputs.getElementsByTagName('form')[0].innerHTML;
 
          if (cpfcnpj.length == 18) {
