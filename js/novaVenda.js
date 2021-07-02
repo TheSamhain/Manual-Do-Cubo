@@ -18,9 +18,6 @@ const cadastrarVenda = (e) => {
          alert(`Um erro ocorreu ao tentar relizar o cadastro do cliente.`);
          return false;
       }
-
-      let divInfos = target.getElementsByTagName('div')[0];
-      divInfos.innerHTML = '';
    }
 
    if (inputValor.value == '' || justNumbers(inputValor.value) == 0) {
@@ -57,10 +54,6 @@ const cadastrarVenda = (e) => {
       method: 'POST',
       body: formData,
    })
-    .then(resp => resp.text())
-      .then(text => console.log(text));
-  
-      /*      
       .then(resp => resp.json())
       .then(async json => {
          if (!json.autenticado) {
@@ -78,7 +71,6 @@ const cadastrarVenda = (e) => {
          telaNovaVenda();
 
       })
-      */
 
    return true;
 }
