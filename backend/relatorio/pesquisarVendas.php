@@ -53,7 +53,7 @@ if (mysqli_num_rows($result) > 0) {
 
 $MDCODI = $row['MDCODI'];
 
-$sqlVendas = "SELECT CLICPF, CLIMDFIRM, VINCULO
+$sqlVendas = "SELECT *, MD5(CONCAT('VD', REG)) AS VENDACODIGO
               FROM " . $baseCentral . "conscomiss
               WHERE VENDMDCODI = ?
                 AND (
@@ -99,10 +99,19 @@ if (mysqli_num_rows($result) > 0) {
       }
     }
 
+    $INFOS = array(
+      'CPF ' => $row['CLICPF'],
+      'NOME' => $row['CLIMDFIRM'],
+      'GRUPO' => $row['GRUPO'],
+      'COTA' => $row['COTA'],
+      'CONTRATO' => $row['CONTRATO']
+    );
+
     $vendas[] = array(
-      'CLICPF' => $row['CLICPF'],
-      'CLINOME' => $row['CLIMDFIRM'],
-      'PARCELAS' => $parcelas
+      'INFOS' => $INFOS,
+      'PARCELAS' => $parcelas,
+      'VINCULO' => $row['VINCULO'],
+      'CODIGO' =>  $row['VENDACODIGO']
     );
   }
 

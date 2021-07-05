@@ -32,7 +32,7 @@
 
 #confirmaSenha i {
   font-size: 19px;
-  background-color: #ecf5ff;
+  background-color: var(--CorCampos);
   padding: 1px;
 }
 

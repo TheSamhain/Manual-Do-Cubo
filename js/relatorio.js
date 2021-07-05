@@ -1,6 +1,6 @@
 const pesquisar = (text) => {
   text = text.trim();
-  
+
   const input = document.getElementById('inputPesquisa');
 
   // Esconder teclado no celular
@@ -16,7 +16,7 @@ const pesquisar = (text) => {
     limparPesquisa();
     return;
   }
-  
+
   input.value = '';
 
   const
@@ -56,7 +56,7 @@ const pesquisar = (text) => {
 
       }
 
-      if(!esconder){
+      if (!esconder) {
         break;
       }
     }
@@ -133,27 +133,38 @@ const carregarTudo = () => {
       json.vendas.forEach(venda => {
         const
           itemLista = document.createElement('div'),
-          linhaNome = document.createElement('div'),
-          linhaCpf = document.createElement('div');
+          headerItem = document.createElement('div'),
+          divSuperior = document.createElement('div');
 
         itemLista.className = 'itemLista';
+        itemLista.dataset.venda = venda.CODIGO;
 
-        // Cria uma linha com o nome
-        linhaNome.className = 'linha';
-        linhaNome.innerHTML = `
-          <p>Cliente:</p>
-          <p>${venda.CLINOME}</p>
-        `;
+        headerItem.className = 'itemRelatorio';
+        divSuperior.className = 'itemDivSuperior';
 
-        // Cria um linha com o CPF
-        linhaCpf.className = 'linha';
-        linhaCpf.innerHTML = `
-          <p>CPF:</p>
-          <p>${venda.CLICPF}</p>
-        `;
+        for (let info in venda.INFOS) {
+          if ((!venda.INFOS[info])) {
+            continue;
+          }
 
-        itemLista.appendChild(linhaNome);
-        itemLista.appendChild(linhaCpf);
+          const label = document.createElement('p');
+          const value = document.createElement('p');
+
+          label.innerHTML = `${capitalizeFirstLetter(info)}:`;
+          value.innerHTML = `${venda.INFOS[info]}`;
+
+          headerItem.appendChild(label);
+          headerItem.appendChild(value);
+
+        }
+
+        divSuperior.appendChild(headerItem);
+
+        if (!venda.VINCULO > 0) {
+          divSuperior.innerHTML += `<button onclick="editarVenda(this)">Editar</button>`
+        }
+
+        itemLista.appendChild(divSuperior);
 
         if (Array.isArray(venda.PARCELAS)) {
           const
@@ -209,4 +220,125 @@ const carregarTudo = () => {
 
     });
 
+}
+
+/**
+ * Edita informações de Grupo, Cota ou Contrato de uma venda
+ * @param {HTMLElement} btn 
+ */
+const editarVenda = (btn) => {
+  const
+    venda = btn.parentElement.parentElement,
+    infosVenda = venda.firstChild.firstChild,
+    infosValues = infosVenda.childNodes;
+
+  let infosDeletar = [];
+
+  let infos = {}
+
+  for (let i = 0; i < infosValues.length; i++) {
+    let valor = infosValues[i].innerHTML.toUpperCase();
+
+    if (valor.includes("GRUPO")) {
+      infos.GRUPO = infosValues[i + 1].innerHTML;
+      infosDeletar.push(infosValues[i], infosValues[i + 1]);
+      i++;
+      continue;
+    }
+
+    if (valor.includes("COTA")) {
+      infos.COTA = infosValues[i + 1].innerHTML;
+      infosDeletar.push(infosValues[i], infosValues[i + 1]);
+      i++;
+      continue;
+    }
+
+    if (valor.includes("CONTRATO")) {
+      infos.CONTRATO = infosValues[i + 1].innerHTML;
+      infosDeletar.push(infosValues[i], infosValues[i + 1]);
+      i++;
+      continue;
+    }
+  }
+
+  infosDeletar.forEach(deletar => deletar.remove());
+
+  infosVenda.innerHTML += `      
+    <span class="editavel">Grupo: </span>
+    <input class="editavel" name="vendaGrupo" value="${infos.GRUPO || ''}" />
+    
+    <span class="editavel">Cota: </span>
+    <input class="editavel" name="vendaCota" value="${infos.COTA || ''}" />
+
+    <span class="editavel">Contrato: </span>
+    <input class="editavel" name="vendaContrato" value="${infos.CONTRATO || ''}" />
+    `;
+
+  btn.innerHTML = 'Salvar';
+  btn.onclick = () => salvarVenda(btn);
+}
+
+
+/**
+ * Salva informações de Grupo, Cota ou Contrato de uma venda
+ * @param {HTMLElement} btn 
+ */
+const salvarVenda = (btn) => {
+  const
+    venda = btn.parentElement.parentElement,
+    infosVenda = venda.firstChild.firstChild,
+    editaveis = document.getElementsByClassName("editavel");
+
+  const infos = {}
+
+  for (let input of editaveis) {
+    console.log(input);
+    if (input.name == "vendaGrupo") {
+      infos.GRUPO = input.value;
+      continue;
+    }
+
+    if (input.name == "vendaCota") {
+      infos.COTA = input.value;
+      continue;
+    }
+
+    if (input.name == "vendaContrato") {
+      infos.CONTRATO = input.value;
+      continue;
+    }
+  }
+
+  let formData = new FormData();
+  formData.append('TOKEN', localStorage.getItem('login.' + param));
+  formData.append('LOCAL', LOCAL);
+  formData.append('VENDA', venda.dataset.venda);
+  formData.append('INFOS', JSON.stringify(infos));
+
+  fetch('backend/relatorio/atualizarVenda.php', {
+    method: 'POST',
+    body: formData,
+  })
+    .then(resp => resp.json())
+    .then(json => {
+      if (!json.alterado && (json.erro != '')) {
+        alert(`Erro ao atualizar venda: \n${json.erro} \n\nTente novamente mais tarde`);
+      } else {
+        let infosAdd = [];
+
+        for (let i = (editaveis.length - 1); i >= 0; i--) {
+          infosAdd.push(`<p>${editaveis[i].innerHTML || editaveis[i].value}</p>`);
+
+          editaveis[i].remove();
+        }
+
+        infosAdd.reverse();
+
+        infosAdd.forEach(info => infosVenda.innerHTML += info);
+
+        //btn.innerHTML = 'Editar';
+        //btn.onclick = () => editarVenda(btn);
+        btn.remove();
+      }
+    });
 }

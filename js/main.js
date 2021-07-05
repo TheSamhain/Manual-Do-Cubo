@@ -24,7 +24,8 @@ const carregarMain = async () => {
     }
     */
 
-    telaLeads();
+    //telaLeads();
+    telaRelatorio();
 }
 
 const telaUsuario = async () => {
@@ -96,6 +97,8 @@ const telaNovaVenda = async () => {
         yyyy = today.getFullYear();
 
     dataAdesao.value = `${yyyy}-${mm}-${dd}`;
+    
+    document.getElementById("content").scrollTo(0, 0);
 }
 
 const telaRelatorio = async () => {

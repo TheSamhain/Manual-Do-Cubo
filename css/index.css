@@ -1,5 +1,6 @@
 :root {
     --CorDefault: #1a3c62;
+    --CorCampos: #ecf5ff;
 }
 
 body {
@@ -37,14 +38,25 @@ input {
     flex: 1;
     height: 25px;
     width: 200px;
-    background-color: #ecf5ff;
-    border: 1px #ecf5ff solid;
+    background-color: var(--CorCampos);
+    border: 1px var(--CorCampos) solid;
     padding: 2px;
 }
 
 input[type="checkbox"] {
     height: auto;
 }
+
+select {
+    border: 1px solid #c0c0c0;
+    background-color: var(--CorCampos);
+}
+
+input:focus,
+select:focus {
+    border: 1px solid var(--CorDefault);
+}
+
 
 a {
     color: inherit;
@@ -77,14 +89,6 @@ a {
     height: 70px;
 }
 
-#formulario {
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
-    /* margin-bottom: 70px; */
-
-    color: var(--CorDefault);
-}
 
 #logo {
     width: 100%;
@@ -95,6 +99,38 @@ a {
 #logo-target {
     height: 130px;
     margin-top: auto;
+}
+
+/*-------------------*/
+/*----- LISTAS  -----*/
+/*-------------------*/
+
+.linha {
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px;
+    margin-right: 5px;
+    height: max-content;
+}
+
+.linha p:nth-child(2) {
+    margin-left: 5px;
+    font-weight: bold;
+    word-break: break-word;
+}
+
+
+/*-------------------*/
+/*--- FORMULÁRIOS ---*/
+/*-------------------*/
+
+#formulario {
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    /* margin-bottom: 70px; */
+
+    color: var(--CorDefault);
 }
 
 #formulario label {
@@ -126,6 +162,7 @@ a {
     margin-left: 0px;
 }
 
+
 #formulario input,
 #formulario select {
     width: auto;
@@ -135,22 +172,9 @@ a {
     font-size: 15px;
 }
 
+
 #formulario button {
     margin-bottom: 70px;
-}
-
-.linha {
-    display: flex;
-    flex-direction: row;
-    margin-top: 5px;
-    margin-right: 5px;
-    height: max-content;
-}
-
-.linha p:nth-child(2) {
-    margin-left: 5px;
-    font-weight: bold;
-    word-break: break-word;
 }
 
 /* Para COMPUTADOR */
