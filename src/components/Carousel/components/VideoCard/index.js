@@ -1,6 +1,7 @@
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
-import { VideoCardContainer } from './styles';
 import PropTypes from 'prop-types';
+import { VideoCardContainer } from './styles';
 
 function getYouTubeId(youtubeURL) {
   return youtubeURL
@@ -10,23 +11,23 @@ function getYouTubeId(youtubeURL) {
     );
 }
 
-function VideoCard({ videoTitle, videoURL, categoryColor }) {
-  const image = `https://img.youtube.com/vi/${getYouTubeId(videoURL)}/hqdefault.jpg`;
+function VideoCard({ video, categoryColor, setSelectedVideo }) {
+  const image = `https://img.youtube.com/vi/${getYouTubeId(video.url)}/hqdefault.jpg`;
   return (
     <VideoCardContainer
       url={image}
-      href={videoURL}
-      target="_blank"
+      setSelectedVideo={setSelectedVideo}
       style={{ borderColor: categoryColor || 'red' }}
-      title={videoTitle}
+      title={video.titulo}
+      onClick={() => setSelectedVideo(video)}
     />
   );
 }
 
-VideoCard.prototype = {
-  videoTitle: PropTypes.string.isRequired, 
-  videoURL: PropTypes.string.isRequired, 
-  categoryColor: PropTypes.string.isRequired
-}
+VideoCard.propTypes = {
+  video: PropTypes.object.isRequired,
+  categoryColor: PropTypes.string.isRequired,
+  setSelectedVideo: PropTypes.any.isRequired,
+};
 
 export default VideoCard;

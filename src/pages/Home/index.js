@@ -9,14 +9,33 @@ import DB from '../../data/db.json';
 function Home() {
   const [dados, setDados] = useState([]);
   const [erroRequisicao, setErroRequisicao] = useState();
+  const [selectedVideo, setSelectedVideo] = useState({});
 
   useEffect(() => {
     if (!DB.categorias || DB.categorias.length === 0) {
-      setErroRequisicao('Não foi possível carregar os videos')
+      setErroRequisicao('Não foi possível carregar os videos');
     } else {
       setDados(DB.categorias);
+      setSelectedVideo(DB.categorias[0].videos[0]);
+
+      const lastVideo = localStorage.getItem('selectedVideo');
+
+      if (!!lastVideo) {
+        setSelectedVideo(JSON.parse(lastVideo));
+      }
     }
   }, []);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+
+    if (selectedVideo.hasOwnProperty('id')) {
+      localStorage.setItem('selectedVideo', JSON.stringify(selectedVideo));
+    }
+  }, [selectedVideo]);
 
   return (
     <PageDefault paddingAll={0}>
@@ -26,16 +45,17 @@ function Home() {
       {(dados.length > 0) && (
         <>
           <BannerMain
-            videoTiyle={dados[0].videos[0].titulo}
-            url={dados[0].videos[0].url}
+            videoTiyle={selectedVideo.titulo}
+            url={selectedVideo.url}
             videoDescription={dados[0].descricao}
           />
 
           {dados.map((categoria) => (
             <Carousel
               key={categoria.id}
-              ignoreFirstVideo={categoria.id === 1}
+              ignoreFirstVideo={false}
               category={categoria}
+              setSelectedVideo={setSelectedVideo}
             />
           ))}
         </>
