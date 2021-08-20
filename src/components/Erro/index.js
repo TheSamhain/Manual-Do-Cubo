@@ -1,6 +1,6 @@
 import React from 'react';
 import RandomCubeGif from '../../assets/img/RandomCube.gif';
-import './Erro.css'
+import './Erro.css';
 
 function Erro({ erro }) {
   return (

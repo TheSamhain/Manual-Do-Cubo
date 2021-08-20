@@ -2,32 +2,26 @@ import React, { useEffect, useState } from 'react';
 import Carousel from '../../components/Carousel';
 import BannerMain from '../../components/BannerMain';
 import PageDefault from '../../components/PageDefault';
-
-import categoriasRepository from '../../repositories/categorias';
 import Loader from '../../components/Loader';
 import Erro from '../../components/Erro';
+import DB from '../../data/db.json';
 
 function Home() {
   const [dados, setDados] = useState([]);
   const [erroRequisicao, setErroRequisicao] = useState();
 
   useEffect(() => {
-    categoriasRepository.getAllWithVideos()
-      .then((categoriasComVideos) => {
-        setDados(categoriasComVideos);
-      })
-      .catch((err) => {
-        setDados({
-          categorias: [],
-        });
-        setErroRequisicao(err.message);
-      });
+    if (!DB.categorias || DB.categorias.length === 0) {
+      setErroRequisicao('Não foi possível carregar os videos')
+    } else {
+      setDados(DB.categorias);
+    }
   }, []);
 
   return (
     <PageDefault paddingAll={0}>
 
-      {(dados.length === 0) && <Loader /> }
+      {(dados.length === 0) && <Loader />}
 
       {(dados.length > 0) && (
         <>
@@ -48,7 +42,7 @@ function Home() {
       )}
 
       {erroRequisicao && (
-      <Erro erro={erroRequisicao} />
+        <Erro erro={erroRequisicao} />
       )}
 
     </PageDefault>
