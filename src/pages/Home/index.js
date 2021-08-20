@@ -20,7 +20,7 @@ function Home() {
 
       const lastVideo = localStorage.getItem('selectedVideo');
 
-      if (!!lastVideo) {
+      if (lastVideo) {
         setSelectedVideo(JSON.parse(lastVideo));
       }
     }
@@ -32,7 +32,7 @@ function Home() {
       behavior: 'smooth',
     });
 
-    if (selectedVideo.hasOwnProperty('id')) {
+    if (Object.prototype.hasOwnProperty.call(selectedVideo, 'id')) {
       localStorage.setItem('selectedVideo', JSON.stringify(selectedVideo));
     }
   }, [selectedVideo]);

@@ -9,10 +9,6 @@ const FooterBase = styled.footer`
   padding-bottom: 32px;
   color: var(--white);
   text-align: center;
-
-  @media (max-width: 800px) {
-    margin-bottom: 50px;
-  }
 `;
 
 const FooterLine = styled.div`

@@ -1,0 +1,11 @@
+.page-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.page-error > h1 {
+  font-size: x-large;
+  margin-bottom: 20px;
+}

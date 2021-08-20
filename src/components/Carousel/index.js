@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { VideoCardGroupContainer, Title, ExtraLink } from './styles';
+import { VideoCardGroupContainer, Title } from './styles';
 import Slider, { SliderItem } from './components/Slider';
 import VideoCard from './components/VideoCard';
 
