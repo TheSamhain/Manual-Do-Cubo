@@ -105,7 +105,7 @@ export const BannerMainContainer = styled.section`
   }
 `;
 
-export const WatchButton = styled.button`
+export const WatchButton = styled.a`
   font-family: 'Inconsolata', monospace;
   box-sizing: border-box;
   cursor: pointer;
@@ -124,6 +124,14 @@ export const WatchButton = styled.button`
   transition: opacity .3s;
   display: none;
   margin: 0 auto;
+  text-align: center;
+  width: max-content;
+
+  &:visited, &:active, &:link {
+    text-decoration: none;
+    color: var(--black);
+  }
+
   @media (max-width: 800px) {
     display: block;
   }
