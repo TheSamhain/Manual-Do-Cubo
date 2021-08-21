@@ -1,14 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { FooterBase, FooterLine } from './styles';
 import LogoFooter from '../../assets/img/IconCube.png';
 
 function Footer() {
   return (
     <FooterBase>
-      <Link to="/">
+      <a href="/#" className="footer-logo">
         <img src={LogoFooter} alt="Logo Footer" width="100px" />
-      </Link>
+      </a>
 
       <FooterLine>
         <a href="https://br.linkedin.com/in/leonardo-noro-pereira">

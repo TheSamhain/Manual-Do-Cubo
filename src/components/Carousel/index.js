@@ -5,10 +5,7 @@ import { VideoCardGroupContainer, Title } from './styles';
 import Slider, { SliderItem } from './components/Slider';
 import VideoCard from './components/VideoCard';
 
-function Carousel({
-  ignoreFirstVideo,
-  category,
-  setSelectedVideo,
+function Carousel({ ignoreFirstVideo, category, setSelectedVideo,
 }) {
   const categoryTitle = category.titulo;
   const categoryColor = category.cor;
@@ -32,8 +29,6 @@ function Carousel({
             <SliderItem key={video.titulo}>
               <VideoCard
                 video={video}
-                videoTitle={video.titulo}
-                videoURL={video.url}
                 categoryColor={categoryColor}
                 setSelectedVideo={setSelectedVideo}
               />

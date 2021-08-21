@@ -45,9 +45,9 @@ function Home() {
       {(dados.length > 0) && (
         <>
           <BannerMain
-            videoTiyle={selectedVideo.titulo}
+            videoTitle={selectedVideo.titulo}
             url={selectedVideo.url}
-            videoDescription={dados[0].descricao}
+            videoDescription={selectedVideo.descricao}
           />
 
           {dados.map((categoria) => (

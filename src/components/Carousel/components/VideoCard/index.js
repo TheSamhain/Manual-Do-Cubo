@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { VideoCardContainer } from './styles';
+import { VideoCardContainer, VideoCardTitle } from './styles';
 
 function getYouTubeId(youtubeURL) {
   return youtubeURL
@@ -20,7 +20,9 @@ function VideoCard({ video, categoryColor, setSelectedVideo }) {
       style={{ borderColor: categoryColor || 'red' }}
       title={video.titulo}
       onClick={() => setSelectedVideo(video)}
-    />
+    >
+      <VideoCardTitle>{video.titulo}</VideoCardTitle>
+    </VideoCardContainer>
   );
 }
 

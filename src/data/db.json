@@ -2,6 +2,7 @@
   "categorias": [
     {
       "titulo": "Cubo Mágico 3x3 - Método de Camadas",
+      "descricao": "Aprenda a montar o cubo mágico 3x3 com apenas 7 passos.",
       "cor": "blue",
       "videos": [
         {

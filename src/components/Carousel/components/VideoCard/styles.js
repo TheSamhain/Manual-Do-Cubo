@@ -17,8 +17,7 @@ const VideoCardContainer = styled.button`
   position: relative;
   display: flex;
   align-items: flex-end;
-  padding: 16px;
-
+  padding: 0;
   transition: opacity .3s;
   &:hover,
   &:focus {
@@ -30,4 +29,11 @@ const VideoCardContainer = styled.button`
   }
 `;
 
-export { VideoCardContainer };
+const VideoCardTitle = styled.p`
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  padding: 3px;
+  font-size: 1.1em
+`;
+
+export { VideoCardContainer, VideoCardTitle };

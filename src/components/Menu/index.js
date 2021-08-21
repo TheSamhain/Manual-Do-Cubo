@@ -4,8 +4,17 @@ import Logo from '../../assets/img/Logo.png';
 import './Menu.css';
 
 function Menu() {
+  window.onscroll = () => {
+    const currentScrollPos = window.pageYOffset;
+    if (100 > currentScrollPos) {
+      document.getElementById('menu').style.top = '0';
+    } else {
+      document.getElementById('menu').style.top = '-100px';
+    }
+  };
+
   return (
-    <nav className="Menu">
+    <nav id="menu">
       <Link to="/">
         <img className="Logo" src={Logo} alt="ManualDoCubo Logo" border="0" />
       </Link>

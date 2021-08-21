@@ -16,6 +16,20 @@ const FooterLine = styled.div`
   flex-direction: row;
   justify-content: space-between;
   padding: 15px;
+
+  > * {
+    flex: 1;
+  }
+
+  > *:first-child{
+    text-align: left;
+  }
+
+  > *:last-child{
+    text-align: right;
+  }
+
+
   @media (max-width: 768px) {
     flex-direction: column;
 

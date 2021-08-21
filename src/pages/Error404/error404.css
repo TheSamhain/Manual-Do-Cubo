@@ -5,7 +5,7 @@
   width: 100%;
 }
 
-.page-error > h1 {
+.page-error>h1 {
   font-size: x-large;
   margin-bottom: 20px;
 }

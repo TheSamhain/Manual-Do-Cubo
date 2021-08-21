@@ -7,8 +7,7 @@ const ErrorPage = () => (
   <PageDefault>
     <div className="page-error">
       <h1>
-        Oh não, esta página não existe
-        <span role="img" aria-labelledby="Carinha de triste">😔</span>
+        Oh não, esta página não existe :(
       </h1>
       <img src={IconError} alt="Icone de Erro" width="200px" />
     </div>
