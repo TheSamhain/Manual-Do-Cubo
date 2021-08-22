@@ -1,55 +1,48 @@
 {
   "categorias": [
     {
+      "id": 1,
       "titulo": "Cubo Mágico 3x3 - Método de Camadas",
       "descricao": "Aprenda a montar o cubo mágico 3x3 com apenas 7 passos.",
       "cor": "blue",
       "videos": [
         {
           "id": 1,
-          "categoriaId": 1,
           "titulo": "Sobre o Cubo Mágico",
           "url": "https://www.youtube.com/watch?v=AQKVVvpWvoY"
         },
         {
           "id": 2,
-          "categoriaId": 1,
           "titulo": "Método de Camadas - Parte 1 - Montar Cubo Mágico",
           "url": "https://www.youtube.com/watch?v=IrY5JjSFR8I"
         },
         {
           "id": 3,
-          "categoriaId": 1,
           "titulo": "Método de Camadas - Parte 2 - Montar Cubo Mágico",
           "url": "https://www.youtube.com/watch?v=BA7p_MKkexI&t=579s"
         },
         {
           "id": 4,
-          "categoriaId": 1,
           "titulo": "Método de Camadas - Parte 3 - Montar Cubo Mágico",
           "url": "https://www.youtube.com/watch?v=1GOu1Y5h74Q&t=284s"
         },
         {
           "id": 5,
-          "categoriaId": 1,
           "titulo": "Método de Camadas - Parte 4 - Montar Cubo Mágico",
           "url": "https://www.youtube.com/watch?v=HWD7JrdGwC4&t=156s"
         },
         {
           "id": 6,
-          "categoriaId": 1,
           "titulo": "Método de Camadas - Parte 5 - Montar Cubo Mágico",
           "url": "https://www.youtube.com/watch?v=g53TSqJOgFg&t=209s"
         },
         {
           "id": 7,
-          "categoriaId": 1,
           "titulo": "Método de Camadas - Parte 6 - Montar Cubo Mágico",
           "url": "https://www.youtube.com/watch?v=5WN8wQN90wE&t=234s"
         },
         {
           "id": 8,
-          "categoriaId": 1,
           "titulo": "Método de Camadas - Parte 7 - Montar Cubo Mágico",
           "url":"https://www.youtube.com/watch?v=xBxJ7tQPID8&t=155s"
         }       

@@ -5,8 +5,7 @@ import { VideoCardGroupContainer, Title } from './styles';
 import Slider, { SliderItem } from './components/Slider';
 import VideoCard from './components/VideoCard';
 
-function Carousel({ ignoreFirstVideo, category, setSelectedVideo,
-}) {
+function Carousel({ ignoreFirstVideo, category, setSelectedVideo }) {
   const categoryTitle = category.titulo;
   const categoryColor = category.cor;
   const { videos } = category;
