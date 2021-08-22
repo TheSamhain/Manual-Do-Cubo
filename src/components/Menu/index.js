@@ -6,10 +6,12 @@ import './Menu.css';
 function Menu() {
   window.onscroll = () => {
     const currentScrollPos = window.pageYOffset;
-    if (100 > currentScrollPos) {
+    const menuHeight = document.getElementById('menu').offsetHeight;
+
+    if (currentScrollPos < menuHeight) {
       document.getElementById('menu').style.top = '0';
     } else {
-      document.getElementById('menu').style.top = '-100px';
+      document.getElementById('menu').style.top = `-${menuHeight}px`;
     }
   };
 

@@ -34,13 +34,24 @@ const FooterLine = styled.div`
     flex-direction: column;
 
     > * {
-      margin: 5px 0px;
+      margin: 10px 0px;
       order: 3;
+    }
+    
+    > *:first-child{
+      text-align: center;
+    }
+   
+    > *:last-child{
+      text-align: center;
     }
 
     > div {
       order: 1;
+      display: flex;
+      flex-direction: column;
     }
+
   }
 `;
 
