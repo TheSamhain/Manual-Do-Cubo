@@ -292,7 +292,6 @@ const salvarVenda = (btn) => {
   const infos = {}
 
   for (let input of editaveis) {
-    console.log(input);
     if (input.name == "vendaGrupo") {
       infos.GRUPO = input.value;
       continue;

@@ -60,3 +60,118 @@ Também é possivel visualizar o relatório de vendas e comissões.
    - Hospedar subdominio em infoel.com.br
    - one.infoel.com.br   - Deve apresentar uma lista das cidades
    - one.infoel.com.br/jaraguadosul - Deve entrar diretamente para a tela de login
+
+# Treinamento com vendedores  
+
+## Idéias
+- Utilizar as planilhas, relatórios e ações vinculadas do Sistema ProFIN.
+- Utilizar a plataforma de controle de comissões com área exclusiva para os treinamentos.
+- Treinamento através de vídeos.
+- Usar módulos separados com títulos.
+- Só pode passar para o próximo vídeo se assistir o anterior; 
+- As perguntas só devem aparecer depois que todos os vídeos do módulo forem assistidos.  
+- Assim que submeter todas as respostas o sistema deve validar automaticamente todas as questões com respostas fechadas e liberar o próximo módulo com 80% de acerto.
+- As perguntas do módulo só devem aparecer quando:
+  - Os vídeos dos respectivo módulos já estiverem 100% assistidos.
+  - Ou já tiverem respostas, permitindo a revisulaização.
+- Os vídeos serão enviados através de conta FTP, a mesma utilizada para envio de arquivos vinculados do Sistema ProFIN.
+- Mesmo depois das perguntas terem sido respondidas será possível assistir os vídeos novamente.
+- A lista de módulos deve conter todos, mas permitir acesso somente aos liberados conforme forem validas as respostas.
+
+## O que será feito no ProFIN:
+- Cadastro de módulos.
+- Cadastro de videos.
+- Cadastro das perguntas.
+- Disponibilização do módulo para o aluno.
+- Cancelamento do módulo para o aluno refazer.
+- Relatórios estatísticos.
+- Listas de respostas.
+
+## O que será feito no app web
+- Será criado um novo ícone para acesso aos treinamentos.
+- Terá duas telas:
+    - Uma contendo a lista de módulos criados para o aluno
+    - E outra com os vídeos e perguntas do módulo selecionado.
+
+## Cadastro de Módulos
+Campo     | Tipo        | Descrição
+----------|-------------|------------------
+ID        | Medumint    | Id do registro
+MODULO    | Varchar(50) | Nome do módulo
+TEXTO     | Text        | Descrição e instruções 
+ATIVO     | char(1)     | S/N  
+
+## Cadastro dos vídeos
+Campo     | Tipo          | Descrição
+----------|---------------|-------------------
+ID        | Medumint      | Id do registro
+IDMODULO  | Mediumint     | Id do módulo
+TITULO    | Varchar(50)   | Título do vídeo
+ARQUIVO   | Varchar(100)  | Nome do arquivos
+
+## Cadastro das perguntas
+Campo     | Tipo         | Descrição
+----------|--------------|-------------------
+ID        | Medumint     | Id do registro
+IDMODULO  | Medumint     | Id do módulo
+ORDEM     | Tinint       | Ordem em que vai aparecer
+TEXTO     | Mediumtext   | Texto da pergunta
+TIPO      | Varchar(10)  | Tipo da resposta (QUANT/QUALI/MULT)   
+OPCOES    | Text         | Opções para as perguntas
+RESPOSTA  | Text         | Respostas corretas
+
+## Cadastro das respostas
+Campo     | Tipo       | Descrição
+----------|------------|-------------------
+ID        | Medumint   | Id do registro
+IDPERGUNTA| Mediumint  | Id da pergunta
+IDUSUARIO | Mediumint  | Id do usuário
+RESPOSTA  | Text       | Resposta das respostas
+DATAHORA  | DateTime   | Data e hora da resposta
+~~RESPOK~~ | Char(1)    | S/N
+
+## Cadastro da visualização dos vídeos
+Campo      | Tipo       | Descrição
+---------- |------------|-------------------
+ID         | Medumint   | Id do registro
+IDVIDEO    | Mediumint  | Id do vídeo
+IDUSUARIO  | Mediumint  | id do usuário
+VISUALIZADO| Mediumint  | Tempo decorrido, em segundos, que o vídeo foi visualizado
+DATAHORA   | Datetime   | Data e hora do início da visualização
+
+
+## Exemplo. Lista de módulos
+
+**Módulo 1**  
+```
+  Descrição e instruções do módulo   
+  com texto e quebra de linha automática.  
+        Vídeo [Titulo]   XXXXXXXXOO - 80%  
+  Questões respondidas   XXXOOOOOOO 3/12 - 25%  
+  [Visualizar]
+```
+  
+**Módulo 2**    
+```
+Descrição e instruções do módulo   
+  com texto e quebra de linha automática.  
+        Vídeo [Titulo]   XXXXXXXXOO - 80%  
+  Questões respondidas   XXXOOOOOOO 3/12 - 25%  
+```
+  
+----------------------------------------------
+
+## Tempo de desenvolvimento estimado
+Descrição                                               | Horas        
+---------                                               |------:
+Estruturação do banco de dados                          | 4
+Prototipagem/design das telas                           | 6
+Projeção dos sistemas de módulos/videos/perguntas       | 6
+Desenvolvimento (front-end) da tela de lista de módulos | 8
+Desenvolvimento (front-end) da tela de aprendizado      | 8
+Desenvolvimento (back-end) do sistema de videos         | 6
+Desenvolvimento (back-end) do sistema de peguntas       | 6
+Desenvolvimento (back-end) do sistema de módulos        | 4
+-                                                       | -
+Total                                                   | 48
+
