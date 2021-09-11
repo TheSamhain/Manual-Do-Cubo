@@ -1,6 +1,8 @@
 :root {
     --CorDefault: #1a3c62;
+    --CorTextoOff: #305885;
     --CorCampos: #ecf5ff;
+    --CorHover: #eff3f8;
 }
 
 body {
@@ -31,6 +33,7 @@ button {
     font-size: larger;
     letter-spacing: 1px;
     margin-top: 5px;
+    border-radius: 5px;
 }
 
 input {
@@ -41,6 +44,7 @@ input {
     background-color: var(--CorCampos);
     border: 1px var(--CorCampos) solid;
     padding: 2px;
+    border-radius: 5px;
 }
 
 input[type="checkbox"] {
@@ -50,6 +54,7 @@ input[type="checkbox"] {
 select {
     border: 1px solid #c0c0c0;
     background-color: var(--CorCampos);
+    border-radius: 5px;
 }
 
 input:focus,

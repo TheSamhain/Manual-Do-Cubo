@@ -1,10 +1,22 @@
 const exibirSenha = () => {
   const
     senha1 = document.getElementsByName('novaSenha1')[0],
-    senha2 = document.getElementsByName('novaSenha2')[0];
+    senha2 = document.getElementsByName('novaSenha2')[0],
+    mostrarSenha = document.getElementById('mostrar-senha'),
+    iconeOlho = mostrarSenha.querySelector('i'),
+    textoMostraSenha = mostrarSenha.querySelector('span');
 
-  senha1.type = senha1.type == "password" ? "text" : "password";
-  senha2.type = senha2.type == "password" ? "text" : "password";
+  let type = senha1.type == "password" ? "text" : "password";
+  senha1.type = type;
+  senha2.type = type;
+
+  if (type == 'text') {
+    iconeOlho.className = 'bi bi-eye-slash-fill';
+    textoMostraSenha.innerHTML = 'Esconder senha';
+  } else {
+    iconeOlho.className = 'bi bi-eye-fill';
+    textoMostraSenha.innerHTML = 'Mostrar senha';
+  }
 }
 
 const salvarInfoUsuario = () => {

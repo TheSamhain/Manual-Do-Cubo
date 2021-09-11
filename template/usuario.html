@@ -1,38 +1,29 @@
 <div id="infosUser">
-    <label>
-        <p>Senha atual</p>
-        <input
-            autocomplete="off"
-            required
-            type="text"
-            name="senhaAtual"
-            oninput="this.value = avoidSpace(this.value)"
-        />
-    </label>
+	<label>
+		<p>Senha atual</p>
+		<input autocomplete="off" required type="text" name="senhaAtual" oninput="this.value = avoidSpace(this.value)" />
+	</label>
 
-    <label>
-        <p>Nova senha</p>
-        <input
-            autocomplete="off"
-            required
-            type="password"
-            name="novaSenha1"
-            oninput="this.value = avoidSpace(this.value)"
-        />
-    </label>
+	<label>
+		<p>Nova senha</p>
+		<input
+			autocomplete="off"
+			required
+			type="password"
+			name="novaSenha1"
+			oninput="this.value = avoidSpace(this.value)"
+		/>
+	</label>
 
-    <label>
-        <p>Confirmar nova senha</p>
-        <div id="confirmaSenha">
-            <input
-                autocomplete="off"
-                type="password"
-                name="novaSenha2"
-                oninput="this.value = avoidSpace(this.value)"
-            />
-            <i class="bi bi-eye-fill" onclick="exibirSenha()"></i>
-        </div>
-    </label>
+	<label>
+		<p>Confirmar nova senha</p>
+		<input autocomplete="off" type="password" name="novaSenha2" oninput="this.value = avoidSpace(this.value)" />
+	</label>
+
+	<div id="mostrar-senha" onclick="exibirSenha()">
+		<span>Mostrar senha</span>
+		<i class="bi bi-eye-fill"></i>
+	</div>
 </div>
 
 <button id="btnSalvar" onclick="salvarInfoUsuario()">Salvar</button>
