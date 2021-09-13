@@ -23,6 +23,15 @@ const onFocus = (input) => {
   label.style.transform = 'translate3D(0, -15px, 0)';
 }
 
+const onChange = (input) => {
+  const parent = input.parentElement,
+    label = parent.querySelector('span');
+
+  if (input.value != '') {
+    label.style.transform = 'translate3D(0, -15px, 0)';
+  }
+}
+
 /**
  * 
  * @param {HTMLInputElement} input 

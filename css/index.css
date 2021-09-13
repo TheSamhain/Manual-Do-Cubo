@@ -1,204 +1,206 @@
 :root {
-    --CorDefault: #1a3c62;
-    --CorTextoOff: #305885;
-    --CorCampos: #ecf5ff;
-    --CorHover: #eff3f8;
+  --CorDefault: #1a3c62;
+  --CorTextoOff: #305885;
+  --CorCampos: #ecf5ff;
+  --CorHover: #eff3f8;
+  --CorFundo: #6594c92d;
 }
 
 body {
-    font-family: "Calibri", sans-serif;
-    height: 100vh;
+  font-family: "Calibri", sans-serif;
+  height: 100vh;
 }
 
 #root {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  color: var(--CorDefault);
 }
 
 button {
-    font-family: "Calibri", sans-serif;
-    font-size: 25px;
-    min-width: 70px;
-    min-height: 30px;
-    height: max-content;
-    background-color: var(--CorDefault);
-    color: white;
-    border: 0px;
-    font-weight: bold;
-    font-size: larger;
-    letter-spacing: 1px;
-    margin-top: 5px;
-    border-radius: 5px;
+  padding: 10px 0;
+  font-family: "Calibri", sans-serif;
+  font-size: 25px;
+  min-width: 70px;
+  min-height: 30px;
+  height: max-content;
+  background-color: var(--CorDefault);
+  color: white;
+  border: 0px;
+  font-weight: bold;
+  font-size: larger;
+  letter-spacing: 1px;
+  margin-top: 5px;
+  border-radius: 5px;
 }
 
 input {
-    font-family: "Calibri", sans-serif;
-    flex: 1;
-    height: 25px;
-    width: 200px;
-    background-color: var(--CorCampos);
-    border: 1px var(--CorCampos) solid;
-    padding: 2px;
-    border-radius: 5px;
+  font-family: "Calibri", sans-serif;
+  flex: 1;
+  height: 25px;
+  width: 200px;
+  background-color: var(--CorCampos);
+  border: 1px var(--CorCampos) solid;
+  padding: 2px;
+  border-radius: 5px;
 }
 
 input[type="checkbox"] {
-    height: auto;
+  height: auto;
 }
 
 select {
-    border: 1px solid #c0c0c0;
-    background-color: var(--CorCampos);
-    border-radius: 5px;
+  border: 1px solid #c0c0c0;
+  background-color: var(--CorCampos);
+  border-radius: 5px;
 }
 
-input:focus,
-select:focus {
-    border: 1px solid var(--CorDefault);
+input:focus, select:focus {
+  border: 1px solid var(--CorDefault);
 }
-
 
 a {
-    color: inherit;
-    text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 
-#root > h1 {
-    margin-top: 50px;
-    font-size: 20pt;
-    color: var(--CorFontes);
-    text-align: center;
+#root>h1 {
+  margin-top: 50px;
+  font-size: 20pt;
+  color: var(--CorDefault);
+  text-align: center;
 }
 
 .loader {
-    border: 16px solid #f3f3f3;
-    border-top: 16px solid var(--CorDefault);
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    animation: spin 1s linear infinite;
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid var(--CorDefault);
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  animation: spin 1s linear infinite;
 }
 
 #logoInfoel {
-    text-align: center;
-    margin: 10px;
-    flex: 1;
+  text-align: center;
+  margin: 10px;
+  flex: 1;
 }
 
 #logoInfoel img {
-    height: 70px;
+  height: 70px;
 }
 
-
 #logo {
-    width: 100%;
-    height: 110%;
-    margin-left: 20px;
+  width: 100%;
+  height: 110%;
+  margin-left: 20px;
 }
 
 #logo-target {
-    height: 130px;
-    margin-top: auto;
+  height: 130px;
+  margin-top: auto;
 }
 
 /*-------------------*/
+
 /*----- LISTAS  -----*/
+
 /*-------------------*/
 
 .linha {
-    display: flex;
-    flex-direction: row;
-    margin-top: 5px;
-    margin-right: 5px;
-    height: max-content;
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
+  margin-right: 5px;
+  height: max-content;
 }
 
 .linha p:nth-child(2) {
-    margin-left: 5px;
-    font-weight: bold;
-    word-break: break-word;
+  margin-left: 5px;
+  font-weight: bold;
+  word-break: break-word;
 }
 
-
 /*-------------------*/
+
 /*--- FORMULÁRIOS ---*/
+
 /*-------------------*/
 
 #formulario {
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
-    /* margin-bottom: 70px; */
-
-    color: var(--CorDefault);
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  /* margin-bottom: 70px; */
+  color: var(--CorDefault);
 }
 
 #formulario label {
-    margin: 5px 0px;
-    display: flex;
-    flex-direction: column;
+  margin: 5px 0px;
+  display: flex;
+  flex-direction: column;
 }
 
 #formulario h1 {
-    font-weight: bold;
-    font-size: large;
+  font-weight: bold;
+  font-size: large;
 }
 
-#formulario label > p {
-    margin-bottom: 5px;
+#formulario label>p {
+  margin-bottom: 5px;
 }
 
 #formulario div {
-    margin-left: 15px;
-    margin-bottom: 20px;
+  margin-left: 15px;
+  margin-bottom: 20px;
 }
 
 #formulario #infoCliente {
-    margin-bottom: 0px;
+  margin-bottom: 0px;
 }
 
 #formulario #dadosPessoa {
-    margin-bottom: 0px;
-    margin-left: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
 }
 
-
-#formulario input,
-#formulario select {
-    width: auto;
-    font-family: "Calibri", sans-serif;
-    padding: 5px;
-    color: var(--CorDefault);
-    font-size: 15px;
+#formulario input, #formulario select {
+  width: auto;
+  font-family: "Calibri", sans-serif;
+  padding: 5px;
+  color: var(--CorDefault);
+  font-size: 15px;
 }
-
 
 #formulario button {
-    margin-bottom: 70px;
+  margin-bottom: 70px;
 }
 
 /* Para COMPUTADOR */
-@media (min-width: 768px) {
-    #logoInfoel {
-        margin-bottom: 0px;
-        flex: 0;
-    }
 
-    #root {
-        background-color: #6594c92d;
-    }
+@media (min-width: 768px) {
+  #logoInfoel {
+    margin-bottom: 25px;
+    flex: 0;
+  }
+  #root {
+    background-color: var(--CorDefault);
+  }
+  #root>h1 {
+    color: white;
+  }
 }
 
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

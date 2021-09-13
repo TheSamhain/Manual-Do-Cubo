@@ -5,36 +5,22 @@
 
 	<form class="login-part">
 		<label>
-			<span>Usuario</span>
-			<input
-				type="text"
-				name="usuario"
-				id="usuario"
-				required
-				onfocus="onFocus(this)"
-				onblur="onLostFocus(this)"
-			/>
+			<span>Usuário</span>
+			<input type="text" name="usuario" id="usuario" required onchange="onChange(this)" onfocus="onFocus(this)" onblur="onLostFocus(this)" />
 		</label>
 
 		<label>
 			<span>Senha</span>
-			<input
-				type="password"
-				name="senha"
-				id="senha"
-				required
-				onfocus="onFocus(this)"
-				onblur="onLostFocus(this)"
-			/>
+			<input type="password" name="senha" id="senha" required onchange="onChange(this)" onfocus="onFocus(this)" onblur="onLostFocus(this)" />
 		</label>
 
 		<button type="submit" onclick="entrar()">Entrar</button>
 	</form>
-</div>
 
-<div id="logoInfoel">
-	<a href="https://www.infoel.com.br" target="_blank">
-		<p>Powered by</p>
-		<img src="assets/infoelLogo.png" />
-	</a>
+	<div id="logoInfoel">
+		<a href="https://www.infoel.com.br" target="_blank">
+			<p>Powered by</p>
+			<img src="assets/infoelLogo.png" />
+		</a>
+	</div>
 </div>

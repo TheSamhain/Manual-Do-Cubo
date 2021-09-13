@@ -8,12 +8,20 @@
   align-items: center;
   border-radius: 5px;
   background-color: white;
-  flex: 1;
-  margin-top: 20px;
 }
 
 #login button {
-  padding: 10px 0;
+  margin: 25px 0;
+  margin-bottom: 50px;
+  border-radius: 5px;
+  border: 1px solid var(--CorDefault);
+  background-color: white;
+  color: var(--CorDefault);
+}
+
+#login button:hover {
+  background-color: var(--CorDefault);
+  color: white;
 }
 
 #login label {
@@ -56,10 +64,11 @@ form.login-part {
 @media (min-width: 768px) {
   #login {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    height: 450px;
-    width: 350px;
+    height: 600px;
+    width: 450px;
     flex: none;
   }
+
   form.login-part {
     justify-content: center;
   }
