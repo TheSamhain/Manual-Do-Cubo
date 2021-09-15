@@ -18,14 +18,7 @@ const carregarMain = async () => {
       document.getElementById('cidade').innerHTML = local.EMPRESA;
     });
 
-  /*
-  if (screen.width > 768) {
-      alert('ESTE APLICATIVO É DESTINADO PARA CELULARES \n\nNÃO RECOMENDAMOS O USO EM COMPUTADORES')
-  }
-  */
-
-  telaUsuario();
-  // telaRelatorio();
+  telaLeads();
 }
 
 const telaUsuario = async () => {

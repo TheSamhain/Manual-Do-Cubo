@@ -19,7 +19,8 @@
   color: var(--CorDefault);
 }
 
-#login button:hover {
+#login button:hover,
+#login button:active {
   background-color: var(--CorDefault);
   color: white;
 }

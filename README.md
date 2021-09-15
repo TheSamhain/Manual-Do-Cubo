@@ -6,15 +6,15 @@ Também é possivel visualizar o relatório de vendas e comissões.
 
 # :clipboard: TO-DO
 
-## :chart_with_upwards_trend: PROFIN
-- [ ] Ao alterar o status para novo, deve limpar as informações do vendedor no app desktop
+## PROFIN
+- [x] Ao alterar o status para novo, deve limpar as informações do vendedor no app desktop
 
 
-## :iphone: APP MOBILE ONE
+## APP MOBILE ONE
 
 - [x] Na tela de login, posicionar a logo e os campos pouco mais para cima
 
-### :bar_chart: Lista de Leads
+### Lista de Leads
 - [x] Alinhar as informações do banco de dados  
 - [x] Mostrar em qual loja está o lead  
 - [x] CPF/CNPJ Condicional  
@@ -28,7 +28,7 @@ Também é possivel visualizar o relatório de vendas e comissões.
 - [x] Permitir que o vendedor cadastre LEADS.  
 - [x] Permitir que o vendedor altere sua própria senha.  
 
-### :page_facing_up: Relatório de vendas
+### Relatório de vendas
 - [x] Listar todas as vendas no período de 1 ano ou enquanto tiver uma parcela da comissão em aberto  
 - [x] Colocar a fonte do texto da parcela vencida e não paga em vermelho  
 - [x] Remover as bordas dos campos e colocar uma cor de fundo suave  
@@ -37,7 +37,7 @@ Também é possivel visualizar o relatório de vendas e comissões.
 - [x] Remover a linha abaixo do campo de seleção.  
 
 
-## :smiley: Cadastro de clientes
+## Cadastro de clientes
 - [x] Remover as bordas dos campos e colocar uma cor de fundo suave  
 - [x] Melhorar o agrupamento dos campos. Remover as linhas de grupo
    - Dados da pessoa
@@ -51,7 +51,7 @@ Também é possivel visualizar o relatório de vendas e comissões.
 - [x] Só mostrar o campo SALVAR se tiver alguma alteração  
 
 
-## :money_with_wings: Cadastro de vendas
+## Cadastro de vendas
 - [x] Remover as bordas dos campos e colocar uma cor de fundo suave
 - [x] Melhorar o agrupamento dos campos. Remover as linhas de grupo
 - [x] Só mostrar o campo SALVAR se tiver alguma alteração
@@ -61,7 +61,7 @@ Também é possivel visualizar o relatório de vendas e comissões.
    - one.infoel.com.br   - Deve apresentar uma lista das cidades
    - one.infoel.com.br/jaraguadosul - Deve entrar diretamente para a tela de login
 
-# Treinamento com vendedores  
+# :mortar_board: Treinamento com vendedores  
 
 ## Idéias
 - Utilizar as planilhas, relatórios e ações vinculadas do Sistema ProFIN.
@@ -98,7 +98,7 @@ Campo     | Tipo        | Descrição
 ----------|-------------|------------------
 ID        | Medumint    | Id do registro
 MODULO    | Varchar(50) | Nome do módulo
-TEXTO     | Text        | Descrição e instruções 
+DESCRICAO | Text        | Descrição e instruções 
 ATIVO     | char(1)     | S/N  
 
 ## Cadastro dos vídeos
@@ -139,6 +139,16 @@ IDUSUARIO  | Mediumint  | id do usuário
 VISUALIZADO| Mediumint  | Tempo decorrido, em segundos, que o vídeo foi visualizado
 DATAHORA   | Datetime   | Data e hora do início da visualização
 
+### Nome das tabelas
+
+Tabelas              | Nome no BD
+---                  | ---
+Módulos              | plandiv00005
+Vídeos               | plandiv00006
+Perguntas            | plandiv00007
+Respostas            | treinamento_resposta 
+Visualização Vídeos  | treinamento_visua_videos
+
 
 ## Exemplo. Lista de módulos
 
@@ -172,6 +182,6 @@ Desenvolvimento (front-end) da tela de aprendizado      | 8
 Desenvolvimento (back-end) do sistema de videos         | 6
 Desenvolvimento (back-end) do sistema de peguntas       | 6
 Desenvolvimento (back-end) do sistema de módulos        | 4
--                                                       | -
+---                                                     | -
 Total                                                   | 48
 

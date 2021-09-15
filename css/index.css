@@ -85,6 +85,15 @@ a {
   animation: spin 1s linear infinite;
 }
 
+@keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
 #logoInfoel {
   text-align: center;
   margin: 10px;
@@ -182,7 +191,6 @@ a {
 }
 
 /* Para COMPUTADOR */
-
 @media (min-width: 768px) {
   #logoInfoel {
     margin-bottom: 25px;
@@ -193,14 +201,5 @@ a {
   }
   #root>h1 {
     color: white;
-  }
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
   }
 }
